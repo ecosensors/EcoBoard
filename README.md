@@ -12,7 +12,7 @@ We add several useful features
 * A 1-Wire connector
 * A debuger/programmer connector
 * A reset buton
-* A progemamble buton
+* A programable buton
 * A switch ON/OFF Button
 
-The board will be available current beginning of June, with exemples of Arduino code to easly first use it
+The board will be available beginning of June, with exemples of Arduino code to easly first use it
