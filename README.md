@@ -25,7 +25,7 @@ Description of the EcoBoard is coming soon.
 
 
 ### Header J1 (2x20)
-This header is compatible with Adafruit Header and (EcoRadio board)[https://github.com/ecosensors/ecoradio]
+This header is compatible with Raspberry Header and [EcoRadio board](https://github.com/ecosensors/ecoradio)
 
 Pin | Output
 --- | ---
