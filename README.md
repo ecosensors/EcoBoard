@@ -31,43 +31,43 @@ Coming soon
 6 => NC 
 
 ### Header J3 (Port extender)
-1 => GND
-2 => 3V3
-3 => P0
-4 => P1
-5 => P2
-6 => P3
-7 => P4 (aslo connected to J7)
-9 => P5 (also connected to the LED D5)
-(P6 is connected to the LED D6)
+1 => GND;
+2 => 3V3;
+3 => P0;
+4 => P1;
+5 => P2;
+6 => P3;
+7 => P4 (aslo connected to J7);
+9 => P5 (also connected to the LED D5);
+(P6 is connected to the LED D6);
 
 ### Hader J4 (analog)
-1 => GND
-2 => 3V3
-3 => A0
-4 => A1
-5 => A2
-6 => A3
-7 => A4
-8 => A5
+1 => GND;
+2 => 3V3;
+3 => A0;
+4 => A1;
+5 => A2;
+6 => A3;
+7 => A4;
+8 => A5;
 
 ### Header J5 (I2C)
-1 => GND
-2 => 3V3
-3 => SCL
-4 => SDA
-5 => D3 (ATSAMD21G18)
-6 => D2 (ATSAMD21G18)
+1 => GND;
+2 => 3V3;
+3 => SCL;
+4 => SDA;
+5 => D3 (ATSAMD21G18);
+6 => D2 (ATSAMD21G18);
 
 ### Header J7
 J7 is connected to P4 and to A5.
 You can use it as 1Wire bus. I am used to connected a DS18B20 sensor (Waterproof temperature sensor). P4 power it when a measure is needed and A5 read the measure
 
 ### Header J8 (OLED)
-1 => GND
-2 => 3V3
-3 => SCL
-4 => SDA
+1 => GND;
+2 => 3V3;
+3 => SCL;
+4 => SDA;
 
 ### Jumpers
 **SJ1 (5V converter)** If you do not need 5V output, you can close SJ2 to disable the TPS6109
