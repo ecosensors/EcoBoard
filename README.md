@@ -22,6 +22,22 @@ Description of the EcoBoard is coming soon.
 ## Pintout
 Coming soon
 
+### Jumpers
+**SJ1 (5V converter** If you do not need 5V output, you can close SJ2 to disable the TPS6109
+
+**SJ2 (ARef)** Normally the reference voltage is the same as the chip logic voltage (3.3V) but if you need an alternative analog reference, close SJ5 and select the external AREF in your firmware. Can't go higher than 3.3V!
+
+```
+analogReference(AR_EXTERNAL)
+```
+(See exemple)
+
+**SJ3 & SJ4**
+SJ2 and SJ3 are I2C pull up. Both jumpers have to be closed, excepted if SCL and SDA are pull up from another PCB.
+
+**SJ5**
+SJ5 must be open, excepted if you need to programm the ATSAMD21G18 ARM Cortex M0
+
 ## GPIO port extender
 Coming soon
 
