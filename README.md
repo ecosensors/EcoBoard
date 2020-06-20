@@ -29,45 +29,44 @@ Pin | Output
 --- | ---
 1 | 3V3
 2 | 5V
-
-* 3 => SDA; 
-* 4 => 5V; 
-* 5 => SCL; 
-* 6 => GND; 
-* 7 => NC; 
-* 8 => Tx; 
-9 => GND; 
-10 => Rx; 
-11 => NC; 
-12 => NC; 
-13 => NC; 
-14 => GND; 
-15 => NC; 
-16 => NC; 
-17 => 3V3; 
-18 => NC; 
-19 => MOSI; 
-20 => GND; 
-21 => MISO; 
-22 => RST; 
-23 => SCK; 
-24 => NC; 
-25 => GND; 
-26 => CS (CE1 / DIO0); 
-27 => NC; 
-28 => NC; 
-29 => IRQ; 
-30 => GND; 
-31 => NC; 
-32 => DIO1; 
-33 => D13 (also connected to the LED D13 and to the push button BTN); 
-34 => GND; 
-35 => P6 (port extender); 
-36 => DIO2; 
-37 => NC; 
-38 => P5 (port extender); 
-39 => GND; 
-40 => NC; 
+3 | SDA 
+4 | 5V 
+5 | SCL 
+6 | GND 
+7 | NC 
+8 | Tx 
+9 | GND 
+10 | Rx 
+11 | NC 
+12 | NC 
+13 | NC 
+14 | GND 
+15 | NC 
+16 | NC 
+17 | 3V3 
+18 | NC 
+19 | MOSI 
+20 | GND 
+21 | MISO 
+22 | RST 
+23 | SCK 
+24 | NC 
+25 | GND 
+26 | CS (CE1 / DIO0) 
+27 | NC
+28 | NC
+29 | IRQ
+30 | GND 
+31 | NC 
+32 | DIO1 
+33 | D13 (also connected to the LED D13 and to the push button BTN)
+34 | GND
+35 | P6 (port extender) 
+36 | DIO2
+37 | NC
+38 | P5 (port extender)
+39 | GND
+40 | NC 
 
 ### Header J2 (Rx/Tx)
 1 => GND; 
