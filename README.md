@@ -26,3 +26,5 @@ Coming soon
 
 ## 1-Wire
 If you want to use a 1-Wire sensor as the DS18B20 (Waterproof temperature sensor), you can use the J7 connector which is close to 8 pin analogic connector. You need to enable the GPIO port extender. J7 is connected to P4 and a A5. We use P4 to power the DS18B20 when we need to take a mesure and the mesure is done through A5. Exemple will follow soon.
+
+Description of the EcoBoard is coming soon
