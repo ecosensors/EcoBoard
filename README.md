@@ -53,6 +53,7 @@ Coming soon
 
 ### Header J5 (I2C)
 1 => GND
+
 2 => 3V3
 3 => SCL
 4 => SDA
