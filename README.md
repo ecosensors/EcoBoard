@@ -25,14 +25,16 @@ Coming soon
 ### Header J1 (2x20)
 This header is compatible with Adafruit Header and (EcoRadio board)[https://github.com/ecosensors/ecoradio]
 
-1 => 3V3; 
-2 => 5V; 
-3 => SDA; 
-4 => 5V; 
-5 => SCL; 
-6 => GND; 
-7 => NC; 
-8 => Tx; 
+Pin | Output
+1 | 3V3
+2 | 5V 
+
+* 3 => SDA; 
+* 4 => 5V; 
+* 5 => SCL; 
+* 6 => GND; 
+* 7 => NC; 
+* 8 => Tx; 
 9 => GND; 
 10 => Rx; 
 11 => NC; 
