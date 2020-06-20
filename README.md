@@ -23,11 +23,11 @@ Description of the EcoBoard is coming soon.
 Coming soon
 
 ### Header J2 (Rx/Tx)
-1 => GND 
-2 => 3V3 
-3 => Rx 
-4 => Tx 
-5 => NC 
+1 => GND; 
+2 => 3V3;
+3 => Rx; 
+4 => Tx; 
+5 => NC; 
 6 => NC 
 
 ### Header J3 (Port extender)
@@ -53,7 +53,6 @@ Coming soon
 
 ### Header J5 (I2C)
 1 => GND
-
 2 => 3V3
 3 => SCL
 4 => SDA
