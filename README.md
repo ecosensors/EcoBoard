@@ -116,6 +116,19 @@ Pin | Output
 5 | D3 (ATSAMD21G18)
 6 | D2 (ATSAMD21G18)
 
+### Header J6 (programmation)
+You can use Header J6 to program/debug the ATSAMD21G18 chips. we use it only to flash the boot loader. More info can be found [here](https://learn.adafruit.com/programming-an-m0-using-an-arduino/overview)
+Pin | Output
+--- | ---
+1 | GND
+2 | 3V3
+3 | SWCLK
+4 | SWDIO
+5 | RESET
+6 | NC
+
+You ma yhave to close the jumper SJ5 to connect pin5 to pin40 of the AZSAMD21G18 (RESET)
+
 ### Header J7
 J7 is connected to P4 and to A5.
 You can use it as 1Wire bus. I am used to connected a DS18B20 sensor (Waterproof temperature sensor). P4 power it when a measure is needed and A5 read the measure
