@@ -9,7 +9,7 @@ We add several useful features
 * A MicroSD card
 * A Real Time Clock
 * 5V Output
-* GPIO Port Extender (P0-P4 outpouts and P5 & P6 are connected to a LED (D5 & D6)
+* GPIO Port Expander (P0-P4 outpouts and P5 & P6 are connected to a LED (D5 & D6)
 * A I2C connector
 * A UART connector
 * A 1-Wire connector
@@ -63,10 +63,10 @@ Pin | Output
 32 | DIO1 
 33 | D13 (also connected to the LED D13 and to the push button BTN)
 34 | GND
-35 | P6 (port extender) 
+35 | P6 (expander port) 
 36 | DIO2
 37 | NC
-38 | P5 (port extender)
+38 | P5 (expander port)
 39 | GND
 40 | NC 
 
@@ -80,7 +80,7 @@ Pin | Output
 5 | NC 
 6 | NC 
 
-### Header J3 (Port extender)
+### Header J3 (Port expander)
 Pin | Output
 --- | ---
 1 | GND
@@ -157,8 +157,35 @@ SJ2 and SJ3 are I2C pull up. Both jumpers have to be closed, excepted if SCL and
 **SJ5**
 SJ5 must be open, excepted if you need to programm the ATSAMD21G18 ARM Cortex M0
 
-## GPIO port extender
-Coming soon
+## 1-Wire & GPIO expander port
+### GPIO I/O expander port
+EcoBoard allow you to use 6 additonal GPIO with the PCF8574 ([Datasheeet](https://www.ti.com/product/PCF8574). The outputs P1 to P6, will allow you to control the status of another device or an LED. However, the outputs can only provide 50mA. In some cases, this power may not be sufficient. It's the reason why, we added three MOSFET-P (IRML2244) on the outputs P1, P2 and P3. Thus, the outputs P1, P2 and P3 of the J3 connector can now supply up to 500mA. The P3, P5 and P6 outputs depend on the PCF8574.
 
-## 1-Wire
-If you want to use a 1-Wire sensor as the DS18B20 (Waterproof temperature sensor), you can use the J7 connector which is close to 8 pin analogic connector. You need to enable the GPIO port extender. J7 is connected to P4 and a A5. We use P4 to power the DS18B20 when we need to take a mesure and the mesure is done through A5. Exemple will follow soon.
+P4 is used to power the 1-Wire sensor.
+
+
+
+### 1-Wire (DS18B20)
+In the example, we will show you how to prepare and use a Waterproof temperature sensor (DS18B20) working with 1-Wire bus.
+If you want to use a 1-Wire sensor, you can use the J7 connector. You need to enable the GPIO port expander. J7 is connected to P4 and a A5. We use P4 to power the DS18B20 when we need to take a mesure and the mesure is done through A5. Exemple will follow soon.
+
+#### Connection
+Red wire => 3V3
+Blue wire => GND
+Yellow wire => read
+
+### Arduino
+
+See example here: 
+
+Resumé:
+```
+#include <OneWire.h>                // Include for 1-Wire sensor
+#define P4 4 // pin P4              // To power 1-Wire sensor before reading
+const byte ONEWIRE_READ = 19;       // (19 = A5)  To read 1-Wire sensor
+// See more in the example
+```
+
+
+
+
