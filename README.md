@@ -157,12 +157,18 @@ SJ2 and SJ3 are I2C pull up. Both jumpers have to be closed, excepted if SCL and
 **SJ5**
 SJ5 must be open, excepted if you need to programm the ATSAMD21G18 ARM Cortex M0
 
+## EEPROM
+EcoBoard has a 64KB EEPROM  (74LC64) to store relatively small amounts of data as keys or parameters
+
+See simple example [here](https://github.com/ecosensors/Ecoboard/tree/master/examples/eeprom)
+
 ## 1-Wire & GPIO expander port
 ### GPIO I/O expander port
 EcoBoard allow you to use 6 additonal GPIO with the PCF8574 ([Datasheeet](https://www.ti.com/product/PCF8574). The outputs P1 to P6, will allow you to control the status of another device or an LED. However, the outputs can only provide 25mA. In some cases, this power may not be sufficient. It's the reason why, we added three MOSFET-P (IRML2244) on the outputs P1, P2 and P3. Thus, the outputs P1, P2 and P3 of the J3 connector can now supply up to 500mA. The P3, P5 and P6 outputs depend on the PCF8574.
 
-P4 is used to power the 1-Wire sensor.
+P4 is used to power the 1-Wire sensor
 
+See example [here](https://github.com/ecosensors/Ecoboard/blob/master/examples/expander-1wire/expander-1wire.ino#L76)
 
 
 ### 1-Wire (DS18B20)
@@ -176,7 +182,7 @@ Yellow wire => read
 
 ### Arduino
 
-See example here: 
+See example [here](https://github.com/ecosensors/Ecoboard/blob/master/examples/expander-1wire/expander-1wire.ino#L117)
 
 Resumé:
 ```
