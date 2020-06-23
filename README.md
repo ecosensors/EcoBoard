@@ -20,11 +20,9 @@ We add several useful features
 
 [Here](https://github.com/ecosensors/Ecoboard/tree/master/examples) are example to start with the board (other examples will be added soon)
 
-The board will be available beginning of June, with exemples of Arduino code to easly first use it.
-Description of the EcoBoard is coming soon.
+The board will be available beginning of August 2020, with exemples of Arduino code to easly first use it.
 
 ## Pintout
-
 
 ### Header J1 (2x20)
 This header is compatible with Raspberry Header and [EcoRadio board](https://github.com/ecosensors/ecoradio)
