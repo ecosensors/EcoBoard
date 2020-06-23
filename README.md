@@ -159,7 +159,7 @@ SJ5 must be open, excepted if you need to programm the ATSAMD21G18 ARM Cortex M0
 
 ## 1-Wire & GPIO expander port
 ### GPIO I/O expander port
-EcoBoard allow you to use 6 additonal GPIO with the PCF8574 ([Datasheeet](https://www.ti.com/product/PCF8574). The outputs P1 to P6, will allow you to control the status of another device or an LED. However, the outputs can only provide 50mA. In some cases, this power may not be sufficient. It's the reason why, we added three MOSFET-P (IRML2244) on the outputs P1, P2 and P3. Thus, the outputs P1, P2 and P3 of the J3 connector can now supply up to 500mA. The P3, P5 and P6 outputs depend on the PCF8574.
+EcoBoard allow you to use 6 additonal GPIO with the PCF8574 ([Datasheeet](https://www.ti.com/product/PCF8574). The outputs P1 to P6, will allow you to control the status of another device or an LED. However, the outputs can only provide 25mA. In some cases, this power may not be sufficient. It's the reason why, we added three MOSFET-P (IRML2244) on the outputs P1, P2 and P3. Thus, the outputs P1, P2 and P3 of the J3 connector can now supply up to 500mA. The P3, P5 and P6 outputs depend on the PCF8574.
 
 P4 is used to power the 1-Wire sensor.
 
