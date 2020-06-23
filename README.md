@@ -18,6 +18,8 @@ We add several useful features
 * A programable buton
 * A switch ON/OFF Button
 
+[Here](https://github.com/ecosensors/Ecoboard/tree/master/examples) are example to start with the board (other examples will be added soon)
+
 The board will be available beginning of June, with exemples of Arduino code to easly first use it.
 Description of the EcoBoard is coming soon.
 
@@ -156,6 +158,14 @@ SJ2 and SJ3 are I2C pull up. Both jumpers have to be closed, excepted if SCL and
 
 **SJ5**
 SJ5 must be open, excepted if you need to programm the ATSAMD21G18 ARM Cortex M0
+
+## SD Card 
+We add an SD card to log the EcoBoard activity or to save some parameters or other values. The MicroSD card is not provided with the board
+
+Example is coming soon ...
+
+## RTC (Real Time Clock)
+Coming soon ...
 
 ## EEPROM
 EcoBoard has a 64KB EEPROM  (74LC64) to store relatively small amounts of data as keys or parameters
