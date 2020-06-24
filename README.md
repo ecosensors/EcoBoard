@@ -193,9 +193,11 @@ In the example, we will show you how to prepare and use a Waterproof temperature
 If you want to use a 1-Wire sensor, you can use the J7 connector. You need to enable the GPIO port expander. J7 is connected to P4 and a A5. We use P4 to power the DS18B20 when we need to take a mesure and the mesure is done through A5. Exemple will follow soon.
 
 #### Connection
-Red wire => 3V3
-Blue wire => GND
-Yellow wire => read
+Wires | output
+--- | ---
+Red | 3V3
+Blue | GND
+Yellow | read
 
 ### Arduino
 
