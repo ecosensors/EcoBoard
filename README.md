@@ -172,7 +172,7 @@ Example is coming soon ...
 The Real Time Clock is working with the DS3231 chip. The DS3231 is a low-cost, extremely accurate I2C real-time clock (RTC) with an integrated temperature compensated. You will need a **CR1225** cell coin battery.
 The EcoBoard can be programmed to sleep in order to save cunsomption.
 
-
+See some examples [here](https://github.com/ecosensors/Ecoboard/blob/master/examples/rtc-lowpower/rtc-lowpower.ino)
 
 ## EEPROM
 EcoBoard has a 64KB EEPROM  (74LC64) to store relatively small amounts of data as keys or parameters
@@ -181,7 +181,7 @@ See simple example [here](https://github.com/ecosensors/Ecoboard/tree/master/exa
 
 ## 1-Wire & GPIO expander port
 ### GPIO I/O expander port
-EcoBoard allow you to use 6 additonal GPIO with the PCF8574 ([Datasheeet](https://www.ti.com/product/PCF8574). The outputs P1 to P6, will allow you to control the status of another device or an LED. However, the outputs can only provide 25mA. In some cases, this power may not be sufficient. It's the reason why, we added three MOSFET-P (IRML2244) on the outputs P1, P2 and P3. Thus, the outputs P1, P2 and P3 of the J3 connector can now supply up to 500mA. The P3, P5 and P6 outputs depend on the PCF8574.
+EcoBoard allow you to use 6 additonal GPIO with the PCF8574 ([Datasheeet](https://www.ti.com/product/PCF8574) ). The outputs P1 to P6, will allow you to control the status of another device or an LED. However, the outputs can only provide 25mA. In some cases, this power may not be sufficient. It's the reason why, we added three MOSFET-P (IRML2244) on the outputs P1, P2 and P3. Thus, the outputs P1, P2 and P3 of the J3 connector can now supply up to 500mA. The P3, P5 and P6 outputs depend on the PCF8574.
 
 P4 is used to power the 1-Wire sensor
 
