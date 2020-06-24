@@ -1,11 +1,11 @@
 /*
- * EcoSENSOR
+ * EcoSensors
  * 
  * That file is still a draft
  * 
- * EXTENDER PORT
+ * EXPANDER PORT
  * ===========================================================================
- * This is an example to use PCF8574 (extender port) with the EcoBoard)
+ * This is an example to use PCF8574 (expander port) with the EcoBoard)
  * You can easly use that example for an other application, but the codeand explication below is written for EcoBoard.
  * 
  * EcoBoard allow you to use 6 additonal GPIO with the PCF8574 ([Datasheeet](https://www.ti.com/product/PCF8574). 
@@ -36,7 +36,8 @@
  * (You can use that example for another application, but you will have to modify the pin definition
  * 
  */
-
+#include <Ecoboard.h>
+Ecoboard Eco;
 #include <Wire.h>                   // Required for I2C communication
 #include "PCF8574.h"                // Required for PCF857
 PCF8574 expander;                   // Required for PCF857
@@ -68,10 +69,12 @@ void setup() {
   Wire.begin();                   // Start I2C
 
   delay(8000);
+  Eco.begin();
   
-  Serial.println("**************");
-  Serial.println("*  EcoBoard  *");
-  Serial.println("**************");
+  Serial.println("     ECOBOARD     ");
+  Serial.println("     expander     ");
+  Serial.println("------------------");
+  Serial.println("");
 
   Serial.println("Starting with PCF8574");
 
