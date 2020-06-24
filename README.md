@@ -18,7 +18,9 @@ We add several useful features
 * A programable buton
 * A switch ON/OFF Button
 
-[Here](https://github.com/ecosensors/Ecoboard/tree/master/examples) are example to start with the board (other examples will be added soon)
+## Examples
+We provide several [examples](https://github.com/ecosensors/Ecoboard/tree/master/examples) to quickly start with the EcoBoard. All examples are done for the EcoBoard, but you can easly use it for other Arduino board, with may be, a few modification as the pin definition. Note, the examples are basic and you will probabely improve it for your application. Feel you free to propose correction or improvement, scpecialy if you noticed some errors, or a better way to use the examples. 
+(More examples will be added soon)
 
 The board will be available beginning of August 2020, with exemples of Arduino code to easly first use it.
 
@@ -144,15 +146,19 @@ Pin | Output
 ### Jumpers
 **SJ1 (5V converter)** If you do not need 5V output, you can close SJ2 to disable the TPS6109
 
-**SJ2 (ARef)** Normally the reference voltage is the same as the chip logic voltage (3.3V) but if you need an alternative analog reference, close SJ5 and select the external AREF in your firmware. Can't go higher than 3.3V!
+**SJ2 (ARef)** Normally the reference voltage is the same as the chip logic voltage (3.3V) but if you need an alternative analog reference. Can't go higher than 3.3V!
+
+For the EcoBoard as for all MO boards, close the SJ2 jumber and add the following in setup()
 
 ```
-analogReference(AR_EXTERNAL)
+#if defined(ARDUINO_SAMD_ZERO) || defined(__arm__)
+    analogReadResolution(10);
+    analogReference(AR_EXTERNAL);
+#endif
 ```
-(See exemple)
 
 **SJ3 & SJ4 (I2C pullup)**
-SJ2 and SJ3 are I2C pull up. Both jumpers have to be closed, excepted if SCL and SDA are pull up from another PCB.
+SJ3 and SJ4 are I2C pull up. Both jumpers have to be closed, excepted if SCL and SDA are pull up from another devise.
 
 **SJ5**
 SJ5 must be open, excepted if you need to programm the ATSAMD21G18 ARM Cortex M0
@@ -162,8 +168,11 @@ We add an SD card to log the EcoBoard activity or to save some parameters or oth
 
 Example is coming soon ...
 
-## RTC (Real Time Clock)
-Coming soon ...
+## RTC (Real Time Clock) & Low Power
+The Real Time Clock is working with the DS3231 chip. The DS3231 is a low-cost, extremely accurate I2C real-time clock (RTC) with an integrated temperature compensated. You will need a **CR1225** cell coin battery.
+The EcoBoard can be programmed to sleep in order to save cunsomption.
+
+
 
 ## EEPROM
 EcoBoard has a 64KB EEPROM  (74LC64) to store relatively small amounts of data as keys or parameters
