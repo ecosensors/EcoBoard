@@ -1,11 +1,11 @@
 # EcoBoard
 EcoBoard is new microcontroler based on the processor ATSAMD21G18 ARM Cortex M0 at 48Mhz with 3V3 logic, as the Arduino Zero.
-The chip has 256K of FLASH and 32K of RAM. It's fully compatible with Arduino and Adafruit libraries.
+The chip has **256K of FLASH and 32K of RAM**. It's fully compatible with Arduino and Adafruit libraries.
 
 (The board is not available yet)
 
 We add several useful features
-* 1Kb EEPROM
+* 64Kb EEPROM
 * A MicroSD card
 * A Real Time Clock
 * 5V Output
