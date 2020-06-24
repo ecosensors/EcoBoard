@@ -1,12 +1,13 @@
 /*
- * EcoSENSOR
+ * EcoSensors
  * 
  * Here is a short and simple example to write and read a char into te EEPROM 24LC
  * The script need to be improve following your needs
  *
  */
 
-
+#include <Ecoboard.h>
+Ecoboard Eco;
 #include <Wire.h>           // Need for I2C Bus
 #define EEPROM_ADDR 0x50    //Address of 24LC256 eeprom chip
 byte pos, pos1, pos2 = 0;   // Position of the text in the EEPROM
@@ -20,9 +21,12 @@ void setup(void)
 
   delay(8000);
 
-  Serial.println("**************");
-  Serial.println("*  EcoBoard  *");
-  Serial.println("**************");
+  Eco.begin();
+  
+  Serial.println("     ECOBOARD     ");
+  Serial.println("      EEPROM      ");
+  Serial.println("------------------");
+  Serial.println("");
   Serial.println(F("Simple example with 74LC"));
  
   char str_data[]={"Hello World!"}; 
