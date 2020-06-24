@@ -7,7 +7,8 @@
  */
 
 #include <Ecoboard.h>
-Ecoboard Eco;
+bool isSdEnable = false;    // Disable SD card
+Ecoboard Eco(isSdEnable);
 #include <Wire.h>           // Need for I2C Bus
 #define EEPROM_ADDR 0x50    //Address of 24LC256 eeprom chip
 byte pos, pos1, pos2 = 0;   // Position of the text in the EEPROM

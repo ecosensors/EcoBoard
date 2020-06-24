@@ -37,7 +37,8 @@
  * 
  */
 #include <Ecoboard.h>
-Ecoboard Eco;
+bool isSdEnable = false;            // Disable SD card
+Ecoboard Eco(isSdEnable);
 #include <Wire.h>                   // Required for I2C communication
 #include "PCF8574.h"                // Required for PCF857
 PCF8574 expander;                   // Required for PCF857

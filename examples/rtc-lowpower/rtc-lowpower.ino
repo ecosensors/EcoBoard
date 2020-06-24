@@ -10,7 +10,9 @@
  */
  
 #include <Ecoboard.h>
-Ecoboard Eco;
+bool isSdEnable = false;    // Disable SD card
+Ecoboard Eco(isSdEnable);
+
 #include <Wire.h>           // Need for I2C Bus
 
 /*
