@@ -90,7 +90,19 @@ void setup(void)
    Serial.println(F("DONE!));
 
    /*
-    * Later I will show how to add a text in another file than the log file, but you can easly dot
+    * Later I will show how to add a text in another file than the log file, but you can
+    * easly do it, working around those function:
+    * int Ecoboard::sd_writeln(char const * text)
+    * {
+    *   return _sd_write(_logFile, text, true); // _logFile is the path from root and name of the file
+    * }
+    *
+    * int Ecoboard::sd_write(char const * text)
+    * {
+    *   return _sd_write(_logFile, text, false);
+    * }
+    * 
+    * in Ecoboard.cpp and Ecoboard.h files
     */
 
 
