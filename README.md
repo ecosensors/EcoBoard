@@ -1,4 +1,7 @@
 # EcoBoard
+
+> The following page is being writting
+
 EcoBoard is new microcontroler based on the processor ATSAMD21G18 ARM Cortex M0 at 48Mhz with 3V3 logic, as the Arduino Zero.
 The chip has **256K of FLASH and 32K of RAM**. It's fully compatible with Arduino and Adafruit libraries.
 
@@ -16,9 +19,7 @@ We add several useful features
 * A programable buton
 * A switch ON/OFF Button
 
-The EcoBoard board will be available during september 2020 
-
-> The following page is being writting 
+The EcoBoard board will be available during september 2020  
 
 ## Examples
 We provide several [examples](https://github.com/ecosensors/Ecoboard/tree/master/examples) to quickly start with the EcoBoard. All examples are done for the EcoBoard, but you can easly use it for other Arduino board, with may be, a few modification as the pin definition. Note, the examples are basic and you will probabely improve it for your application. Feel you free to propose correction or improvement, scpecialy if you noticed some errors, or a better way to use the examples. 
