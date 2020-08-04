@@ -184,14 +184,16 @@ A0 is connected to the Jumper SJ7. If you close it, A0 will be pull-down with a 
 If you open SJ7, you can use an anenometer. If you keep closed SJ7, you can use a rain gauge, and the LED will bright each time a drop go throught the rain gauage.
 
 ## Jumpers
-**SJ1 (5V converter)** The Jumper SJ1 is connect to the pin EN of the chip TPS6109. If you need 5V output at pin 2 and 4 of Raspberry Header (J1) or if you need to use a 5V sensor on JP1, J2 or J5, you can open (unsolder) SJ1 to enable the TPS6109 (EN to HIGH => Enable, EN to LOW => Disable).
+### SJ1 (5V converter)
+The Jumper SJ1 is connect to the pin EN of the chip TPS6109. If you need 5V output at pin 2 and 4 of Raspberry Header (J1) or if you need to use a 5V sensor on JP1, J2 or J5, you can open (unsolder) SJ1 to enable the TPS6109 (EN to HIGH => Enable, EN to LOW => Disable).
 
 EN | TPS6109 | SJ1
 --- | --- | ---
 LOW | Disable | Solder (Close)
 HIGH | Enabée | Unsolder (Open)
 
-**SJ2 (ARef)** Normally the reference voltage is the same as the chip logic voltage (3.3V) but if you need an alternative analog reference. Can't go higher than 3.3V!
+### SJ2 (ARef)
+Normally the reference voltage is the same as the chip logic voltage (3.3V) but if you need an alternative analog reference. Can't go higher than 3.3V!
 
 For the EcoBoard as for all MO boards, close the SJ2 jumber and add the following in setup()
 
@@ -202,20 +204,27 @@ For the EcoBoard as for all MO boards, close the SJ2 jumber and add the followin
 #endif
 ```
 
-**SJ3 & SJ4 (I2C pullup)** are I2C pull up. Both jumpers have to be closed, excepted if SCL and SDA are pull up from another devise.
+### SJ3 & SJ4 (I2C pull-up)
+Jumpers SJ3 and SJ4 are soldered (closed) with two 4.7K pull-up resistors. You can unsolder SJ3 and SJ4 if SCL and SDA are pull-up from another I2C device.
 
-**SJ5** must be open, excepted if you need to programm the ATSAMD21G18 ARM Cortex M0. SJ5 is connected to ATSAMD21 at RESET pin
+### SJ5 
+SJ5 must be open, excepted if you need to programm the ATSAMD21G18 ARM Cortex M0. SJ5 is connected to ATSAMD21 at RESET pin
 
-**SJ6** allow you to power a I2C sensor with either 3V3 or 5V. The I2C sensor can be connected to J5. Note, J5 is connected to D2 and D3 of the ATSAMD21.
+### SJ6 
+SJ6 allow you to power a I2C sensor with either 3V3 or 5V. The I2C sensor can be connected to J5. Note, J5 is connected to D2 and D3 of the ATSAMD21.
 
-**SJ7** is connected to A0. You can connect a Analog sensor to the pin header JP1.
+### SJ7
+SJ7 is connected to A0. You can connect a Analog sensor to the pin header JP1.
 If SJ7 is opened, you can use A0 with an anenometer for example. If you close SJ7, you can use A0 with **a rain gauge**. A 10K resistor is connected to SJ7 and the GND. Also, a 1K resistor in serie with a blue LED are in parallel with 10K resistor. The blue LED will bright, each time A0 is up, while the 10K restistor will make sure to have a GND at A0 (pull-down) when the rain gauge is waiting for the watter. Also, see SJ9 to power the analog sensor (A0) with 3V3 or 5V.
 
-**SJ8** allow you to power an UART sensor with either 3V3 or 5V. The UART sensor can be connected to J2.
+### SJ8
+SJ8 allow you to power an UART sensor with either 3V3 or 5V. The UART sensor can be connected to J2.
 
-**SJ9** allow to power the analog sensor (A0) with 3V3 or 5V. The analog sensor can be connected to SP1.
+### SJ9
+SJ9 allow to power the analog sensor (A0) with 3V3 or 5V. The analog sensor can be connected to SP1.
 
-**SJ10** allow you to pull-up A5 with a 4.7K resistor. It can be usefull, if you connect a 1-Wire sensor at J11. J11 has 3 pin as the following
+### SJ10
+SJ10 allow you to pull-up A5 with a 4.7K resistor. It can be usefull, if you connect a 1-Wire sensor at J11. J11 has 3 pin as the following
 
 Pin | Output
 --- | ---
