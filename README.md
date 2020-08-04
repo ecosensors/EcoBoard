@@ -202,27 +202,20 @@ For the EcoBoard as for all MO boards, close the SJ2 jumber and add the followin
 #endif
 ```
 
-**SJ3 & SJ4 (I2C pullup)**
-SJ3 and SJ4 are I2C pull up. Both jumpers have to be closed, excepted if SCL and SDA are pull up from another devise.
+**SJ3 & SJ4 (I2C pullup)** are I2C pull up. Both jumpers have to be closed, excepted if SCL and SDA are pull up from another devise.
 
-**SJ5**
-SJ5 must be open, excepted if you need to programm the ATSAMD21G18 ARM Cortex M0. SJ5 is connected to ATSAMD21 at RESET pin
+**SJ5** must be open, excepted if you need to programm the ATSAMD21G18 ARM Cortex M0. SJ5 is connected to ATSAMD21 at RESET pin
 
-**SJ6**
-SJ6 allow you to power a I2C sensor with either 3V3 or 5V. The I2C sensor can be connected to J5. Note, J5 is connected to D2 and D3 of the ATSAMD21.
+**SJ6** allow you to power a I2C sensor with either 3V3 or 5V. The I2C sensor can be connected to J5. Note, J5 is connected to D2 and D3 of the ATSAMD21.
 
-**SJ7**
-SJ7 is connected to A0. You can connect a Analog sensor to the pin header JP1.
+**SJ7** is connected to A0. You can connect a Analog sensor to the pin header JP1.
 If SJ7 is opened, you can use A0 with an anenometer for example. If you close SJ7, you can use A0 with **a rain gauge**. A 10K resistor is connected to SJ7 and the GND. Also, a 1K resistor in serie with a blue LED are in parallel with 10K resistor. The blue LED will bright, each time A0 is up, while the 10K restistor will make sure to have a GND at A0 (pull-down) when the rain gauge is waiting for the watter. Also, see SJ9 to power the analog sensor (A0) with 3V3 or 5V.
 
-**SJ8**
-SJ8 allow you to power an UART sensor with either 3V3 or 5V. The UART sensor can be connected to J2.
+**SJ8** allow you to power an UART sensor with either 3V3 or 5V. The UART sensor can be connected to J2.
 
-**SJ9**
-SJ9 allowto power the analog sensor (A0) with 3V3 or 5V. The analog sensor can be connected to SP1.
+**SJ9** allow to power the analog sensor (A0) with 3V3 or 5V. The analog sensor can be connected to SP1.
 
-**SJ10**
-SJ10 allow you to pull-up A5 with a 4.7K resistor. It can be usefull, if you connect a 1-Wire sensor at J11. J11 has 3 pin as the following
+**SJ10** allow you to pull-up A5 with a 4.7K resistor. It can be usefull, if you connect a 1-Wire sensor at J11. J11 has 3 pin as the following
 
 Pin | Output
 --- | ---
