@@ -9,7 +9,7 @@ We add several useful features
 * 64Kb EEPROM
 * A MicroSD card
 * A Real Time Clock
-* 5V Output
+* 5V Output (Inactive by default)
 * GPIO Port Expander (P0-P4 outpouts and P5 & P6 are connected to a LED (D5 & D6)
 * A I2C connector
 * A UART connector
@@ -27,10 +27,14 @@ We provide several [examples](https://github.com/ecosensors/Ecoboard/tree/master
 
 The board will be available beginning of August 2020, with exemples of Arduino code to easly first use it.
 
-## Pintout
+## Picture
+Coming soon...
 
+## Pintout
 ### Header J1 (2x20)
 This header is compatible with Raspberry Header and [EcoRadio board](https://github.com/ecosensors/ecoradio)
+
+Note, you can have 5V by unsoldering the Jumper SJ1. Have a look at the **Jumpers** section, bellow.
 
 Pin | Output
 --- | ---
@@ -180,7 +184,12 @@ A0 is connected to the Jumper SJ7. If you close it, A0 will be pull-down with a 
 If you open SJ7, you can use an anenometer. If you keep closed SJ7, you can use a rain gauge, and the LED will bright each time a drop go throught the rain gauage.
 
 ## Jumpers
-**SJ1 (5V converter)** If you do not need 5V output, you can close SJ2 to disable the TPS6109
+**SJ1 (5V converter)** The Jumper SJ1 is connect to the pin EN of the chip TPS6109. If you need 5V output at pin 2 and 4 of Raspberry Header (J1) or if you need to use a 5V sensor on JP1, J2 or J5, you can open (unsolder) SJ1 to enable the TPS6109 (EN to HIGH => Enable, EN to LOW => Disable).
+
+EN | TPS6109 | SJ1
+--- | --- | ---
+LOW | Disable | Solder (Close)
+HIGH | Enabée | Unsolder (Open)
 
 **SJ2 (ARef)** Normally the reference voltage is the same as the chip logic voltage (3.3V) but if you need an alternative analog reference. Can't go higher than 3.3V!
 
