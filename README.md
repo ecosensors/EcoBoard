@@ -287,5 +287,3 @@ const byte ONEWIRE_READ = 19;       // (19 = A5)  To read 1-Wire sensor
 ```
 
 
-
-
