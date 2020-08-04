@@ -30,7 +30,7 @@ The board will be available beginning of August 2020, with exemples of Arduino c
 ## Picture
 Coming soon...
 
-## Pintout
+## Pinout
 ### Header J1 (2x20)
 This header is compatible with Raspberry Header and [EcoRadio board](https://github.com/ecosensors/ecoradio)
 
