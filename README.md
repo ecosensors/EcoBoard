@@ -1,6 +1,6 @@
 # EcoBoard
 
-> The following page is being writting
+***The following page is being writting***
 
 EcoBoard is new microcontroler based on the processor ATSAMD21G18 ARM Cortex M0 at 48Mhz with 3V3 logic, as the Arduino Zero.
 The chip has **256K of FLASH and 32K of RAM**. It's fully compatible with Arduino and Adafruit libraries.
@@ -256,19 +256,16 @@ P5 and P6 are connected to a LED, as well.
 
 See example [here](https://github.com/ecosensors/Ecoboard/blob/master/examples/expander-1wire/expander-1wire.ino#L76)
 
-
 ### 1-Wire (DS18B20)
 In the example, we will show you how to prepare and use a Waterproof temperature sensor (DS18B20) working with 1-Wire bus.
 If you want to use a 1-Wire sensor, you can use the J7 connector. You need to enable the GPIO port expander. J7 is connected to P4 and a A5. We use P4 to power the DS18B20 when we need to take a mesure and the mesure is done through A5. Exemple will follow soon.
 
-#### Connection
+#### DS18B20 wires
 Wires | ?
 --- | ---
 Red | 3V3
 Blue | GND
 Yellow | read
-
-### Arduino
 
 See example [here](https://github.com/ecosensors/Ecoboard/blob/master/examples/expander-1wire/expander-1wire.ino#L117)
 
