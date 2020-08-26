@@ -1,6 +1,8 @@
 /*
  * EcoSensors - SD, RTC, BME280 (I2C)
  * 
+ * THAT EXEMPLE HAS BEEN TEST YET, and the script isunderdevelopment
+ * 
  * In that example, we will see how to create briefly a log file into the MicroSD card.
  * We will use a I2C barometer sensor (BME280), to record some value in the log file
  * 
@@ -28,8 +30,13 @@ int16_t y,m,d,h,mn,s;       // Used for RTC time
 int32_t unix_time;
 char date_time[18];         // 20-6-10 11:11:11
 bool isSdEnable = true;     // Enable SD card
-int32_t interval = 3600;    // Set the interval to read the value (loop());
+
+/* Interval */
+
 int32_t lastMeasure = 0;
+#define INTERVAL 5000 // = 5sec
+unsigned long scheduler;
+
 
 /*
  * BME280
@@ -162,8 +169,13 @@ void setup(void)
 }
  
 void loop(){
-  
-  if(rtcInterval(lastMeasure, interval, 0) == true){
+  // Interval with ATSAMD21 clock
+  if (millis() > scheduler)
+  {
+    scheduler = millis() + INTERVAL;
+
+  // Interval with RTC module
+  //if(rtcInterval(lastMeasure, INTERVAL, 0) == true){
 
     // Only needed in forced mode! In normal mode, you can remove the next line.
     bme.takeForcedMeasurement(); // has no effect in normal mode
@@ -186,9 +198,14 @@ void loop(){
 
     /*
      * In progress
-     */
-    DateTime now = rtc.now();
-    lastMeasure = now.unixtime();
+    */
+
+
+    /*
+     // Uncomment this, if you want to use interval with RTC
+      DateTime now = rtc.now();
+      lastMeasure = now.unixtime();
+    */
   }
   
 }
