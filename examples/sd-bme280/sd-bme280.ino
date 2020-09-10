@@ -1,7 +1,7 @@
 /*
  * EcoSensors - SD, RTC, BME280 (I2C)
  * 
- * THAT EXEMPLE HAS BEEN TEST YET, and the script isunderdevelopment
+ * THAT EXEMPLE HAS NOT BEEN TEST YET, and the script isunderdevelopment
  * 
  * In that example, we will see how to create briefly a log file into the MicroSD card.
  * We will use a I2C barometer sensor (BME280), to record some value in the log file
