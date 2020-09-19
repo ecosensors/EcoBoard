@@ -36,19 +36,19 @@ int Ecoboard::begin()
     	
     	if(_isSdReady == true)
       	{
-      		Serial.println("SD card is Ready" );
+      		Serial.println("(SD card is Ready)" );
       		return 1;
     	}
     	else
       	{
-      		Serial.print("SD card is NOT Ready. Check if the card is OK" );
+      		Serial.println("(SD card is NOT Ready. Check if the card is OK)" );
       		return 0;
   		}
   	}
   	else
   	{
     	_isSdReady = false;
-    	Serial.print("SD card is disable" );
+    	Serial.println("(SD card is disable)" );
     	return 2;
   	}
 
