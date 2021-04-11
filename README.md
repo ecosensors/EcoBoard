@@ -19,16 +19,6 @@ We add several useful features
 * A programable buton
 * A switch ON/OFF Button
 
-The EcoBoard board will be available during september 2020  
-
-## Examples
-We provide several [examples](https://github.com/ecosensors/Ecoboard/tree/master/examples) to quickly start with the EcoBoard. All examples are done for the EcoBoard, but you can easly use it for other Arduino board, with may be, a few modification as the pin definition. Note, the examples are basic and you will probabely improve it for your application. Feel you free to propose correction or improvement, scpecialy if you noticed some errors, or a better way to use the examples. 
-(More examples will be added soon)
-
-The board will be available beginning of August 2020, with exemples of Arduino code to easly first use it.
-
-## Picture
-Coming soon...
 
 ## Pinout
 ### Header J1 (2x20)
@@ -241,12 +231,9 @@ Example is coming soon ...
 The Real Time Clock is working with the DS3231 chip. The DS3231 is a low-cost, extremely accurate I2C real-time clock (RTC) with an integrated temperature compensated. You will need a **CR1225** cell coin battery.
 The EcoBoard can be programmed to sleep in order to save cunsomption.
 
-See some examples [here](https://github.com/ecosensors/Ecoboard/blob/master/examples/rtc-lowpower/rtc-lowpower.ino)
-
 ## EEPROM
 EcoBoard has a 64KB EEPROM  (74LC64) to store relatively small amounts of data as keys or parameters
 
-See simple example [here](https://github.com/ecosensors/Ecoboard/tree/master/examples/eeprom)
 
 ## 1-Wire & GPIO expander port
 ### GPIO I/O expander port
@@ -265,8 +252,6 @@ P5 and P6 are connected to a LED, as well.
 * Change P5 to HIGH to bright the LED D5 (White)
 * Change P6 to HIGH to bright the LED D6 (Blue)
 
-See example [here](https://github.com/ecosensors/Ecoboard/blob/master/examples/expander-1wire/expander-1wire.ino#L76)
-
 ### 1-Wire (DS18B20)
 In the example, we will show you how to prepare and use a Waterproof temperature sensor (DS18B20) working with 1-Wire bus.
 If you want to use a 1-Wire sensor, you can use the J7 connector. You need to enable the GPIO port expander. J7 is connected to P4 and a A5. We use P4 to power the DS18B20 when we need to take a mesure and the mesure is done through A5. Exemple will follow soon.
@@ -277,8 +262,6 @@ Wires | ?
 Red | 3V3
 Blue | GND
 Yellow | read
-
-See example [here](https://github.com/ecosensors/Ecoboard/blob/master/examples/expander-1wire/expander-1wire.ino#L117)
 
 Resumé:
 ```
