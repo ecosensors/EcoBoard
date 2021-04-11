@@ -1,5 +1,9 @@
 /*
 * That file is underdevelopment. Do not use it for now
+*
+* The follwing code can be used without garranty.
+I will double check it later with EcoLora
+*
 */
 
 #ifndef Ecoboard_h

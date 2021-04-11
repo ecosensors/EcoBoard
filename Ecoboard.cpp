@@ -1,5 +1,9 @@
 /*
-* That file is underdevelopment. Do not use it for now
+* That file is underdevelopment.
+*
+* The follwing code can be used without garranty.
+I will double check it later with EcoLora
+*
 */
 #include "Arduino.h"
 #include "Ecoboard.h"
