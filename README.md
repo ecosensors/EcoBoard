@@ -100,7 +100,7 @@ You need to change P0 thus P3 to **LOW state** in order power the connected sens
 You need to change P5 thus P6 to **HIGH state** in order power the LEDs D5 or D6 (max 25mA)
 
 See an example bellow at the LED D5 and D6 section
-See an PCF9574 and 1-Wire example [here](https://github.com/ecosensors/EcoBoard/blob/main/examples/expander-1wire/expander-1wire.ino)
+See an PCF9574 and 1-Wire example [here](https://github.com/ecosensors/EcoBoard/tree/master/examples/expander-1wire)
 
 ## Pinout
 
@@ -357,5 +357,5 @@ void loop() {
   Serial.println("");
  ```
  
-A detailed example can be found here [expander-1wire](https://github.com/ecosensors/EcoBoard/blob/main/examples/expander-1wire/expander-1wire.ino)
+A detailed example can be found here [expander-1wire](https://github.com/ecosensors/EcoBoard/tree/master/examples/expander-1wire)
 
