@@ -359,3 +359,5 @@ void loop() {
  
 A detailed example can be found here [expander-1wire](https://github.com/ecosensors/EcoBoard/tree/master/examples/expander-1wire)
 
+### Solar jumpers
+For the jumper '0.5A', '1A', '1.5A' 'EN1' and 'EN2', see at the solar panel section, above.
