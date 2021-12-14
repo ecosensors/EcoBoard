@@ -1,132 +1,275 @@
 # EcoBoard
 
-***Depreciated and replaced by EcoLora***
+***The following page is being writting and constently updating***
 
-EcoBoard is new microcontroler based on the processor ATSAMD21G18 ARM Cortex M0 at 48Mhz with 3V3 logic, as the Arduino Zero.
+
+EcoBord V3 is new microcontroler based on the processor ATSAMD21G18 ARM Cortex M0 at 48Mhz with 3V3 logic, as the Arduino Zero.
 The chip has **256K of FLASH and 32K of RAM**. It's fully compatible with Arduino and Adafruit libraries.
 
 We add several useful features
-* 64Kb EEPROM
+* LoRaWAN RFM69/9x (868Mhz)
+* Solar panel input
+* 1Kb EEPROM
 * A MicroSD card
-* A Real Time Clock
-* 5V Output (Inactive by default)
-* GPIO Port Expander (P0-P4 outpouts and P5 & P6 are connected to a LED (D5 & D6)
-* A I2C connector
-* A UART connector
-* A 1-Wire connector 
+* A Real Time Clock (Option)
+* GPIO Port Expander
+* 2 I2C connector
+* 1 UART connector
+* 5 1-Wire or Analog connector 
 * A debuger/programmer connector
 * A reset buton
 * A programable buton
 * A switch ON/OFF Button
 
 
-## Pinout
-### Header J1 (2x20)
-This header is compatible with Raspberry Header and [EcoRadio board](https://github.com/ecosensors/ecoradio)
+## Pictures
+Coming soon
 
-Note, you can have 5V by unsoldering the Jumper SJ1. Have a look at the **Jumpers** section, bellow.
+## Examples
+We provide some [examples](https://github.com/ecosensors/EcoBorad/tree/main/examples) to quickly start with the EcoBoard. All examples are done for the EcoBoard, but you can easly use it for other Arduino board, with may be, a few modification as the pin definition. Note, the examples are basic and you will probabely improve it for your application. Feel you free to propose correction or improvement, scpecialy if you noticed some errors, or a better way to use the examples. (More examples will be added soon)
+
+## LoRaWAN (J9)
+You can connect the EcoLora V3 borad built with a RFM95 [LoRaWWAN](https://en.wikipedia.org/wiki/LoRa#LoRaWAN) radio module for Europe (868Mhz).
+
+Example will come later for Arduino
+
+For now, you have a example with a Raspberry, Python and TTN [here](https://github.com/ecosensors/ecoradio#rfm95-radio-lorawan)
+
+## Solar panel
+The EcoBoard is built with a BQ24074 to keep your Lithium Ion (LiIon) rechargeable batteries topped up. You can use USB, DC or Solar power, with a wide 5-10V input voltage range. The charger chip is super smart, and will reduce the current draw if the input voltage starts to dip under 4.5V, making it a perfect near-MPPT solar charger that you can use with a wide range of 5-10V panels.
+
+### Features
+
+* 3.7V/4.2V Lithium Ion or Lithium Polymer battery charger
+* Charge with 5-10V DC, USB or 5-10V solar panel
+* Use any 5-10V solar panel
+* Two color indicator LEDs (D1 and D2)
+* Set for 1000mA max charge rate, can be adjusted to 500mA or 1.5A by soldering closed a jumper '0.5A' or '1.5A' (do not forget to cut the jumper '1A').
+* automatically uses the input power when available, to keep battery from constantly charging/discharging
+* Optional Temperature monitoring of battery by soldering in a 10K NTC thermistor (not included) at J10
+* Input current limit configuration
+
+
+100 mA input current limit
+Jumper | Status
+--- | ---
+EN1 | LOW
+EN2 | LOW
+
+500 mA input current limit
+Jumper | Status
+--- | ---
+EN1 | HIGH
+EN2 | LOW
+
+1.5A input current limit (Default)
+Jumper | Status
+--- | ---
+EN1 | LOW
+EN2 | HIGH
+
+
+
+## EEPROM
+EcoLora has a 1KB EEPROM  (74LC01) to store relatively small amounts of data as keys or parameters.
+
+See simple example [here](https://github.com/ecosensors/EcoBoard/tree/master/examples/eeprom)
+
+## SD Card
+
+We add an SD card to log the EcoLoea activities or to save some parameters or other values. The MicroSD card is not provided with the board
+
+See a SD example with [bme280](https://github.com/ecosensors/EcoBoard/tree/main/examples/sd-bme280)
+
+
+
+## GPIO I/O expander port (PCF8574) and 1-Wire
+EcoLoRa use 6 additonal GPIO with the PCF8574 ([Datasheeet](https://www.ti.com/product/PCF8574) ). The outputs P1 to P6, controls the status of another device or an LED. However, as the outputs can only provide 25mA, in some cases, this power may not be sufficient. It's the reason why, we added three MOSFET-P (IRML2244) on the outputs P0, P1, P2 and P3. Thus, the outputs P0, P1, P2 and P3 will colse/open the MOSFET-P to power the devises connected at J0 this J4 with VCC (max 500mA) instead of the PCF8574 output. (Read Headers section).
+
+**Note**
+
+You need to change P0 thus P3 to **LOW state** in order power the connected sensor by VCC (max 500mA).
+
+* Change P0 to LOW in order to have Pin 4 powered by VCC (max 500mA)
+* Change P1 to LOW in order to have Pin 4 powered by VCC (max 500mA)
+* Change P2 to LOW in order to have Pin 5 powered by VCC (max 500mA)
+* Change P3 to LOW in order to have Pin 6 powered by VCC (max 500mA)
+* Change P0, P1, P2 or P3 to HIGH to unpower the sensors/LED.
+
+
+You need to change P5 thus P6 to **HIGH state** in order power the LEDs D5 or D6 (max 25mA)
+
+See an example bellow at the LED D5 and D6 section
+See an PCF9574 and 1-Wire example [here](https://github.com/ecosensors/EcoBoard/blob/main/examples/expander-1wire/expander-1wire.ino)
+
+## Pinout
+
+### Header J0 to J4
+You also can use 1-WIRE sensors on J0 thus J4 with or without a 4.7kOhm pull-up/down resiator
+
+The connected sensor can be permanently powered with 3.3V or you can manage the power state through a MOSFSET-P and the PCF8574
+If you want to permaently power the sensor, change the Jumper JP_0, JP_1, JP_2, JP_3 or JP_4 to '3V3'
+If you want to manager the power the sensor, change the Jumper JP_0, JP_1, JP_2, JP_3 or JP_4 to P1, P2, P3 or P4.
+Do not leave JP_0, JP_1, JP_2, JP_3 or JP_4 open.
+
+Change P0, P1, P2, P3 or P4 to LOW state to power the sensor and HIGH to unpower the sensor. 
+(Note: as the maximum output current of the PCF8574 is 25 mA per pin, we use a MISFET-P to power the sensor with 3V3 (max 500mA)
+
+You can choose to have either a 4.7kOhm pull-up or pull-down resistance on A0, A1, A2, A3 or A4 by changing the jumpers JP0, JP1, JP2, JP3 or JP4.
+Or can can have no pull-up/down resistance by keeping JP0, JP1, JP2, JP3 or JP4 open.
+
+
+#### Header J0 (1x3)
+
+Pin | Output
+--- | ---
+1 | GND
+2 | PWD0
+3 | A0 
+
+#### Header J1 (1x3)
+
+Pin | Output
+--- | ---
+1 | GND
+2 | PWD1
+3 | A2 
+
+#### Header J2 (1x3)
+
+Pin | Output
+--- | ---
+1 | GND
+2 | PWD2
+3 | A2 
+
+#### Header J3 (1x3)
+
+Pin | Output
+--- | ---
+1 | GND
+2 | PWD3
+3 | A3 
+
+#### Header J4 (1x3)
+
+Pin | Output
+--- | ---
+1 | GND
+2 | PWD4
+3 | A4
+
+### Header J5 (UART)
+
+Pin | Output
+--- | ---
+1 | GND
+2 | 3V3
+3 | Rx (D0)
+4 | Tx (D1)
+
+### Header J6 (I2C)
+
+Pin | Output
+--- | ---
+1 | GND
+2 | 3V3
+3 | SCL
+4 | SDA
+
+See an example with [bme280](https://github.com/ecosensors/EcoBoard/tree/main/examples/sd-bme280)
+
+### Header J7 (I2C)
+
+Pin | Output
+--- | ---
+1 | GND
+2 | 3V3
+3 | SCL
+4 | SDA
+
+See an example with [bme280](https://github.com/ecosensors/EcoBoard/tree/main/examples/sd-bme280)
+
+
+### Header J8 (Solar input)
+
+Pin | Output
+--- | ---
+1 | GND
+2 | POWER
+
+### Header J9 (EcoLora V3 input)
 
 Pin | Output
 --- | ---
 1 | 3V3
-2 | 5V
-3 | SDA 
-4 | 5V 
-5 | SCL 
-6 | GND 
-7 | NC 
-8 | Tx 
-9 | GND 
-10 | Rx 
-11 | NC 
-12 | NC 
-13 | NC 
-14 | GND 
-15 | NC 
-16 | NC 
-17 | 3V3 
-18 | NC 
-19 | MOSI 
-20 | GND 
-21 | MISO 
-22 | RST 
-23 | SCK 
-24 | NC 
-25 | GND 
-26 | CS (CE1 / DIO0) 
-27 | NC
-28 | NC
-29 | IRQ
-30 | GND 
-31 | NC 
-32 | DIO1 
-33 | D13 (also connected to the LED D13 and to the push button BTN)
-34 | GND
-35 | P6 (expander port) 
-36 | DIO2
-37 | NC
-38 | P5 (expander port)
-39 | GND
-40 | NC 
+2 | NC
+3 | NC
+4 | NC
+5 | RST
+6 | NC
+7 | NC
+8 | NC
+9 | NC
+10 | GND
+11 | MISO
+12 | NC
+13 | SCK
+14 | NC
+15 | IRQ
+16 | NC
+17 | MOSI
+18 | DIO_2
+19 | DIO_1
+20 | CS
 
-### Header J2 (Rx/Tx)
-You can connect a 3V3 sensor or a 5V sensor. By welding the Jumper SJ8, you can select the voltage you want to apply at the UART device.
-By default, SJ6 is wilded to 3V3.
-
-Pin | Output
---- | ---
-1 | GND 
-2 | 3V3 or 5V
-3 | Rx 
-4 | Tx 
-
-### Header J3 (Port expander)
-Header J3 is connected to PCF8574 chip
-
-Pin | Output (PCF8574)
---- | ---
-1 | GND
-2 | 3V3
-3 | P0 (max 500mA)
-4 | P1 (max 500mA)
-5 | P2 (max 500mA)
-6 | P3 (max 500mA)
-7 | P4 (aslo connected to J11 at pin 2)
-9 | P5 (also connected to the LED D5 and to J1 at pin 38)
-
-(P6 is connected to the LED D6 and J1 at pin 35);
-
-**Be carefull**
-The maximum output of the PCF8574 is 25mA. That's reason why, we add a MOSFET at P0, P1, P2 and P3 in order to have max 500mA. 
-Have a look at section **GPIO I/O expander port**, bellow, to learn how to use P0 to P6.
-
-### Hader J4 (analog)
-Pin | Output
---- | ---
-1 | GND
-2 | 3V3
-3 | A0
-4 | A1
-5 | A2
-6 | A3
-7 | A4
-8 | A5
-
-### Header J5 (I2C)
-You can connect a 3V3 sensor or a 5V sensor. By welding the Jumper SJ6, you can select the voltage you want to apply at the I2C device.
-By default, SJ6 is wilded to 3V3.
+### Header J10 (NTC)
 
 Pin | Output
 --- | ---
 1 | GND
-2 | 3V3 or 5V
-3 | SCL
-4 | SDA
-5 | D3 (ATSAMD21G18)
-6 | D2 (ATSAMD21G18)
+2 | NTC
 
-### Header J6 (programmation)
-You can use Header J6 to program/debug the ATSAMD21G18 chip. we use it only to flash the boot loader. More info can be found [here](https://learn.adafruit.com/programming-an-m0-using-an-arduino/overview)
+
+### Header X1 (MicroUSB)
+
+Pin | Output
+--- | ---
+1 | VBUS
+2 | D-
+3 | D+
+4 | NC
+5 | GND
+
+### Header J11 (JST 3.7V Lithium Battery)
+
+Pin | Output
+--- | ---
+1 | GND
+2 | VBAT
+
+### Byttery holder BT1 (18650)
+
+Pin | Output
+--- | ---
+1 | GND
+2 | VBAT
+
+
+### Header J12 (MicroUSB)
+
+Pin | Output
+--- | ---
+1 | VBUS
+2 | D-
+3 | D+
+4 | NC
+5 | GND
+
+
+
+#### Header J13 (debuger/programmer)
+Power Output for the irrigation board
 
 Pin | Output
 --- | ---
@@ -134,141 +277,85 @@ Pin | Output
 2 | 3V3
 3 | SWCLK
 4 | SWDIO
-5 | RESET (Close SJ5 to connect pin 5 to RESET pin of the ATSAMD21)
+5 | !RESET (You need to clode JP9)
 6 | NC
 
-You ma yhave to close the jumper SJ5 to connect pin5 to pin40 of the AZSAMD21G18 (RESET)
-
-### Header J11
-J11 is connected to P4 and to A5.
-You can use J11 as 1-Wire bus. I am used to connected a DS18B20 sensor (Waterproof temperature sensor). P4 power the sensor when a measure is needed, and A5 read the measure. If you use a 1-Wire sensor A5 need to have pull-up resitor. We added a 4.7K resistor with a Jumper SJ10 which is closed by default. If you do not need the pull-up resistor, you can unsolder SJ10.
-
-Pin | Output
---- | ---
-1 | A5 (connected the Jumper SJ10 and to a 4.7K pull-up resistor)
-2 | P4
-3 | NC 
-
-### Header J8 (OLED)
-You can connect a I2C 128x64 OLED display
-
-Pin | Output
---- | ---
-1 | GND
-2 | 3V3
-3 | SCL
-4 | SDA
-
-### Pin Header SP1 (Analog)
-You can connect a 3V3 sensor or a 5V sensor. By welding the Jumper SJ9, you can select the voltage you want to apply at the analog device.
-By default, SJ9 is wilded to 3V3. You might need to solder a 3 pin header.
-
-Pin | Output
---- | ---
-1 | GND
-2 | 3V3 or 5V
-3 | A0
-
-A0 is connected to the Jumper SJ7. If you close it, A0 will be pull-down with a 10K resistor. We also connected a blue LED with a 1K resistor.
-
-If you open SJ7, you can use an anenometer. If you keep closed SJ7, you can use a rain gauge, and the LED will bright each time a drop go throught the rain gauage.
 
 ## Jumpers
-### SJ1 (5V converter)
-The Jumper SJ1 is connect to the pin EN of the chip TPS6109. If you need 5V output at pin 2 and 4 of Raspberry Header (J1) or if you need to use a 5V sensor on JP1, J2 or J5, you can open (unsolder) SJ1 to enable the TPS6109 (EN to HIGH => Enable, EN to LOW => Disable).
 
-EN | TPS6109 | SJ1
---- | --- | ---
-LOW | Disable | Solder (Close)
-HIGH | Enabée | Unsolder (Open)
+(In progress)
 
-### SJ2 (ARef)
-Normally the reference voltage is the same as the chip logic voltage (3.3V) but if you need an alternative analog reference. Can't go higher than 3.3V!
+### JP0 thus JP4
+Allow you to choose to have either a 4.7kOhm pull-up or pull-down resitance, on A0, A1, A2, A3, or A4
+(Default: all open)
 
-For the EcoBoard as for all MO boards, close the SJ2 jumber and add the following in setup()
+### JP_0 thus JP_4
+Allow you to choose to power the devise, either with a permanent 3.3V or with the MOSFET-P controlled by the PCF8574
+(Default: all open)
+
+### JP5 (AREF)
+Open by default. Close is to connect HREF to 3V3
+(Default: open)
+
+
+### JP7 (SDA) 
+Connected to a 4.7kOhm pull-up resistance.
+Default: Close
+
+### JP8 (SCL)
+Connected to a 4.7kOhm pull-up resistance.
+Default: Close
+
+### JP9
+Open by default. Close JP9 to connect the pin 5 of J13 to RESET
+
+## LEDs
+
+### D1
+Battery good
+
+### D2
+Charging
+
+### D8 (green) and 13 (red)
+The LED D8 and D13 are connected to pins 8 and 13 of the ATSAMD21G18
+(D13 turn on when you upload the code)
+
+
+### D5 (white) and D6 (blue)
+The LEDs D5 and D6 can be powered with P5 and P6 of the PCF8574
+
+Here a basic example:
 
 ```
-#if defined(ARDUINO_SAMD_ZERO) || defined(__arm__)
-    analogReadResolution(10);
-    analogReference(AR_EXTERNAL);
-#endif
-```
+#include <Wire.h>                   // Required for I2C communication
+#include "PCF8574.h"                // Required for PCF857
+PCF8574 expander;                   // Required for PCF857
 
-### SJ3 & SJ4 (I2C pull-up)
-Jumpers SJ3 and SJ4 are soldered (closed) with two 4.7K pull-up resistors. You can unsolder SJ3 and SJ4 if SCL and SDA are pull-up from another I2C device.
+void setup(){
+  Serial.begin(9600);
+  Serial.println("Starting with PCF8574");
+  expander.begin(0x27);           // Define the I2C address
+  expander.pinMode(5,OUTPUT);
+  expander.pinMode(6,OUTPUT);
+}
 
-### SJ5 
-SJ5 must be open, excepted if you need to programm the ATSAMD21G18 ARM Cortex M0. SJ5 is connected to ATSAMD21 at RESET pin
-
-### SJ6 (I2C: 3V3 or 5V)
-SJ6 allow you to power a I2C sensor with either 3V3 or 5V. The I2C sensor can be connected to J5. Note, J5 is connected to D2 and D3 of the ATSAMD21.
-
-### SJ7 (A0 pull-down)
-SJ7 is connected to A0. You can connect a Analog sensor to the pin header JP1.
-If SJ7 is opened, you can use A0 with an anenometer for example. If you close SJ7, you can use A0 with **a rain gauge**. A 10K resistor is connected to SJ7 and the GND. Also, a 1K resistor in serie with a blue LED are in parallel with 10K resistor. The blue LED will bright, each time A0 is up, while the 10K restistor will make sure to have a GND at A0 (pull-down) when the rain gauge is waiting for the watter. Also, see SJ9 to power the analog sensor (A0) with 3V3 or 5V.
-
-### SJ8 (UART: 3V3 or 5V)
-SJ8 allow you to power an UART sensor with either 3V3 or 5V. The UART sensor can be connected to J2.
-
-### SJ9 (A0: 3V3 or 5V)
-SJ9 allow to power the analog sensor (A0) with 3V3 or 5V. The analog sensor can be connected to SP1.
-
-### SJ10 (A5 pull-up)
-SJ10 allow you to pull-up A5 with a 4.7K resistor. It can be usefull, if you connect a 1-Wire sensor at J11. J11 has 3 pin as the following
-
-Pin | Output
---- | ---
-1 | A5 (connected the Jumper SJ10 and to a 4.7K pull-up resistor)
-2 | P4 (Use to power the 1-Wire sensor, for example)
-3 | NC 
-
-## SD Card 
-We add an SD card to log the EcoBoard activity or to save some parameters or other values. The MicroSD card is not provided with the board
-
-Example is coming soon ...
-
-## RTC (Real Time Clock) & Low Power
-The Real Time Clock is working with the DS3231 chip. The DS3231 is a low-cost, extremely accurate I2C real-time clock (RTC) with an integrated temperature compensated. You will need a **CR1225** cell coin battery.
-The EcoBoard can be programmed to sleep in order to save cunsomption.
-
-## EEPROM
-EcoBoard has a 64KB EEPROM  (74LC64) to store relatively small amounts of data as keys or parameters
-
-
-## 1-Wire & GPIO expander port
-### GPIO I/O expander port
-EcoBoard allow you to use 6 additonal GPIO with the PCF8574 ([Datasheeet](https://www.ti.com/product/PCF8574) ). The outputs P1 to P6, will allow you to control the status of another device or an LED. However, the outputs can only provide 25mA. In some cases, this power may not be sufficient. It's the reason why, we added three MOSFET-P (IRML2244) on the outputs P0, P1, P2 and P3. Thus, the outputs P0, P1, P2 and P3 of the J3 connector can now supply up to 500mA.
-
-**Note**
-* You need to change P0 to LOW state in order to have Pin 3 powered by VCC (max 500mA).
-* Change P1 to LOW in order to have Pin 4 powered by VCC (max 500mA)
-* Change P2 to LOW in order to have Pin 5 powered by VCC (max 500mA)
-* Change P3 to LOW in order to have Pin 6 powered by VCC (max 500mA)
-* Change P0, P1, P2 or P3 to HIGH to have Pin 3, 4, 5 or unpowered (GND).
-
-P4 can be used to power the 1-Wire sensor on J11
-
-P5 and P6 are connected to a LED, as well.
-* Change P5 to HIGH to bright the LED D5 (White)
-* Change P6 to HIGH to bright the LED D6 (Blue)
-
-### 1-Wire (DS18B20)
-In the example, we will show you how to prepare and use a Waterproof temperature sensor (DS18B20) working with 1-Wire bus.
-If you want to use a 1-Wire sensor, you can use the J7 connector. You need to enable the GPIO port expander. J7 is connected to P4 and a A5. We use P4 to power the DS18B20 when we need to take a mesure and the mesure is done through A5. Exemple will follow soon.
-
-#### DS18B20 wires
-Wires | ?
---- | ---
-Red | 3V3
-Blue | GND
-Yellow | read
-
-Resumé:
-```
-#include <OneWire.h>                // Include for 1-Wire sensor
-#define P4 4 // pin P4              // To power 1-Wire sensor before reading
-const byte ONEWIRE_READ = 19;       // (19 = A5)  To read 1-Wire sensor
-// See more in the example
-```
-
+void loop() {
+  Serial.println("TESTING THE LEDs (P5 and P6)");
+  Serial.println("Turn on LED 5");
+  expander.digitalWrite(5, HIGH);
+  delay(1000);
+  Serial.println("Turn off LED 5");
+  expander.digitalWrite(5, LOW);
+  delay(1000);
+  Serial.println("Turn on LED 6");
+  expander.digitalWrite(6, HIGH);
+  delay(1000);
+  Serial.println("Turn off LED 6");
+  expander.digitalWrite(6, LOW);
+  delay(1000);
+  Serial.println("");
+ ```
+ 
+A detailed example can be found here [expander-1wire](https://github.com/ecosensors/EcoBoard/blob/main/examples/expander-1wire/expander-1wire.ino)
 
