@@ -199,8 +199,8 @@ Pin | Output
 2 | POWER
 
 ### Header J9 (EcoLora V3 input)
-At J9, you can use and connect the EcoLora V3 board
-The GSM board is not ready yet.
+At J9, you can use and connect the EcoLora V3 board. The GSM board is not ready yet.
+The ATSAMD21G18 column indicates the connection to the µController. 
 
 Pin | LoRaWAN | GSM | ATSAMD21G18
 --- | --- | -- | --
