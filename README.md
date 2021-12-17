@@ -119,7 +119,7 @@ You can choose to have either a 4.7kOhm pull-up or pull-down resistance on A0, A
 Or can can have no pull-up/down resistance by keeping JP0, JP1, JP2, JP3 or JP4 open.
 
 
-#### Header J0 (1x3)
+### Header J0 (1x3)
 
 Pin | Output
 --- | ---
@@ -127,7 +127,7 @@ Pin | Output
 2 | PWD0
 3 | A0 
 
-#### Header J1 (1x3)
+### Header J1 (1x3)
 
 Pin | Output
 --- | ---
@@ -135,7 +135,7 @@ Pin | Output
 2 | PWD1
 3 | A2 
 
-#### Header J2 (1x3)
+### Header J2 (1x3)
 
 Pin | Output
 --- | ---
@@ -143,7 +143,7 @@ Pin | Output
 2 | PWD2
 3 | A2 
 
-#### Header J3 (1x3)
+### Header J3 (1x3)
 
 Pin | Output
 --- | ---
@@ -151,7 +151,7 @@ Pin | Output
 2 | PWD3
 3 | A3 
 
-#### Header J4 (1x3)
+### Header J4 (1x3)
 
 Pin | Output
 --- | ---
@@ -268,7 +268,7 @@ Pin | Output
 
 
 
-#### Header J13 (debuger/programmer)
+### Header J13 (debuger/programmer)
 Power Output for the irrigation board
 
 Pin | Output
