@@ -202,24 +202,24 @@ Pin | Output
 The GSM connection has not been tested yet
 
 Pin | LoRaWAN | GSM | ATSAMD21G18
---- | --- |
+--- | --- | -- | --
 1 | 3V3 | 3V3 | none
-2 | NC | VIO |
-3 | NC | Rx |
-4 | NC | Tx |
-5 | RST | NC |
-6 | NC | NC |
-7 | NC | NC |
-8 | NC | NC |
-9 | NC | NC |
-10 | GND | GND |
-11 | MISO | NC |
-12 | NC | NC |
-13 | SCK | NC |
-14 | NC | NC |
+2 | NC | VIO | none
+3 | NC | Rx | none
+4 | NC | Tx | none
+5 | RST | NC | none
+6 | NC | NC | none
+7 | NC | NC | none
+8 | NC | NC | none
+9 | NC | NC | none
+10 | GND | GND | none
+11 | MISO | NC | none
+12 | NC | NC | none
+13 | SCK | NC | none
+14 | NC | NC | none
 15 | IRQ | RST | D10
-16 | NC | NC |
-17 | MOSI | NC |
+16 | NC | NC | none
+17 | MOSI | NC | none
 18 | DIO_2 | KEY | D12
 19 | DIO_1 | RI | D11
 20 | CS | NC | D5
