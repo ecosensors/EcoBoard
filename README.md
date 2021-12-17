@@ -119,7 +119,7 @@ You can choose to have either a 4.7kOhm pull-up or pull-down resistance on A0, A
 Or can can have no pull-up/down resistance by keeping JP0, JP1, JP2, JP3 or JP4 open.
 
 
-### Header J0 (1x3)
+### Header J0
 
 Pin | Output
 --- | ---
@@ -127,7 +127,7 @@ Pin | Output
 2 | PWD0
 3 | A0 
 
-### Header J1 (1x3)
+### Header J1
 
 Pin | Output
 --- | ---
@@ -135,7 +135,7 @@ Pin | Output
 2 | PWD1
 3 | A2 
 
-### Header J2 (1x3)
+### Header J2
 
 Pin | Output
 --- | ---
@@ -143,7 +143,7 @@ Pin | Output
 2 | PWD2
 3 | A2 
 
-### Header J3 (1x3)
+### Header J3
 
 Pin | Output
 --- | ---
@@ -151,7 +151,7 @@ Pin | Output
 2 | PWD3
 3 | A3 
 
-### Header J4 (1x3)
+### Header J4
 
 Pin | Output
 --- | ---
@@ -199,29 +199,30 @@ Pin | Output
 2 | POWER
 
 ### Header J9 (EcoLora V3 input)
+The GSM connection has not been tested yet
 
-Pin | Output
+Pin | LoRaWAN | GSM | ATSAMD21G18
 --- | ---
-1 | 3V3
-2 | NC
-3 | NC
-4 | NC
-5 | RST
-6 | NC
-7 | NC
-8 | NC
-9 | NC
-10 | GND
-11 | MISO
-12 | NC
-13 | SCK
-14 | NC
-15 | IRQ
-16 | NC
-17 | MOSI
-18 | DIO_2
-19 | DIO_1
-20 | CS
+1 | 3V3 | 3V3 |
+2 | NC | VIO |
+3 | NC | Rx |
+4 | NC | Tx |
+5 | RST | NC |
+6 | NC | NC |
+7 | NC | NC |
+8 | NC | NC |
+9 | NC | NC |
+10 | GND | GND |
+11 | MISO | NC |
+12 | NC | NC |
+13 | SCK | NC |
+14 | NC | NC |
+15 | IRQ | RST | D10
+16 | NC | NC |
+17 | MOSI | NC |
+18 | DIO_2 | KEY | D12
+19 | DIO_1 | RI | D11
+20 | CS | NC | D5
 
 ### Header J10 (NTC)
 
