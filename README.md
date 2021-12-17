@@ -7,7 +7,7 @@ EcoBord V3 is new microcontroler based on the processor ATSAMD21G18 ARM Cortex M
 The chip has **256K of FLASH and 32K of RAM**. It's fully compatible with Arduino and Adafruit libraries.
 
 We add several useful features
-* LoRaWAN RFM69/9x (868Mhz)
+* LoRaWAN RFM69/9x (868Mhz) (Option)
 * Solar panel input
 * 1Kb EEPROM
 * A MicroSD card
@@ -280,6 +280,27 @@ Pin | Output
 5 | !RESET (You need to clode JP9)
 6 | NC
 
+### Header J14
+
+Pin | Output
+--- | ---
+1 | GND
+2 | 3V3
+
+### Header J15
+
+Pin | Output
+--- | ---
+1 | GND
+2 | VBUS (after the Zener diode D4)
+
+
+### Header J16
+
+Pin | Output
+--- | ---
+1 | SWCLK
+2 | SWDIO
 
 ## Jumpers
 
@@ -308,6 +329,22 @@ Default: Close
 
 ### JP9
 Open by default. Close JP9 to connect the pin 5 of J13 to RESET
+
+
+### JP10
+Open by default. You can choose to power your application either from the Liothium battery or from the Output of the BQ24074 (recommanded).
+
+
+### THERM Jumper
+
+(Default: close) Cut it if you want to connect a Thermistor at J10
+
+### EN1 & EN2
+See at the solar panel section
+
+### '0.5A', '1A', '1.5A'
+See at the solar panel section
+
 
 ## LEDs
 
@@ -359,5 +396,3 @@ void loop() {
  
 A detailed example can be found here [expander-1wire](https://github.com/ecosensors/EcoBoard/tree/master/examples/expander-1wire)
 
-### Solar jumpers
-For the jumper '0.5A', '1A', '1.5A' 'EN1' and 'EN2', see at the solar panel section, above.
