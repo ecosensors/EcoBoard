@@ -208,22 +208,22 @@ Pin | LoRaWAN | GSM | ATSAMD21G18
 2 | NC | VIO | 
 3 | NC | Rx | 
 4 | NC | Tx | 
-5 | RST | NC | 
+5 | RST | NC | D6 (D29)
 6 | NC | NC | 
 7 | NC | NC | 
 8 | NC | NC | 
 9 | NC | NC | 
 10 | GND | GND | 
-11 | MISO | NC | 
+11 | MISO | NC | (19)
 12 | NC | NC | 
-13 | SCK | NC | 
+13 | SCK | NC | (20)
 14 | NC | NC | 
-15 | IRQ | RST | D10
+15 | IRQ | RST | D10 (27)
 16 | NC | NC | 
-17 | MOSI | NC | 
-18 | DIO_2 | KEY | D12
-19 | DIO_1 | RI | D11
-20 | CS | NC | D5
+17 | MOSI | NC | (21)
+18 | DIO_2 | KEY | D12 (28)
+19 | DIO_1 | RI | D11 (25)
+20 | CS | NC | D5 (24)
 
 ### Header J10 (NTC)
 
