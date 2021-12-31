@@ -357,8 +357,8 @@ Battery good
 Charging
 
 ### D8 (green) and 13 (red)
-The LED D8 and D13 are connected to pins 8 and 13 of the ATSAMD21G18
-(D13 turn on when you upload the code)
+The LED D8 and D13 are connected to D8 and D13 of the ATSAMD21G18
+(D13 light on when you upload the code)
 
 
 ### D5 (white) and D6 (blue)
