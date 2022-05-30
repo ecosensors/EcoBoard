@@ -2,6 +2,9 @@
 
 ***The following page is being writting and constently updating***
 
+## License
+EcoBoard © 2022 by Pierre Amey is licensed under CC BY-NC-SA 4.0
+
 
 EcoBord V3 is a new microcontroler based on the processor ATSAMD21G18 ARM Cortex M0 at 48Mhz with 3V3 logic, as the Arduino Zero.
 The chip has **256K of FLASH and 32K of RAM**. It's fully compatible with Arduino and Adafruit libraries.

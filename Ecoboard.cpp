@@ -1,4 +1,5 @@
 /*
+* EcoBoard © 2022 by Pierre Amey is licensed under CC BY-NC-SA 4.0
 * That file is underdevelopment.
 *
 * The follwing code can be used without garranty.
