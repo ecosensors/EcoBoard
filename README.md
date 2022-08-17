@@ -1,6 +1,7 @@
 # EcoBoard
 
 ***The following page is being writting and constently updating***
+(This page describes the previous version of the board. The page will updated according to the new version current automn 2022)
 
 
 EcoBord V3 is a new microcontroler based on the processor ATSAMD21G18 ARM Cortex M0 at 48Mhz with 3V3 logic, as the Arduino Zero.
@@ -25,8 +26,10 @@ We add several useful features
 ## Pictures
 Coming soon
 
+
+
 ## Examples
-We provide some [examples](https://github.com/ecosensors/EcoBorad/tree/main/examples) to quickly start with the EcoBoard. All examples are done for the EcoBoard, but you can easly use it for other Arduino board, with may be, a few modification as the pin definition. Note, the examples are basic and you will probabely improve it for your application. Feel you free to propose correction or improvement, scpecialy if you noticed some errors, or a better way to use the examples. (More examples will be added soon)
+We provide some [examples](https://github.com/ecosensors/EcoBorad/tree/master/examples) to quickly start with the EcoBoard. All examples are done for the EcoBoard, but you can easly use it for other Arduino board, with may be, a few modification as the pin definition. Note, the examples are basic and you will probabely improve it for your application. Feel you free to propose correction or improvement, scpecialy if you noticed some errors, or a better way to use the examples. (More examples will be added soon)
 
 ## LoRaWAN (J9)
 You can connect the EcoLora V3 borad built with a RFM95 [LoRaWWAN](https://en.wikipedia.org/wiki/LoRa#LoRaWAN) radio module for Europe (868Mhz).
