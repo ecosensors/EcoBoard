@@ -5,7 +5,7 @@
 ## Warning
 The examples folder should be moved to /Libraries/Ecoboard/ folder
 
-## Information about the examples
+## Information about the example files
 
 Those examples are published for informational purposes only and no warranty is given as to its suitability for your environment. However, as we are permanetly working on the board to improvement it, the script will be updated and improved following **your** needs.
 
