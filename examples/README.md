@@ -2,8 +2,6 @@
 
 ***The following page is being writting and constently updating***
 
-## Warning
-The examples folder should be moved to /Libraries/Ecoboard/ folder
 
 ## Information about the example files
 
@@ -13,7 +11,3 @@ The examples are fine to help you to start with a minium of kills and curiosity,
 
 
 All of the examples have been tested with the EcoSensors board.
-
-
-## Contribute
-Help us with [a donation](https://www.paypal.com/pools/c/8dIK5OSzJm)
