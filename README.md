@@ -62,7 +62,7 @@ The bq24074 which powers this design is great for solar charging, and will autom
 
 ![Charge rate](assets/charge-rate.jpg)
 
-The default charge rate is 1A. To modify from the default value, cut the traces in the jumpers and solder according to need.
+The default charge rate is 1A. To modify from the default value, cut the traces in the jumpers and solder according to your need.
 
 ### Input current limit
 
@@ -99,14 +99,28 @@ See simple example [here](https://github.com/ecosensors/EcoBoard/tree/master/exa
 
 ## SD Card
 
-We add an SD card to log the EcoLoea activities or to save some parameters or other values. The MicroSD card is not provided with the board
+We add an SD card to log the activities or to save some parameters or other values. The MicroSD card is not provided with the board
 
 See a SD example with [bme280](https://github.com/ecosensors/EcoBoard/tree/main/examples/sd-bme280)
 
 
 
 ## GPIO I/O expander port (PCF8574) and 1-Wire
-EcoLoRa use 6 additonal GPIO with the PCF8574 ([Datasheeet](https://www.ti.com/product/PCF8574) ). The outputs P1 to P6, controls the status of another device or an LED. However, as the outputs can only provide 25mA, in some cases, this power may not be sufficient. It's the reason why, we added three MOSFET-P (IRML2244) on the outputs P0, P1, P2 and P3. Thus, the outputs P0, P1, P2 and P3 will colse/open the MOSFET-P to power the devises connected at J0 this J4 with VCC (max 500mA) instead of the PCF8574 output. (Read Headers section).
+EcoBoarduse 6 additonal GPIO with the PCF8574 ([Datasheeet](https://www.ti.com/product/PCF8574) ). The outputs P1 to P6, controls other devices or LEDs. However, as the outputs can only provide 25mA, in some cases, this power may not be sufficient. It's the reason why, we added three MOSFET-P (IRML2244) on the outputs P0, P1, P2 and P3. 
+
+![mosfet IRML2244](assets/mosfet.jpg)
+
+Thus, the outputs P0, P1, P2 and P3 will colse/open the MOSFET-P to power the devises connected at J0 to J3 with VCC (max 500mA) instead of the PCF8574 output. (Read Headers section).
+
+Jumper | Devise | Status
+--- | --- | ---
+P0 * | Power the devise on J0 | LOW to turn on the sensor
+P1 * | Power the devise on J1 | LOW to turn on the sensor
+P2 * | Power the devise on J2 | LOW to turn on the sensor
+P3 * | Power the devise on J3 | LOW to turn on the sensor
+P4 | Power the devise on J4 (Max 25mA| HIGH to turn on the sensor
+P5 | LED D5 | HIGH to turn on the LED
+P6 | LED D6 | HIGH to turn on the LED
 
 **Note**
 
