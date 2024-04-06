@@ -60,7 +60,7 @@ The bq24074 which powers this design is great for solar charging, and will autom
 
 ### Charge rate
 
-![Charge rate](assets/echarge-rate.jpg)
+![Charge rate](assets/charge-rate.jpg)
 
 You can define the charge rate
 
