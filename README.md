@@ -66,7 +66,7 @@ The default charge rate is 1A. To modify from the default value, cut the traces 
 
 ### Input current limit
 
-![Input current limit](assets/input-currentlimit.jpg)
+![Input current limit](assets/input-current-limit.jpg)
 
 
 
