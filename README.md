@@ -124,21 +124,25 @@ P6 | LED D6 | HIGH to turn on the LED (max 25mA)
 
 ### IMPORTANT
 
+The jumpers ARE NOT SOLDERED. You have to solder the jumpers, either to Px or 3V3
+
 All devices connected to 1 to 4 can be permanently powered with VCC by changing the jumper JP_1 to JP_4
 ![JP_1](assets/jp_1.jpg)
 
-The jumpers ARE NOT SOLDERED. You have to solder the jumpers, either to Px or 
-
-
-You need to change P5 thus P6 to **HIGH state** in order power the LEDs D5 or D6 (max 25mA)
-
-See an example bellow at the LED D5 and D6 section
-See an PCF9574 and 1-Wire example [here](https://github.com/ecosensors/EcoBoard/tree/master/examples/expander-1wire)
+See an exemple about PCF9574 and 1-Wire sensor [here](https://github.com/ecosensors/EcoBoard/tree/master/examples/expander-1wire)
 
 ## Pinout
 
+### Header J0 to J5
+
+![j0](assets/j0.jpg)
+
+All of those connectors are Analogic inputs, but you also can use a 1-Wire sensors.
+
+![PullUpDown](assets/pullupdown.jpg)
+By default, the input are not wired to a 4.7kOhm. However, You can choose to pull up or pull down (4.7kOhm) the input by soldering the jumpers JP0 to JP5
+
 ### Header J0 to J4
-You also can use 1-WIRE sensors on J0 thus J4 with or without a 4.7kOhm pull-up/down resiator
 
 The connected sensor can be permanently powered with 3.3V or you can manage the power state through a MOSFSET-P and the PCF8574
 If you want to permaently power the sensor, change the Jumper JP_0, JP_1, JP_2, JP_3 or JP_4 to '3V3'
