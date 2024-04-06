@@ -1,14 +1,14 @@
 # EcoBoard
 
-***The following page is being writting and constently updating***
+***The following page is being writting***
 
-(This page describes the previous version of the board. The page will be completely revised, according to the new PCB version, current automn 2022. No effort and correction will be done until the new PCB will be delivered)
 
 EcoBord V3 is a new microcontroler based on the processor ATSAMD21G18 ARM Cortex M0 at 48Mhz with 3V3 logic, as the Arduino Zero.
 The chip has **256K of FLASH and 32K of RAM**. It's fully compatible with Arduino and Adafruit libraries.
 
 We add several useful features
-* LoRaWAN RFM69/9x (868Mhz) (Option)
+* LoRaWAN RFM69/9x (868Mhz) module (Option)
+* GSM/GPS (SIM808) module (option)
 * Solar panel input
 * 1Kb EEPROM
 * A MicroSD card
@@ -30,15 +30,21 @@ We add several useful features
 ## Examples
 I provide some [examples](https://github.com/ecosensors/EcoBoard/tree/master/examples) to quickly start with the EcoBoard. All examples are done for the EcoBoard, but you can easly use it for other Arduino board, with may be, a few modification as the pin definition. Note, the examples are basic and you will probabely improve it for your application. Feel you free to propose correction or improvement, scpecialy if you noticed some errors, or a better way to do. (More examples will be added soon)
 
-## LoRaWAN (J9)
+## LoRaWAN or GPRS/GPS
+### LoRaWAN
 You can connect the EcoLora V3 borad built with a RFM95 [LoRaWWAN](https://en.wikipedia.org/wiki/LoRa#LoRaWAN) radio module for Europe (868Mhz).
 
 Example will come later for Arduino
 
 For now, you have an example with a Raspberry, Python and TTN [here](https://github.com/ecosensors/ecoradio#rfm95-radio-lorawan)
 
+### GPRS/GPS
+The same connector is foresee to have a GPRS/GPS module (SIM808), but this option is still under developpement
+
 ## Solar panel
 The EcoBoard is built with a BQ24074 to keep your Lithium Ion (LiIon) rechargeable batteries topped up. You can use USB, DC or Solar power, with a wide 5-10V input voltage range. The charger chip is super smart, and will reduce the current draw if the input voltage starts to dip under 4.5V, making it a perfect near-MPPT solar charger that you can use with a wide range of 5-10V panels.
+
+The bq24074 which powers this design is great for solar charging, and will automatically draw the most current possible from the panel in any light condition Even thought it isn't a 'true' MPPT (max power point tracker), it has near-identical performance without the additional cost of a buck-converter.
 
 ### Features
 
@@ -52,7 +58,21 @@ The EcoBoard is built with a BQ24074 to keep your Lithium Ion (LiIon) rechargeab
 * Input current limit configuration
 
 
-100 mA input current limit
+### Charge rate
+
+![Charge rate](assets/echarge-rate.jpg)
+
+You can define the charge rate
+
+### Input current limit
+
+![Input current limit](assets/input-current-limit.jpg)
+
+
+
+To modify from the default, cut the traces in the jumpers and solder according to the options below
+
+100 mA input current limit 
 Jumper | Status
 --- | ---
 EN1 | LOW
