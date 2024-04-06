@@ -24,7 +24,7 @@ We add several useful features
 
 
 ## Pictures
-Coming soon
+![EcoBoard](assets/ecoboard.jpg)
 
 
 ## Examples
