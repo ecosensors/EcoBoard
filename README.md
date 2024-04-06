@@ -62,7 +62,7 @@ The bq24074 which powers this design is great for solar charging, and will autom
 
 ![Charge rate](assets/charge-rate.jpg)
 
-You can define the charge rate
+The default charge rate is 1A. To modify from the default value, cut the traces in the jumpers and solder according to need.
 
 ### Input current limit
 
