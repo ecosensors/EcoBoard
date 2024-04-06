@@ -114,23 +114,20 @@ Thus, the outputs P0, P1, P2 and P3 will colse/open the MOSFET-P to power the de
 
 Jumper | Devise | Status
 --- | --- | ---
-P0 * | Power the devise on J0 | LOW to turn on the sensor
-P1 * | Power the devise on J1 | LOW to turn on the sensor
-P2 * | Power the devise on J2 | LOW to turn on the sensor
-P3 * | Power the devise on J3 | LOW to turn on the sensor
+P0 * | Power the devise on J0 (max 500mA) | LOW to turn on the sensor
+P1 * | Power the devise on J1 (max 500mA) | LOW to turn on the sensor
+P2 * | Power the devise on J2 (max 500mA) | LOW to turn on the sensor
+P3 * | Power the devise on J3 (max 500mA) | LOW to turn on the sensor 
 P4 | Power the devise on J4 (Max 25mA| HIGH to turn on the sensor
-P5 | LED D5 | HIGH to turn on the LED
-P6 | LED D6 | HIGH to turn on the LED
+P5 | LED D5 | HIGH to turn on the LED (max 25mA)
+P6 | LED D6 | HIGH to turn on the LED (max 25mA)
 
-**Note**
+### IMPORTANT
 
-You need to change P0 thus P3 to **LOW state** in order power the connected sensor by VCC (max 500mA).
+All devices connected to 1 to 4 can be permanently powered with VCC by changing the jumper JP_1 to JP_4
+![JP_1](assets/jp_1.jpg)
 
-* Change P0 to LOW in order to have Pin 4 powered by VCC (max 500mA)
-* Change P1 to LOW in order to have Pin 4 powered by VCC (max 500mA)
-* Change P2 to LOW in order to have Pin 5 powered by VCC (max 500mA)
-* Change P3 to LOW in order to have Pin 6 powered by VCC (max 500mA)
-* Change P0, P1, P2 or P3 to HIGH to unpower the sensors/LED.
+The jumpers ARE NOT SOLDERED. You have to solder the jumpers, either to Px or 
 
 
 You need to change P5 thus P6 to **HIGH state** in order power the LEDs D5 or D6 (max 25mA)
