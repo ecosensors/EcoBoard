@@ -25,7 +25,7 @@ We add several useful features
 
 
 ## Examples
-I provide some [examples](https://github.com/ecosensors/EcoBoard/tree/master/examples) to quickly start with the EcoBoard. All examples are done for the EcoBoard, but you can easly use it for other Arduino board, with may be, a few modification as the pin definition. Note, the examples are basic and you will probabely improve it for your application. Feel you free to propose correction or improvement, scpecialy if you noticed some errors, or a better way to do. (More examples will be added soon)
+I provide some [examples](https://github.com/ecosensors/EcoBoard?tab=readme-ov-file#showcases) to quickly start with the EcoBoard. All examples are done for the EcoBoard, but you can easly use it for other Arduino board, with may be, a few modification as the pin definition. Note, the examples are basic and you will probabely improve it for your application. Feel you free to propose correction or improvement, scpecialy if you noticed some errors, or a better way to do. (More examples will be added soon)
 
 ## LoRaWAN or GPRS/GPS
 ### LoRaWAN
