@@ -364,22 +364,25 @@ You can also read the section [GPIO I/O expander port (PCF8574)](https://github.
 ### JP5 (AREF)
 Close is to connect HREF to 3V3
 (Default: open)
+ 
 
 
 ### JP7 (SDA)
 Connected to a 4.7kOhm pull-up resistance.
 Default: Close
+Cut the trace if you does not want to pullup the SDA
 
 ### JP8 (SCL)
 Connected to a 4.7kOhm pull-up resistance.
 Default: Close
+Cut the trace if you does not want to pullup the SCL
 
 ### JP9
-Open by default. Close JP9 to connect the pin 5 of J13 to RESET
+Open by default. Solder to close the JP9 to connect the pin 5 of J13 (debuger/programmer) to RESET
 
 
 ### JP10
-Open by default. You can choose to power your application either from the Liothium battery or from the Output of the BQ24074 (recommanded).
+Open by default. You can choose to power your application either from the Liothium battery (I rather prefere) or from the Output of the BQ24074
 
 
 ### THERM Jumper
@@ -442,6 +445,17 @@ void loop() {
  ```
  
 A detailed example can be found here [expander-1wire](https://github.com/ecosensors/EcoBoard/tree/master/examples/expander-1wire)
+
+## Showcases
+
+In the very near future, I will provide example codes tu use
+
+* A anenometer (you already have a very close example [here](https://github.com/ecosensors/EcoAnemo))
+* A Piranometer
+* A rain gauge
+* A drop counter for watering crops
+* A waterproof DS18B20 Digital temperature sensor
+* A barometer
 
 ## License
 EcoBoard © 2022 by Pierre Amey is licensed under CC BY-NC-SA 4.0
