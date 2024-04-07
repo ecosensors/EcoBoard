@@ -25,7 +25,7 @@ We added several useful features
 
 
 ## Examples
-All examples are done for the EcoBoard, but you can easly use it for other Arduino board, with may be, a few modification.
+All [examples](https://github.com/ecosensors/EcoBoard/tree/master/examples) are done for the EcoBoard, but you can easly use it for other Arduino board, with may be, a few modification.
 
 Actually, I have some examples code for the EcoBoard
 * How to work with the [EEPROM](https://github.com/ecosensors/EcoBoard/tree/master/examples/eeprom)
@@ -34,7 +34,7 @@ Actually, I have some examples code for the EcoBoard
 
 In the very near future, I will provide example codes to use
 
-* a anenometer (you already have a very close example [here](https://github.com/ecosensors/EcoAnemo))
+* a anemometer (you already have a very close example [here](https://github.com/ecosensors/EcoAnemo))
 * a pyranometer
 * a rain gauge
 * a drop counter for watering crops
