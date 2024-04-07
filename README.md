@@ -448,7 +448,12 @@ A detailed example can be found here [expander-1wire](https://github.com/ecosens
 
 ## Showcases
 
-In the very near future, I will provide example codes tu use
+Actually, I have some example code for the EcoBoard
+* How to work with the [EEPROM](https://github.com/ecosensors/EcoBoard/tree/master/examples/eeprom)
+* How to use [the GPIO I/O expander port and a 1Wire sensor](https://github.com/ecosensors/EcoBoard/tree/master/examples/expander-1wire) (DS19B20)
+* How to use [a barometer (BME280) and the SD card](https://github.com/ecosensors/EcoBoard/tree/master/examples/sd-bme280)
+
+In the very near future, I will provide example codes to use
 
 * A anenometer (you already have a very close example [here](https://github.com/ecosensors/EcoAnemo))
 * A Piranometer
@@ -456,6 +461,7 @@ In the very near future, I will provide example codes tu use
 * A drop counter for watering crops
 * A waterproof DS18B20 Digital temperature sensor
 * A barometer
+* A Waternark sensors to better plan crop irrigation
 
 ## License
 EcoBoard © 2022 by Pierre Amey is licensed under CC BY-NC-SA 4.0
