@@ -246,28 +246,28 @@ The ATSAMD21G18 column indicates the connection to the µController.
 
 ![lora](assets/lora.jpg)
 
-Pin | EcoLora | EcoGprs | ATSAMD21G18 (GPIO)
+Pin | ATSAMD21G18 (GPIO) | EcoLora | EcoGprs | ATSAMD21G18 (GPIO)
 --- | --- | -- | --
-1 | 3V3 | 3V3 | 3V3
-2 | NV| VIO (3V3) | NC 
-3 | NC | Tx | 16 (D0) RX
-4 | NC | Rx | 15 (D1) TX
-5 | RST | NC | 29 (D6)
-6 | NC | NC | NC
-7 | NC | NC | NC
-8 | NC | NC | MC
-9 | NC | NC | NC
-10 | GND | GND | GND
-11 | MISO | NC | 21 (MISO)
-12 | NC | NC | NC
-13 | SCK | NC | 20 (SCK)
-14 | NC | NC | NC
-15 | IRQ | RST | 27 (D10)
-16 | NC | NC | NC
-17 | MOSI | NC | 19 (MOSI)
-18 | DIO_2 | KEY | 28 (D12)
-19 | DIO_1 | RI | 25 (D11)
-20 | CS | NC | 24 (D5)
+1 | 3V3 | 3V3 | 3V3 | 3V3
+2 | NC | NC | VIO (3V3) | NC 
+3 | 16 (D0) RX | NC | Tx | 16 (D0) RX
+4 | 15 (D1) TX | NC | Rx | 15 (D1) TX
+5 | 29 (D6) | RST | NC | 29 (D6)
+6 | NC | NC | NC | NC
+7 | NC | NC | NC | NC
+8 | NC | NC | NC | MC
+9 | NC | NC | NC | NC
+10 | GND  GND | GND | GND
+11 | 21 (MISO) | MISO | NC | 21 (MISO)
+12 | NC | NC | NC | NC
+13 | 20 (SCK) | SCK | NC | 20 (SCK)
+14 | NC | NC | NC | NC
+15 | 27 (D10) | IRQ | RST | 27 (D10)
+16 | NC | NC | NC | NC
+17 | 19 (MOSI) MOSI | NC | 19 (MOSI)
+18 | 28 (D12) | DIO_2 | KEY | 28 (D12)
+19 | 25 (D11) | DIO_1 | RI | 25 (D11)
+20 | 24 (D5) | CS | NC | 24 (D5)
 
 ### Header J10 (NTC)
 Connects the thermistor input to ground when not in use. To use a thermistor, carefully cut the THERM jumper connection and connect a 10kΩ NTC thermistor in the battery pack to the THERM pin. The thermistor should also be connected to the negative lead of the battery pack.
