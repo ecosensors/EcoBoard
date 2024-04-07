@@ -3,7 +3,7 @@
 EcoBord V3 is a new microcontroler based on the processor ATSAMD21G18 ARM Cortex M0 at 48Mhz with 3V3 logic, as the Arduino Zero.
 The chip has **256K of FLASH and 32K of RAM**. It's fully compatible with Arduino and Adafruit libraries.
 
-We addee several useful features
+We added several useful features
 * LoRaWAN RFM69/9x (868Mhz) module (Option)
 * GSM/GPS (SIM808) module (option)
 * Solar panel input
@@ -246,28 +246,28 @@ The ATSAMD21G18 column indicates the connection to the µController.
 
 ![lora](assets/lora.jpg)
 
-Pin | EcoLora | EcoGprs | ATSAMD21G18
+Pin | EcoLora | EcoGprs | ATSAMD21G18 (GPIO)
 --- | --- | -- | --
-1 | 3V3 | 3V3 | 
-2 | NC | VIO | 
-3 | NC | Rx | 
-4 | NC | Tx | 
-5 | RST | NC | D6 (D29)
-6 | NC | NC | 
-7 | NC | NC | 
-8 | NC | NC | 
-9 | NC | NC | 
-10 | GND | GND | 
-11 | MISO | NC | (19)
-12 | NC | NC | 
-13 | SCK | NC | (20)
-14 | NC | NC | 
-15 | IRQ | RST | D10 (27)
-16 | NC | NC | 
-17 | MOSI | NC | (21)
-18 | DIO_2 | KEY | D12 (28)
-19 | DIO_1 | RI | D11 (25)
-20 | CS | NC | D5 (24)
+1 | 3V3 | 3V3 | 3V3
+2 | NV| VIO (3V3) | NC 
+3 | NC | Tx | 16 (D0) RX
+4 | NC | Rx | 15 (D1) TX
+5 | RST | NC | 29 (D6)
+6 | NC | NC | NC
+7 | NC | NC | NC
+8 | NC | NC | MC
+9 | NC | NC | NC
+10 | GND | GND | GND
+11 | MISO | NC | 21 (MISO)
+12 | NC | NC | NC
+13 | SCK | NC | 20 (SCK)
+14 | NC | NC | NC
+15 | IRQ | RST | 27 (D10)
+16 | NC | NC | NC
+17 | MOSI | NC | 19 (MOSI)
+18 | DIO_2 | KEY | 28 (D12)
+19 | DIO_1 | RI | 25 (D11)
+20 | CS | NC | 24 (D5)
 
 ### Header J10 (NTC)
 Connects the thermistor input to ground when not in use. To use a thermistor, carefully cut the THERM jumper connection and connect a 10kΩ NTC thermistor in the battery pack to the THERM pin. The thermistor should also be connected to the negative lead of the battery pack.
