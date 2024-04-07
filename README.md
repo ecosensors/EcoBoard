@@ -38,7 +38,7 @@ Example will come later for Arduino
 For now, you have an example with a Raspberry, Python and TTN [here](https://github.com/ecosensors/ecoradio#rfm95-radio-lorawan)
 
 ### GPRS/GPS (EcoGprs)
-The same connector is foresee to have a GPRS/GPS module (SIM808), but this option is still under developpement
+You will be able ro use a GPRS/GPS (EcoGprs) module instead of the EcoLora module. The module is still under developpement and not tested yet.
 
 ## Solar panel
 The EcoBoard is built with a BQ24074 to keep your Lithium Ion (LiIon) rechargeable batteries topped up. You can use USB, DC or Solar power, with a wide 5-10V input voltage range. The charger chip is super smart, and will reduce the current draw if the input voltage starts to dip under 4.5V, making it a perfect near-MPPT solar charger that you can use with a wide range of 5-10V panels.
