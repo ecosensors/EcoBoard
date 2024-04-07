@@ -246,7 +246,7 @@ The ATSAMD21G18 column indicates the connection to the µController.
 
 ![lora](assets/lora.jpg)
 
-Pin | ATSAMD21G18 (GPIO) | EcoLora | EcoGprs
+Pin | ATSAMD21G18 (GPIO) | EcoLora | EcoGprs 
 --- | --- | -- | -- 
 1 | 3V3 | 3V3 | 3V3  
 2 | 3V3 | NC | VIO (3V3) 
@@ -268,6 +268,8 @@ Pin | ATSAMD21G18 (GPIO) | EcoLora | EcoGprs
 18 | 28 (D12) | DIO_2 | KEY
 19 | 25 (D11) | DIO_1 | RI
 20 | 24 (D5) | CS | NC
+
+**EcoGprs** is not ready yet and it has not been tested
 
 ### Header J10 (NTC)
 Connects the thermistor input to ground when not in use. To use a thermistor, carefully cut the THERM jumper connection and connect a 10kΩ NTC thermistor in the battery pack to the THERM pin. The thermistor should also be connected to the negative lead of the battery pack.
