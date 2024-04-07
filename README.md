@@ -309,15 +309,15 @@ Pin | Output
 
 Pin | Output
 --- | ---
-- | GND
-+ | VBAT
+1 | GND
+2 | VBAT
 
 ### Byttery holder BT1 (18650)
 
 Pin | Output
 --- | ---
-- | GND
-+ | VBAT
+1 | GND
+2 | VBAT
 
 
 ### Header J12 (MicroUSB)
