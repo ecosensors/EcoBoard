@@ -24,7 +24,7 @@ We add several useful features
 
 
 ## Pictures
-![EcoBoard](assets/ecoboard.jpg)
+![EcoBoard with Lora module](assets/ecoboard-lora.jpg)
 
 
 ## Examples
@@ -239,10 +239,12 @@ Pin | Output
 
 
 ### Header J9 (EcoLora V3 input)
-Picture coming soon)
+![EcoLora V3](assets/lorawan.jpg)
 
 At J9, you can use and connect the EcoLora V3 board. The GSM board is not ready yet.
 The ATSAMD21G18 column indicates the connection to the µController. 
+
+![lora](assets/lora.jpg)
 
 Pin | LoRaWAN | GSM | ATSAMD21G18
 --- | --- | -- | --
