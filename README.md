@@ -25,7 +25,23 @@ We added several useful features
 
 
 ## Examples
-I provided sone showcase atvthe botton to quickly start with the EcoBoard. All examples are done for the EcoBoard, but you can easly use it for other Arduino board, with may be, a few modification as the pin definition. Note, the examples are basic and you will probabely improve it for your application. Feel you free to propose correction or improvement, scpecialy if you noticed some errors, or a better way to do. (More examples will be added soon)
+All examples are done for the EcoBoard, but you can easly use it for other Arduino board, with may be, a few modification.
+
+Actually, I have some examples code for the EcoBoard
+* How to work with the [EEPROM](https://github.com/ecosensors/EcoBoard/tree/master/examples/eeprom)
+* How to use [the GPIO I/O expander port and a 1Wire sensor](https://github.com/ecosensors/EcoBoard/tree/master/examples/expander-1wire) (DS19B20)
+* How to use [a barometer (BME280) and the SD card](https://github.com/ecosensors/EcoBoard/tree/master/examples/sd-bme280)
+
+In the very near future, I will provide example codes to use
+
+* a anenometer (you already have a very close example [here](https://github.com/ecosensors/EcoAnemo))
+* a pyranometer
+* a rain gauge
+* a drop counter for watering crops
+* a waterproof DS18B20 Digital temperature sensor
+* a barometer
+* a Waternark sensors to better plan crop irrigation
+
 
 ## LoRaWAN or GPRS/GPS
 ### LoRaWAN (EcoLora)
@@ -449,23 +465,6 @@ void loop() {
  ```
  
 A detailed example can be found here [expander-1wire](https://github.com/ecosensors/EcoBoard/tree/master/examples/expander-1wire)
-
-## Showcases
-
-Actually, I have some example code for the EcoBoard
-* How to work with the [EEPROM](https://github.com/ecosensors/EcoBoard/tree/master/examples/eeprom)
-* How to use [the GPIO I/O expander port and a 1Wire sensor](https://github.com/ecosensors/EcoBoard/tree/master/examples/expander-1wire) (DS19B20)
-* How to use [a barometer (BME280) and the SD card](https://github.com/ecosensors/EcoBoard/tree/master/examples/sd-bme280)
-
-In the very near future, I will provide example codes to use
-
-* A anenometer (you already have a very close example [here](https://github.com/ecosensors/EcoAnemo))
-* A pyranometer
-* A rain gauge
-* A drop counter for watering crops
-* A waterproof DS18B20 Digital temperature sensor
-* A barometer
-* A Waternark sensors to better plan crop irrigation
 
 ## License
 EcoBoard © 2022 by Pierre Amey is licensed under CC BY-NC-SA 4.0
