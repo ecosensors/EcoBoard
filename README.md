@@ -105,8 +105,8 @@ See a SD example with [bme280](https://github.com/ecosensors/EcoBoard/tree/main/
 
 
 
-## GPIO I/O expander port (PCF8574) and 1-Wire
-EcoBoarduse 6 additonal GPIO with the PCF8574 ([Datasheeet](https://www.ti.com/product/PCF8574) ). The outputs P1 to P6, controls other devices or LEDs. However, as the outputs can only provide 25mA, in some cases, this power may not be sufficient. It's the reason why, we added three MOSFET-P (IRML2244) on the outputs P0, P1, P2 and P3. 
+## GPIO I/O expander port (PCF8574)
+EcoBoard uses 6 additonal GPIO with the PCF8574 ([Datasheeet](https://www.ti.com/product/PCF8574) ). The outputs P1 to P6, controls other devices or LEDs. However, as the outputs can only provide 25mA, in some cases, this power may not be sufficient. It's the reason why, we added three MOSFET-P (IRML2244) on the outputs P0, P1, P2 and P3. 
 
 ![mosfet IRML2244](assets/mosfet.jpg)
 
@@ -344,15 +344,25 @@ Pin | Output
 ## Jumpers
 
 ### JP0 thus JP4
-Allow you to choose to have either a 4.7kOhm pull-up or pull-down resitance, on A0, A1, A2, A3, or A4
+
+![j0](assets/j0.jpg)
+
+By default, the analog input are not wired to a 4.7kOhm (pullup/pulldown). However, You can choose to pull up or pull down (4.7kOhm) the input by soldering the jumpers JP0 to JP5, on A0, A1, A2, A3, or A4
 (Default: all open)
+
+
 
 ### JP_0 thus JP_4
-Allow you to choose to power the devise, either with a permanent 3.3V or with the MOSFET-P controlled by the PCF8574
-(Default: all open)
+![JP_1](assets/jp_1.jpg)
+
+All devices connected to 1 to 4 can be permanently powered with VCC by changing the jumper JP_1 to JP_4
+The jumpers ARE NOT SOLDERED. You have to solder the jumpers, either to Px or 3V3
+
+You can also read the section [GPIO I/O expander port (PCF8574)](https://github.com/ecosensors/EcoBoard/tree/master?tab=readme-ov-file#gpio-io-expander-port-pcf8574-and-1-wire)
+
 
 ### JP5 (AREF)
-Open by default. Close is to connect HREF to 3V3
+Close is to connect HREF to 3V3
 (Default: open)
 
 
