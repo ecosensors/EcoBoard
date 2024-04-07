@@ -464,4 +464,4 @@ void loop() {
 A detailed example can be found here [expander-1wire](https://github.com/ecosensors/EcoBoard/tree/master/examples/expander-1wire)
 
 ## License
-EcoBoard © 2022 by Pierre Amey is licensed under CC BY-NC-SA 4.0
+EcoBoard © 2024 by Pierre Amey is licensed under CC BY-NC-SA 4.0
