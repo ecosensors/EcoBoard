@@ -247,7 +247,7 @@ The ATSAMD21G18 column indicates the connection to the µController.
 ![lora](assets/lora.jpg)
 
 Pin | ATSAMD21G18 (GPIO) | EcoLora | EcoGprs | ATSAMD21G18 (GPIO)
---- | --- | -- | --
+--- | --- | -- | -- | --
 1 | 3V3 | 3V3 | 3V3 | 3V3
 2 | NC | NC | VIO (3V3) | NC 
 3 | 16 (D0) RX | NC | Tx | 16 (D0) RX
@@ -264,7 +264,7 @@ Pin | ATSAMD21G18 (GPIO) | EcoLora | EcoGprs | ATSAMD21G18 (GPIO)
 14 | NC | NC | NC | NC
 15 | 27 (D10) | IRQ | RST | 27 (D10)
 16 | NC | NC | NC | NC
-17 | 19 (MOSI) MOSI | NC | 19 (MOSI)
+17 | 19 (MOSI) | MOSI | NC | 19 (MOSI)
 18 | 28 (D12) | DIO_2 | KEY | 28 (D12)
 19 | 25 (D11) | DIO_1 | RI | 25 (D11)
 20 | 24 (D5) | CS | NC | 24 (D5)
