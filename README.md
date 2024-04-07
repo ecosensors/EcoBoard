@@ -163,7 +163,7 @@ Change P0, P1, P2, P3 or P4 to LOW state to power the sensor and HIGH to unpower
 Pin | Output
 --- | ---
 1 | GND
-2 | PWD0
+2 | P0 or 3V3
 3 | A0 
 
 ### Header J1
@@ -171,7 +171,7 @@ Pin | Output
 Pin | Output
 --- | ---
 1 | GND
-2 | PWD1
+2 | P1 or 3V3
 3 | A2 
 
 ### Header J2
@@ -179,7 +179,7 @@ Pin | Output
 Pin | Output
 --- | ---
 1 | GND
-2 | PWD2
+2 | P2 or 3V3
 3 | A2 
 
 ### Header J3
@@ -187,7 +187,7 @@ Pin | Output
 Pin | Output
 --- | ---
 1 | GND
-2 | PWD3
+2 | P3 or 3V3
 3 | A3 
 
 ### Header J4
@@ -195,7 +195,7 @@ Pin | Output
 Pin | Output
 --- | ---
 1 | GND
-2 | PWD4
+2 | P4
 3 | A4
 
 ### Header J5 (UART)
@@ -238,9 +238,9 @@ Pin | Output
 2 | POWER
 
 
-
-
 ### Header J9 (EcoLora V3 input)
+Picture coming soon)
+
 At J9, you can use and connect the EcoLora V3 board. The GSM board is not ready yet.
 The ATSAMD21G18 column indicates the connection to the µController. 
 
@@ -268,6 +268,9 @@ Pin | LoRaWAN | GSM | ATSAMD21G18
 20 | CS | NC | D5 (24)
 
 ### Header J10 (NTC)
+Connects the thermistor input to ground when not in use. To use a thermistor, carefully cut the THERM jumper connection and connect a 10kΩ NTC thermistor in the battery pack to the THERM pin. The thermistor should also be connected to the negative lead of the battery pack.
+
+![ntc](assets/ntc.jpg)
 
 Pin | Output
 --- | ---
