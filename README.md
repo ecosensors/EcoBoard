@@ -34,6 +34,8 @@ I provide some [examples](https://github.com/ecosensors/EcoBoard/tree/master/exa
 ### LoRaWAN
 You can connect the EcoLora V3 borad built with a RFM95 [LoRaWWAN](https://en.wikipedia.org/wiki/LoRa#LoRaWAN) radio module for Europe (868Mhz).
 
+![EcoLora V3](assets/lorawan.jpg)
+
 Example will come later for Arduino
 
 For now, you have an example with a Raspberry, Python and TTN [here](https://github.com/ecosensors/ecoradio#rfm95-radio-lorawan)
