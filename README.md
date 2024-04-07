@@ -6,7 +6,7 @@ You can connect a LoRaWAN module to send the data to a LoRaWAN Gateway.
 
 We added several useful features
 * LoRaWAN RFM69/9x (868Mhz) module (Option)
-* GSM/GPS (SIM808) module (option)
+* GPRS/GPS (SIM808) module (option)
 * Solar panel input
 * 1Kb EEPROM
 * A MicroSD card
