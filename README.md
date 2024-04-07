@@ -1,9 +1,9 @@
-# EcoBoard
+# EcoBoard v3
 
 EcoBord V3 is a new microcontroler based on the processor ATSAMD21G18 ARM Cortex M0 at 48Mhz with 3V3 logic, as the Arduino Zero.
 The chip has **256K of FLASH and 32K of RAM**. It's fully compatible with Arduino and Adafruit libraries.
 
-We add several useful features
+We addee several useful features
 * LoRaWAN RFM69/9x (868Mhz) module (Option)
 * GSM/GPS (SIM808) module (option)
 * Solar panel input
@@ -25,10 +25,10 @@ We add several useful features
 
 
 ## Examples
-I provide some [examples](https://github.com/ecosensors/EcoBoard?tab=readme-ov-file#showcases) to quickly start with the EcoBoard. All examples are done for the EcoBoard, but you can easly use it for other Arduino board, with may be, a few modification as the pin definition. Note, the examples are basic and you will probabely improve it for your application. Feel you free to propose correction or improvement, scpecialy if you noticed some errors, or a better way to do. (More examples will be added soon)
+I provided sone showcase atvthe botton to quickly start with the EcoBoard. All examples are done for the EcoBoard, but you can easly use it for other Arduino board, with may be, a few modification as the pin definition. Note, the examples are basic and you will probabely improve it for your application. Feel you free to propose correction or improvement, scpecialy if you noticed some errors, or a better way to do. (More examples will be added soon)
 
 ## LoRaWAN or GPRS/GPS
-### LoRaWAN
+### LoRaWAN (EcoLora)
 You can connect the EcoLora V3 borad built with a RFM95 [LoRaWWAN](https://en.wikipedia.org/wiki/LoRa#LoRaWAN) radio module for Europe (868Mhz).
 
 ![EcoLora V3](assets/lorawan.jpg)
@@ -37,7 +37,7 @@ Example will come later for Arduino
 
 For now, you have an example with a Raspberry, Python and TTN [here](https://github.com/ecosensors/ecoradio#rfm95-radio-lorawan)
 
-### GPRS/GPS
+### GPRS/GPS (EcoGprs)
 The same connector is foresee to have a GPRS/GPS module (SIM808), but this option is still under developpement
 
 ## Solar panel
@@ -126,6 +126,7 @@ P6 | LED D6 | HIGH to turn on the LED (max 25mA)
 The jumpers ARE NOT SOLDERED. You have to solder the jumpers, either to Px or 3V3
 
 All devices connected to 1 to 4 can be permanently powered with VCC by changing the jumper JP_1 to JP_4
+
 ![JP_1](assets/jp_1.jpg)
 
 See an exemple about PCF9574 and 1-Wire sensor [here](https://github.com/ecosensors/EcoBoard/tree/master/examples/expander-1wire)
