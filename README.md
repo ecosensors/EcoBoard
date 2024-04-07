@@ -77,13 +77,13 @@ Jumper | Status
 EN1 | LOW
 EN2 | LOW
 
-500 mA input current limit
+500 mA input current limit (Default)
 Jumper | Status
 --- | ---
 EN1 | HIGH
 EN2 | LOW
 
-1.5A input current limit (Default)
+1.5A input current limit (Should not be used)
 Jumper | Status
 --- | ---
 EN1 | LOW
