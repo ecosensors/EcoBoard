@@ -331,7 +331,7 @@ Pin | Output
 5 | GND
 
 ### Header J13 (debuger/programmer)
-Power Output for the irrigation board
+(I only use it to upload the firmware)
 
 Pin | Output
 --- | ---
