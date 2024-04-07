@@ -292,28 +292,26 @@ Pin | Output
 
 Pin | Output
 --- | ---
-1 | GND
-2 | VBAT
+- | GND
++ | VBAT
 
 ### Byttery holder BT1 (18650)
 
 Pin | Output
 --- | ---
-1 | GND
-2 | VBAT
+- | GND
++ | VBAT
 
 
 ### Header J12 (MicroUSB)
 
 Pin | Output
 --- | ---
-1 | VBUS
+1 | VUSB
 2 | D-
 3 | D+
 4 | NC
 5 | GND
-
-
 
 ### Header J13 (debuger/programmer)
 Power Output for the irrigation board
@@ -324,34 +322,26 @@ Pin | Output
 2 | 3V3
 3 | SWCLK
 4 | SWDIO
-5 | !RESET (You need to clode JP9)
+5 | !RESET (You need to close JP9)
 6 | NC
 
-### Header J14
+### Header J14 (debuger/programmer)
 
 Pin | Output
 --- | ---
 1 | GND
 2 | 3V3
+3 | SWCLK
+4 | SWDIO
 
 ### Header J15
 
 Pin | Output
 --- | ---
 1 | GND
-2 | VBUS (after the Zener diode D4)
-
-
-### Header J16
-
-Pin | Output
---- | ---
-1 | SWCLK
-2 | SWDIO
+2 | VBUS
 
 ## Jumpers
-
-(In progress)
 
 ### JP0 thus JP4
 Allow you to choose to have either a 4.7kOhm pull-up or pull-down resitance, on A0, A1, A2, A3, or A4
