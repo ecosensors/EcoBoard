@@ -457,7 +457,7 @@ Actually, I have some example code for the EcoBoard
 In the very near future, I will provide example codes to use
 
 * A anenometer (you already have a very close example [here](https://github.com/ecosensors/EcoAnemo))
-* A Piranometer
+* A pyranometer
 * A rain gauge
 * A drop counter for watering crops
 * A waterproof DS18B20 Digital temperature sensor
