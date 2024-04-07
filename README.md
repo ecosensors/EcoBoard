@@ -82,10 +82,6 @@ The default charge rate is 1A. To modify from the default value, cut the traces 
 
 ### Input current limit
 
-![Input current limit](assets/input-current-limit.jpg)
-
-
-
 To modify from the default, cut the traces in the jumpers and solder according to the options below
 
 100 mA input current limit 
