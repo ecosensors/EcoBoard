@@ -246,7 +246,7 @@ The ATSAMD21G18 column indicates the connection to the µController.
 
 ![lora](assets/lora.jpg)
 
-Pin | LoRaWAN | GSM | ATSAMD21G18
+Pin | EcoLora | EcoGprs | ATSAMD21G18
 --- | --- | -- | --
 1 | 3V3 | 3V3 | 
 2 | NC | VIO | 
