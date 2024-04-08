@@ -11,7 +11,7 @@ I will double check it later with EcoLora
 #define Ecoboard_h
 
  #include <SdFat.h>			// For SD Card
- #include <SdFatUtil.h>		// For SD Card
+ //#include <SdFatUtil.h>		// For SD Card
 
 #include "Arduino.h"
 
@@ -34,7 +34,7 @@ class Ecoboard{
 		char _sd_pathLog[SD_PATHSIZE];
 		char _logFile[SD_PATHSIZE+FILESIZE];
 		bool _sd_begin();
-		void _sd_showCwd();
+		//void _sd_showCwd();
 		bool _sd_checkCard();
 		int _sd_writeln(char * fileName, char const * text);
 		int _sd_write(const char * fileName, char const * text);
@@ -51,7 +51,7 @@ class Ecoboard{
 		/*
 		* SD Card
 		*/
-		void listFiles(const char * folder);
+		//void listFiles(const char * folder);
 		int sd_init_logFile(int16_t y, int16_t m, int16_t d, int16_t h, int16_t mn, int16_t s);
 		int sd_writeln(char const * text);
 		int sd_write(char const * text);

@@ -4,8 +4,9 @@ Make sure you have the needed libraries in SKETSCHBOOK/Libraries/
 
 Open Arduino IDE, and then go to **Sketch -> Add Library -> Manage Libraries** 
 
-Search and install
+Search and install the following libraries:
 
+* SdFat by Bill Germain
 * Adafruit BME280 Library
 
 The library will install other dependencies:
@@ -24,4 +25,3 @@ GND | GND
 SDA | SDA
 SLC | SLC 
 
-Go ahead with the bme280.ino ;)

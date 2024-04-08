@@ -65,7 +65,7 @@ int Ecoboard::begin()
 */
 bool Ecoboard::_sd_begin()
 {
-    pinMode(_carddetect, INPUT_PULLUP);
+  pinMode(_carddetect, INPUT_PULLUP);
 	Serial.println(F("# Begin SD"));
 	bool isOk = false;  
     do
@@ -249,8 +249,12 @@ int Ecoboard::sd_init_logFile(int16_t y, int16_t m, int16_t d, int16_t h, int16_
     }
   }
   */
+  
 
 }
+/*
+// vwd() bug with the latest version of SdFat
+// I need to update this part
 
 void Ecoboard::listFiles(const char * folder){
   char fileNam[20];
@@ -269,7 +273,7 @@ void Ecoboard::listFiles(const char * folder){
   {
     Serial.print(folder);
     Serial.println(F(":"));
-    if(!_sd.chdir(folder)) // "/GPS/2016/"
+    if(!_sd.chdir(folder))
     {
       Serial.print(F("Could not chdir")); Serial.println(folder);
     }
@@ -277,7 +281,7 @@ void Ecoboard::listFiles(const char * folder){
   
   _sd_showCwd();
     
-  _sd.vwd()->rewind(); // on se remte au debut du repecoire courrant
+  _sd.vwd()->rewind(); // on se remet au debut du repecoire courrant
   while (files.openNext(_sd.vwd(), O_READ))
   {
     files.printFileSize(&Serial);
@@ -299,8 +303,10 @@ void Ecoboard::listFiles(const char * folder){
   Serial.println("listing Files Done!");
 
 };
-
-
+*/
+/*
+// vwd() bug with the latest version of SdFat
+// I need to update this part
 void Ecoboard::_sd_showCwd()
 {
 	char currentDirectory[20]; //Current Work Directory (cwd)
@@ -308,6 +314,7 @@ void Ecoboard::_sd_showCwd()
     Serial.print(F("Current directory: "));
     Serial.println(currentDirectory);
 }
+*/
 
 bool Ecoboard::_sd_checkCard()
 {
@@ -340,6 +347,7 @@ bool Ecoboard::_sd_checkCard()
     
   	return isCardInserted;
 }
+
 
 int Ecoboard::sd_writeln(char const * text)
 {
