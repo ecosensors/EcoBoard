@@ -16,7 +16,7 @@ The library will install other dependencies:
 ## Wire
 
 Board | BME280
---- ] ---
+--- | ---
 3V3 | VCC
 GDN | GND
 SDA | SDA
