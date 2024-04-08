@@ -12,3 +12,12 @@ The library will install other dependencies:
 
 * Adafruit BusIO
 * Adafruit Unified Sensor
+
+## Wire
+
+Board | BME280
+--- ] ---
+3V3 | VCC
+GDN | GND
+SDA | SDA
+SLC | SLC 
