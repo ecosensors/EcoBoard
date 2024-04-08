@@ -1,7 +1,6 @@
 # BME280
 
-## First steps
-Make sure yoz have the two libraries in SKETSCHBOOK/Libraries.
+Make sure you have the needed libraries in SKETSCHBOOK/Libraries/
 
 Open Arduino IDE, and then go to **Sketch -> Add Library -> Manage Libraries** 
 
