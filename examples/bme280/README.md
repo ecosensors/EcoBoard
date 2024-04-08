@@ -18,6 +18,8 @@ The library will install other dependencies:
 Board | BME280
 --- | ---
 3V3 | VCC
-GDN | GND
+GND | GND
 SDA | SDA
 SLC | SLC 
+
+Go ahead with the bme280.ino ;)
