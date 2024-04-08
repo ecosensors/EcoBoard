@@ -31,7 +31,7 @@ All [examples](https://github.com/ecosensors/EcoBoard/tree/master/examples) are 
 Actually, I have some examples code for the EcoBoard
 * How to work with the [EEPROM](https://github.com/ecosensors/EcoBoard/tree/master/examples/eeprom)
 * How to use [the GPIO I/O expander port and a 1Wire sensor](https://github.com/ecosensors/EcoBoard/tree/master/examples/expander-1wire) (DS19B20)
-* How to use [a barometer (BME280) and the SD card](https://github.com/ecosensors/EcoBoard/tree/master/examples/sd-bme280)
+* How to use [a barometer (BME280) ](https://github.com/ecosensors/EcoBoard/tree/master/examples/bme280)
 
 In the very near future, I will provide example codes to use
 
