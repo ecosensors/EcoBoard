@@ -3,9 +3,9 @@
 * That file is underdevelopment.
 *
 * The follwing code can be used without garranty.
-I will double check it later with EcoLora
 *
 */
+
 #include "Arduino.h"
 #include "Ecoboard.h"
 
@@ -15,7 +15,7 @@ Ecoboard::Ecoboard(bool isSdEnable)
 	* SD Card
 	*/
 	_isSdEnable = isSdEnable;
-	_carddetect = 7;
+	_carddetect = 7;                           // pin of the µProcessor (µP) to detect a card
 	_chipselect = 4;
 	
 }
@@ -25,37 +25,43 @@ Ecoboard::Ecoboard(bool isSdEnable)
 */
 int Ecoboard::begin()
 {
+
 	Serial.println(F("*******************"));
 	Serial.println(F("*     Welcome     *"));
 	Serial.println(F("* with EcoSensors *"));
 	Serial.println(F("*******************"));
 	Serial.println("");
 
+
 	/*
 	* Initiate SD card
-	*/
-	if(_isSdEnable)
-  	{
+  * 0 = SD is not ready
+  * 1 = SD is ready
+  * 2 = SD is disable
+  */
+
+	if(_isSdEnable)                            // If Sd is enabled
+  {
 		
-		_isSdReady = _sd_begin();
+		_isSdReady = _sd_begin();               // initiate the SD card
     	
-    	if(_isSdReady == true)
-      	{
-      		Serial.println("(SD card is Ready)" );
-      		return 1;
-    	}
-    	else
-      	{
-      		Serial.println("(SD card is NOT Ready. Check if the card is OK)" );
-      		return 0;
-  		}
+    if(_isSdReady == true)
+    {
+      Serial.println("(SD card is Ready)" );
+      return 1;
+    }
+    else
+    {
+      Serial.println("(SD card is NOT Ready. Check if the card is OK)" );
+      return 0;
   	}
-  	else
-  	{
-    	_isSdReady = false;
-    	Serial.println("(SD card is disable)" );
-    	return 2;
-  	}
+  }
+  else
+  {
+  	_isSdReady = false;
+  	Serial.println("(SD card is disable)" );
+  	return 2;
+  }
 
 }
 
@@ -86,6 +92,7 @@ bool Ecoboard::_sd_begin()
     //listFiles(NULL);
     return isOk;
 }
+
 
 /*
 * 2: SD disable
@@ -249,7 +256,7 @@ int Ecoboard::sd_init_logFile(int16_t y, int16_t m, int16_t d, int16_t h, int16_
     }
   }
   */
-  
+
 
 }
 /*
