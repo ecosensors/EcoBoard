@@ -3,6 +3,10 @@
  * The script is distributed WITHOUT WARRANTY.
  */
 
+ /*
+ * The script is being rewriting
+ */
+
 /* Libraries */
 #include <Ecoboard.h>               // Include the EcoBoard library (lib)
 #include <Wire.h>                   // Need for I2C Bus
