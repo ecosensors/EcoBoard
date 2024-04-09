@@ -14,9 +14,10 @@ Ecoboard::Ecoboard(bool isSdEnable)
 	/*
 	* SD Card
 	*/
-	_isSdEnable = isSdEnable;
-	_carddetect = 7;                           // pin of the µProcessor (µP) to detect a card
-	_chipselect = 4;
+	_isSdEnable = isSdEnable;                  // used to store the status of the card
+  _isSdReady = false;                        // used to check if the card is raedy or not. If the SD crad is not inserted, the value is Not Ready (dalse)
+	_carddetect = 7;                           // used as the MicroSD card CD (card detect)
+	_chipselect = 4;                           // used as the MicroSD card CS (chip select) pin
 	
 }
 
@@ -32,69 +33,56 @@ int Ecoboard::begin()
 	Serial.println(F("*******************"));
 	Serial.println("");
 
+}
 
-	/*
-	* Initiate SD card
-  * 0 = SD is not ready
-  * 1 = SD is ready
-  * 2 = SD is disable
+
+/*
+  * Initiate SD card
+
+  * False = SD is not ready
+  * True = SD is ready
   */
-
-	if(_isSdEnable)                            // If Sd is enabled
-  {
-		
-		_isSdReady = _sd_begin();               // initiate the SD card
-    	
-    if(_isSdReady == true)
+bool Ecoboard::_sd_begin()
+{
+  pinMode(_carddetect, INPUT_PULLUP);                           // Define the pin mode
+	Serial.println(F("# Begin SD"));
+ 
+  byte c=1;                                                     // used to count the lopp in the next do{}
+  do
+  { 
+    if (!_sd.begin(_chipselect))                                // Begin and check the SD card
     {
-      Serial.println("(SD card is Ready)" );
-      return 1;
+      Serial.println(F("Attending to detect the SD card"));
+      isSdReady = false;                                        // Must remind false
+      c++;                                                      // Increment the lopping count
+      delay(1000);                                              // Give a delay of 1 sec
     }
-    else
+    else                                                        // the cond return true
     {
-      Serial.println("(SD card is NOT Ready. Check if the card is OK)" );
-      return 0;
-  	}
+      isSdReady = true;                                         // The SD is ready, then change the value of isSdReady to true
+    }
+  }while(isSdReady == false && c < 4);                          // If the isSdReady is always False, loop only 3 timne then, exit and continue
+  
+  if(_isSdReady == false)                                       // If the card is not ready
+  {
+    _isSDenable = false;                                        // Consider the card as disabke
+    _logger = false;                                            // No log into the card is possible
+
+    return _isSdReady;
   }
   else
   {
-  	_isSdReady = false;
-  	Serial.println("(SD card is disable)" );
-  	return 2;
+    _sd.chdir();                                                // If the card is ready, chdir to the root
   }
 
+  return _isSdReady;
 }
 
 
 /*
-* SD Card
-*/
-bool Ecoboard::_sd_begin()
-{
-  pinMode(_carddetect, INPUT_PULLUP);
-	Serial.println(F("# Begin SD"));
-	bool isOk = false;  
-    do
-    { 
-    	if (!_sd.begin(_chipselect))
-    	{
-      		Serial.println(F("No card SD"));
-        	isOk = false;
-        	delay(1000);
-      	}
-    	else
-    	{
-        	isOk = true;
-      	}
-    }while(isOk == false);
-    _sd.chdir();
-    //DEBUG_L
-    //listFiles(NULL);
-    return isOk;
-}
-
-
-/*
+* Init the card to log the activities of the board
+* You need a RTC clock
+*
 * 2: SD disable
 * 1: OK
 * 0: Failed chdir root
@@ -322,6 +310,7 @@ void Ecoboard::_sd_showCwd()
     Serial.println(currentDirectory);
 }
 */
+
 
 bool Ecoboard::_sd_checkCard()
 {
