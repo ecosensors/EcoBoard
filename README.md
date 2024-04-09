@@ -5,7 +5,7 @@ The chip has **256K of FLASH and 32K of RAM**. It's fully compatible with Arduin
 You can connect a LoRaWAN module to send the data to a LoRaWAN Gateway.
 
 We added several useful features
-* LoRaWAN RFM69/9x (868Mhz) hat (Option)
+* LoRaWAN RFM69/9x (868Mhz) hat
 * GPRS/GPS (SIM808) hat (nest future)
 * a RTC clock hat (near future)
 * a 128x64 OLED screen hat (near future)
