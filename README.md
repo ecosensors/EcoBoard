@@ -28,9 +28,9 @@ We added several useful features
 
 
 ## Examples
-All [examples](https://github.com/ecosensors/EcoBoard/tree/master/examples) are done for the EcoBoard, but you can easly use it for other Arduino board, with may be, a few modification.
+[10.4.2024] I am actually rewriting the exemple code for the SD card and I am reviewing the other examples
 
-Note: I am actually rewriting the code for the SD card
+All [examples](https://github.com/ecosensors/EcoBoard/tree/master/examples) are done for the EcoBoard, but you can easly use it for other Arduino board, with may be, a few modification.
 
 Actually, I have some examples code for the EcoBoard
 * How to work with the [EEPROM](https://github.com/ecosensors/EcoBoard/tree/master/examples/eeprom)
