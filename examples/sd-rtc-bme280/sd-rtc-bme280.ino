@@ -44,12 +44,12 @@ void setup(void)
   Serial.println("---------------------------------");
   Serial.println("");
 
-  Eco.begin();                     // Begin the EcoBoard library
+  Eco.begin();                      // Begin the EcoBoard library
 
   /* 
   * RTC 
   */
-  if(!rtc.begin())                  // Start Real Time Clock (RTC)
+  if(rtc.begin() && isRTCEnable)                    // Start Real Time Clock (RTC)
   {
     Serial.println(F("OK RTC Clock"));
 
@@ -77,78 +77,97 @@ void setup(void)
   /* 
   * SD Card
   */
-  if(Eco.sd_begin())                                              // Initiate the SD card
+  if(Eco.sd_begin() && isSdEnable)                                              // Initiate the SD card
   {  
     Serial.println(F("OK SD Card"));
   }
   else
   {
-    Serial.println(F("KO SD could not be initiazed or is inactive"));          // Errors here is mostly due to the SD card. Is it inserted?
+    Serial.println(F("KO SD could not be initiazed"));          // Errors here is mostly due to the SD card. Is it inserted?
+    Serial.println(F(".. Is the SD card enabled"));
     Serial.println(F(".. Did you insert a card?"));
     isSdEnable = false;
   }
   
   
   /*
-  * Initiate BME280 sensor
+  * BME280 sensor
   */
+  bool status;
+  status = bme.begin();           // The default address is 0x77
+  // status = bme.begin(0x76);    // You can change the I2C addresss as the following
 
-  Serial.println(F("Init BME280"));
-    bool status;
-    status = bme.begin(); // 0x77 (default addr)
-    // You can change the I2C addresss as the following: 
-    // bme.begin(0x76)
-    if (!status) {
-      Serial.println(F("BME280 FAILED!"));
-      Serial.println(F("Could not find a valid BME280 sensor, check wiring!"));
-      while (1);
-    }
-    else
-    {
-      // For different settings, see advancedsetting.ino file in BME280 library examples
-      Serial.println(F("\tforced mode, 1x temperature / 1x humidity / 1x pressure oversampling,"));
-      Serial.println(F("\tfilter off"));
+  if (!status) {
+    Serial.println(F("KO BME280 FAILED!"));
+    Serial.println(F(".. Check wiring or the sensor address"));
+    while (1);                    // Stop the script
+  }
+  else
+  {
+    Serial.println(F("OK BME280"));
+    // For different settings, see advancedsetting.ino file in BME280 library examples
+    Serial.println(F(".. forced mode, 1x temperature / 1x humidity / 1x pressure oversampling,"));
+    Serial.println(F(".. filter off"));
       bme.setSampling(Adafruit_BME280::MODE_FORCED,
         Adafruit_BME280::SAMPLING_X1, // temperature
         Adafruit_BME280::SAMPLING_X1, // pressure
         Adafruit_BME280::SAMPLING_X1, // humidity
         Adafruit_BME280::FILTER_OFF);
-        //,
-        //Adafruit_BME280::STANDBY_MS_1000
-
-      Serial.println(F("BME280 DONE!"));
-      Serial.println(F(""));
   }
-  Serial.println(F("Start measuring!"));
-  Serial.println(F("==============="));
-  Eco.sd_writeln("START MEASURING");
+
+  Serial.println(F(""));
+  Serial.println(F("LET'S GO!"));
 }
  
 void loop(){
-  // Interval with ATSAMD21 clock
-  if (millis() > scheduler)
+  
+  if (millis() > scheduler)             // Interval with ATSAMD21 clock
   {
-    scheduler = millis() + INTERVAL;
+    scheduler = millis() + INTERVAL;    // schedule take the millis of the moment + the INTERVAL defined above
 
+    /* Get the values from the barometer */
+    int temp = 0;
+    int pressure = 0;
+    int alt = 0;
+    int humidity = 0;
     // Only needed in forced mode! In normal mode, you can remove the next line.
-    bme.takeForcedMeasurement(); // has no effect in normal mode
-    Serial.print(F("Temperature = "));
-    Serial.print(bme.readTemperature());
+    bme.takeForcedMeasurement();        // has no effect in normal mode
+
+    temp = bme.readTemperature();
+    Serial.print(F("Temperature\t"));
+    Serial.print(temp);
     Serial.println(F(" *C"));
   
-    Serial.print(F("Pressure = "));
-  
-    Serial.print(bme.readPressure() / 100.0F);
+    pressure = bme.readPressure() / 100.0F;
+    Serial.print(F("Pressure\t"));
+    Serial.print(pressure);
     Serial.println(F(" hPa"));
   
-    Serial.print(F("Approx. Altitude = "));
-    Serial.print(bme.readAltitude(SEALEVELPRESSURE_HPA));
+    alt = bme.readAltitude(SEALEVELPRESSURE_HPA);
+    Serial.print(F("Altitude\t"));
+    Serial.print(alt);
     Serial.println(F(" m"));
   
-    Serial.print(F("Humidity = "));
-    Serial.print(bme.readHumidity());
+    humidity = bme.readHumidity();
+    Serial.print(F("Humidity\t"));
+    Serial.print(humidity);
     Serial.println(F(" %"));
 
-   
+    /* Get the time */
+    DateTime now = rtc.now();
+    y = now.year();
+    y = y-2000;
+    m = now.month();
+    d = now.day();
+    h = now.hour();
+    mn = now.minute();
+    s = now.second();
+    sprintf(date_time,"%i-%i-%i %i:%i:%i",y,m,d,h,mn,s); // Save the value into date_time
+
+
+    /*
+    * Developpement in progress
+    */
+
   } 
 }
