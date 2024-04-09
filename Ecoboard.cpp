@@ -1,6 +1,6 @@
 /*
 * EcoBoard © 2022 by Pierre Amey is licensed under CC BY-NC-SA 4.0
-* That file is underdevelopment.
+* That file is under development.
 *
 * The follwing code can be used without garranty.
 *
@@ -9,64 +9,68 @@
 #include "Arduino.h"
 #include "Ecoboard.h"
 
-Ecoboard::Ecoboard(bool isSdEnable)
+Ecoboard::Ecoboard(bool isSdEnable, bool isRTCEnable, bool rebug)
 {
-	/*
-	* SD Card
-	*/
+	// GENERAL
+  _debug;
+  _isRTCEnable = isRTCEnable;                 // used to store the RTS status
 	_isSdEnable = isSdEnable;                  // used to store the status of the card
   _isSdReady = false;                        // used to check if the card is raedy or not. If the SD crad is not inserted, the value is Not Ready (dalse)
-	_carddetect = 7;                           // used as the MicroSD card CD (card detect)
-	_chipselect = 4;                           // used as the MicroSD card CS (chip select) pin
 	
+  // SD CARD
+  _carddetect = 7;                           // used as the MicroSD card CD (card detect)
+	_chipselect = 4;                           // used as the MicroSD card CS (chip select) pin
 }
 
-/*
-* 1 : SD Cad OK
-*/
-int Ecoboard::begin()
-{
 
+void Ecoboard::begin()
+{
 	Serial.println(F("*******************"));
 	Serial.println(F("*     Welcome     *"));
 	Serial.println(F("* with EcoSensors *"));
 	Serial.println(F("*******************"));
 	Serial.println("");
 
+  if(!_isSdEnable)
+    Serial.println(F("SD is disable"));
+  if(!_isRTCEnable)
+    Serial.println(F("RTC is disable"));
 }
 
 
 /*
-  * Initiate SD card
-
-  * False = SD is not ready
-  * True = SD is ready
-  */
-bool Ecoboard::_sd_begin()
+* INITIALIZE THE SD CARD
+*
+* False = SD is not ready
+* True = SD is ready
+*/
+bool Ecoboard::sd_begin()
 {
   pinMode(_carddetect, INPUT_PULLUP);                           // Define the pin mode
-	Serial.println(F("# Begin SD"));
+	if (_debug)
+      Serial.println(F("# Begin SD"));
  
-  byte c=1;                                                     // used to count the lopp in the next do{}
+  byte c=1;                                                     // used to count the attend to start the SD crard
   do
   { 
-    if (!_sd.begin(_chipselect))                                // Begin and check the SD card
+    if (!_sd.begin(_chipselect))                                // INITIALIZE and check the SD card
     {
-      Serial.println(F("Attending to detect the SD card"));
-      isSdReady = false;                                        // Must remind false
+      if(_debug)
+        Serial.println(F("..Attending to detect the SD card"));
+      _isSdReady = false;                                       // The status must remind false
       c++;                                                      // Increment the lopping count
       delay(1000);                                              // Give a delay of 1 sec
     }
     else                                                        // the cond return true
     {
-      isSdReady = true;                                         // The SD is ready, then change the value of isSdReady to true
+      _isSdReady = true;                                         // Change the status. The SD is ready, then change the value of _isSdReady to true
     }
-  }while(isSdReady == false && c < 4);                          // If the isSdReady is always False, loop only 3 timne then, exit and continue
+  }while(_isSdReady == false && c < 4);                          // If the _isSdReady is always False, loop only 3 timne then, exit and continue
   
   if(_isSdReady == false)                                       // If the card is not ready
   {
-    _isSDenable = false;                                        // Consider the card as disabke
-    _logger = false;                                            // No log into the card is possible
+    _isSdEnable = false;                                        // Consider the card as disabke
+    //_logger = false;                                          // No log into the card is possible
 
     return _isSdReady;
   }
@@ -113,8 +117,8 @@ int Ecoboard::sd_init_logFile(int16_t y, int16_t m, int16_t d, int16_t h, int16_
   snprintf(min,3,"%i",mn);
   snprintf(sec,3,"%i",s);
 
-
-  Serial.println(F("Prepare the log file..."));
+  if(_debug)
+    Serial.println(F("Prepare the log file..."));
 
   if(!_sd.chdir())
   {
@@ -334,7 +338,7 @@ bool Ecoboard::_sd_checkCard()
   	}
   
   	if(isCardInserted == false)
-    	_sd_begin();
+      sd_begin();
 
   	isCardInserted = true;
   	// Serial.println(F("Sd card inserted"));

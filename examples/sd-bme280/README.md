@@ -4,7 +4,6 @@ In this exercice, you will see how to use a RTC clock (DS3231), a SD card and ba
 
 You are going to take some measures with BME280 sensor and you are going to log the value into a SD card with date and the time. The log files will order into folders '/2024/04/10/log.txt'
 
-
 If you do not have a RTC clock, you will be able to inactive it and save the measures into the SD card without the time. The log file will order one folders '/log/log.txt'.
 
 ## Libraries
@@ -29,10 +28,10 @@ Close the Arduino IDE and reopen it.
 
 ## Wire
 
-Board | BME280
---- | ---
-3V3 | VCC
-GND | GND
-SDA | SDA
-SLC | SLC 
+Board | BME280 | RTC
+--- | --- | ---
+3V3 | VCC | VCC
+GND | GND | GND
+SDA | SDA | SDA
+SLC | SLC | SLC
 
