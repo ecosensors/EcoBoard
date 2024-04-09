@@ -1,4 +1,4 @@
-# BME280
+# RTC / SD / BME280
 
 Make sure you have the needed libraries in SKETSCHBOOK/Libraries/
 
