@@ -28,6 +28,8 @@ Close the Arduino IDE and reopen it.
 
 ## Wire
 
+Connect the BME280 and the RTC boards into the two I2C connectors
+
 Board | BME280 | RTC
 --- | --- | ---
 3V3 | VCC | VCC
