@@ -8,7 +8,7 @@ We added several useful features
 * LoRaWAN RFM69/9x (868Mhz) hat (Option)
 * GPRS/GPS (SIM808) hat (nest future)
 * a RTC clock hat (near future)
-* a 138x64 OLED screen hat (near future)
+* a 128x64 OLED screen hat (near future)
 * Solar panel input
 * 1Kb EEPROM
 * A MicroSD card
