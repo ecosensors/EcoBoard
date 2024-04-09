@@ -1,12 +1,14 @@
 # IoT EcoBoard v3
 
-EcoBord v3 is a new microcontroler based on the processor ATSAMD21G18 ARM Cortex M0 at 48Mhz with 3V3 logic, as the Arduino Zero.
+EcoBord v3 is a microcontroler based on the processor ATSAMD21G18 ARM Cortex M0 at 48Mhz with 3V3 logic, as the Arduino Zero.
 The chip has **256K of FLASH and 32K of RAM**. It's fully compatible with Arduino and Adafruit libraries.
 You can connect a LoRaWAN module to send the data to a LoRaWAN Gateway.
 
 We added several useful features
-* LoRaWAN RFM69/9x (868Mhz) module (Option)
-* GPRS/GPS (SIM808) module (option)
+* LoRaWAN RFM69/9x (868Mhz) hat (Option)
+* GPRS/GPS (SIM808) hat (nest future)
+* a RTC clock hat (near future)
+* a 138x64 OLED screen hat (near future)
 * Solar panel input
 * 1Kb EEPROM
 * A MicroSD card
@@ -27,6 +29,8 @@ We added several useful features
 
 ## Examples
 All [examples](https://github.com/ecosensors/EcoBoard/tree/master/examples) are done for the EcoBoard, but you can easly use it for other Arduino board, with may be, a few modification.
+
+Note: I am actually rewriting the code for the SD card
 
 Actually, I have some examples code for the EcoBoard
 * How to work with the [EEPROM](https://github.com/ecosensors/EcoBoard/tree/master/examples/eeprom)
