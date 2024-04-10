@@ -48,6 +48,7 @@ class Ecoboard{
 	
 
 	public:
+		Ecoboard();
 		Ecoboard(bool isSdEnable, bool isRTCEnable, bool debug);
 		void begin();
 		bool sd_begin();

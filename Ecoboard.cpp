@@ -9,6 +9,11 @@
 #include "Arduino.h"
 #include "Ecoboard.h"
 
+Ecoboard::Ecoboard()
+{
+  Ecoboard(false, false, false);
+}
+
 Ecoboard::Ecoboard(bool isSdEnable, bool isRTCEnable, bool rebug)
 {
 	// GENERAL
@@ -31,9 +36,9 @@ void Ecoboard::begin()
 	Serial.println(F("*******************"));
 	Serial.println("");
 
-  if(!_isSdEnable)
+  if(!_isSdEnable && _debug)
     Serial.println(F("SD is disable"));
-  if(!_isRTCEnable)
+  if(!_isRTCEnable && _debug)
     Serial.println(F("RTC is disable"));
 }
 
