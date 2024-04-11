@@ -21,5 +21,8 @@ The libraries need some dependencies:
 
 * Adafruit BusIO
 
+## Sketch
+**IMPORTANT** It's necessary to change the SPI clock speed `SD_SCK_MHZ(50)` to `SD_SCK_MHZ(12)`
+
 
 Close the Arduino IDE and reopen it.

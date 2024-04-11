@@ -30,6 +30,9 @@ The libraries need some dependencies:
 
 Close the Arduino IDE and reopen it.
 
+## Sketch
+**IMPORTANT** It's necessary to change the SPI clock speed `SD_SCK_MHZ(50)` to `SD_SCK_MHZ(12)`
+
 ## Wire
 
 Connect the BME280 and the RTC boards into the two I2C connectors

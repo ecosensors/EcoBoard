@@ -1,4 +1,4 @@
-/*
+s/*
  * EcoSensors
  *
  * WARNING: This script is presented for informational purposes only and no warranty is given as to its suitability for 
