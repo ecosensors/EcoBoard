@@ -1,10 +1,6 @@
-s/*
+/*
  * EcoSensors
- *
- * WARNING: This script is presented for informational purposes only and no warranty is given as to its suitability for 
- * your environment
- * The script will to be updated and improved following your needs
- *
+ * The script is distributed WITHOUT WARRANTY.
  * 
  * In  that example, we will show you how to quickly start with real Time Clock (RTC) 
  * and the ARDUINOLOWPOWER to save battery. we also will show to wakeup the module with a press button

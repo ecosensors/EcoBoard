@@ -1,4 +1,5 @@
 # RTC and sleep mode
+The script is distributed WITHOUT WARRANTY.
 
 In this exercice, you will see how to use a RTC clock and how to make you board in sleep mode.
 
