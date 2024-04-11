@@ -13,8 +13,19 @@ Open Arduino IDE, and then go to **Sketch -> Add Library -> Manage Libraries**
 Search and install the following libraries:
 
 * RTClib by Adafruit
-* Arduino Low Power by Arduini
+* Arduino Low Power by Arduino
 * RTCZero (depemdemcy for Arduino Low Power )
 
 
 Close the Arduino IDE and reopen it.
+
+## Wire
+
+Connect the BME280 and the RTC boards into the two I2C connectors
+
+Board | RTC
+--- | ---
+3V3 | Vin
+GND | GND
+SDA | SDA
+SLC | SLC
