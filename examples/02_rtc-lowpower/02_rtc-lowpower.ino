@@ -1,21 +1,20 @@
 /*
- * EcoSensors
+ * EcoSensors - RTC and sleep mode
  * The script is distributed WITHOUT WARRANTY.
- * 
+ */
+
+ /* 
  * In  that example, we will show you how to quickly start with real Time Clock (RTC) 
- * and the ARDUINOLOWPOWER to save battery. we also will show to wakeup the module with a press button
+ * and the ARDUINOLOWPOWER to save battery. we will show to wakeup the module with a press button
  * 
  * Do not forget to insert a CR1225 cell coin battery
  * 
  * Feel free to propose improvement
  */
- 
-#include <Ecoboard.h>
-bool isSdEnable = false;    // Disable SD card
-Ecoboard Eco(isSdEnable);
 
-#include <Wire.h>           // Need for I2C Bus
+#include <Wire.h>               // Need for I2C Bus
 
+bool active_sleep_mode = false;  // Avtive or not the sleep mode
 /*
  * LowPower
  */
@@ -57,15 +56,14 @@ int16_t secondes = 00;              // seconds
 
  
 void setup() {
-  // put your setup code here, to run once:
   Serial.begin(9600);
   Wire.begin();  
 
-  delay(8000);
-  Eco.begin();
+  delay(4000);
+  //Eco.begin();
   
-  Serial.println("     ECOBOARD     ");
-  Serial.println(" Rtc & Low power  ");
+  Serial.println("ECOBOARD");
+  Serial.println("Rtc & Low power  ");
   Serial.println("------------------");
   Serial.println("");
   
@@ -73,7 +71,6 @@ void setup() {
   /*
    * RTC
    */
-  Serial.println(F("START RTC"));
 
   if(!rtc.begin())
   {
@@ -81,7 +78,7 @@ void setup() {
     while(true);
   }
 
-  // If it's the first time you run the DS3231
+  // If it's the first time you run the DS3231 to calibrate the clock
   #ifdef RTC_CALIBRATE   
       rtc.adjust(DateTime(annee, mois, jour, heure, minutes, secondes));
       Serial.println(F("The RTC has been calibrated at "));
@@ -146,44 +143,66 @@ void setup() {
   Serial.print(F("Started at: "));
   Serial.println(date_time);
 
-
   /*
    * LOWPOWER
    */
-    pinMode(led, OUTPUT);
-    digitalWrite(led, LOW);
+  pinMode(led, OUTPUT);
+  digitalWrite(led, LOW);
+  if(active_sleep_mode)
     LowPower.attachInterruptWakeup(btn, triggerBtn, RISING);  // Wakeup when btn is pressed
 
    //Uncomment this function if you wish to attach a function dummy when RTC wakes up the chip
    //LowPower.attachInterruptWakeup(RTC_ALARM_WAKEUP, dummy, CHANGE);
-  
+  Serial.println(F(""));
+  if(active_sleep_mode)
+    Serial.print(F("The board is going to sleep for "));
+  else
+    Serial.print(F("The board is going to wait for "));
+  Serial.print(interval);
+  Serial.println(F("sec"));
+  if(active_sleep_mode){
+    Serial.print(F("The board need to wake up each "));
+    Serial.print(timeSleep);
+    Serial.println(F("ms, to check the interval time."));
+    Serial.println(F("To monitor the sleep of the board, the LED #8 will flash once, when the board"));
+    Serial.println(F("wakes up to check the RTC time. When the board wakeup to take some measures"));
+    Serial.print(F("or something else), the LED will flash three times after "));
+    Serial.print(interval);
+    Serial.println(F("sec."));
+  }
+  Serial.println(F("The LED will flash 5 times, if you pressed the button to wake it up"));
+  Serial.println(F(""));
 }
 
 void loop() {
-  Serial.println(F(""));
-  Serial.print(F("The board is going to sleep for "));
-  Serial.print(interval);
-  Serial.println(F("sec"));
-  Serial.println(F("As the board is going to sleep, you will not be able to print to the Serial."));
-  Serial.println(F(""));
-  Serial.print(F("The board need to wake up each "));
-  Serial.print(timeSleep);
-  Serial.println(F("ms, to check the unixtime time."));
-  Serial.println(F("To monitor the asleep of the board, the LED #8 will flash once, when the board"));
-  Serial.println(F("wakes up to check the RTC time, and the LED will flash three times after "));
-  Serial.print(interval);
-  Serial.println(F("sec of interval."));
-  Serial.println(F("Finaly, the LED will flash 5 times, if you pressed the button to wake it up"));
-  Serial.println(F(""));
-  
-  do{  
-    LowPower.sleep(timeSleep);
-    digitalWrite(led, HIGH);
-    delay(100);
-    digitalWrite(led, LOW); 
-  }while(RtcInterval(lastTx,interval, false) == false && flagBtn == false);
 
-  
+  if(active_sleep_mode){
+    Serial.print(F(".. Go to sleep for "));
+    Serial.print(interval);
+    Serial.println(F(" sec"));
+  }else{
+    Serial.print(F(".. Wait for "));
+    Serial.print(interval);
+    Serial.println(F(" sec"));
+  }
+  // If the burron has been press, quit the loop
+  do{
+    if(active_sleep_mode)
+      LowPower.sleep(timeSleep);
+    digitalWrite(led, HIGH);
+    if(active_sleep_mode)
+      delay(100);
+    else
+      delay(1000);
+
+    digitalWrite(led, LOW); 
+    if(!active_sleep_mode)
+      delay(1000);
+      
+  }while(RtcInterval(lastTx,interval, false) == false && flagBtn == false);
+  if(active_sleep_mode)
+    Serial.println(F(".. Wakeup"));
+
   DateTime now = rtc.now();
   lastTx = now.unixtime();
 
@@ -209,10 +228,6 @@ void loop() {
   delay(100);
   digitalWrite(led, LOW); 
 
-  /*
-   * Take some measures :)
-   */
- 
 }
 
 void triggerBtn(){
