@@ -1,27 +1,13 @@
-# BME280
+# EEPROM 74LC01
 
-Make sure you have the needed libraries in SKETSCHBOOK/Libraries/
+In this simple example, you will see how to save and read some text into the EEPROM chip
 
-Open Arduino IDE, and then go to **Sketch -> Add Library -> Manage Libraries** 
+## Libraries
 
-Search and install
-
-* Adafruit BME280 Library
-
-The library will install other dependencies:
-
-* Adafruit BusIO
-* Adafruit Unified Sensor
-
-Close and reopen Arduino IDE
+You do not need any library excepted the Wire.h
+```
+#include <Wire.h>                         // Need for I2C Bus
+```
 
 ## Wire
-
-Board | BME280
---- | ---
-3V3 | VCC
-GND | GND
-SDA | SDA
-SLC | SLC 
-
-Go ahead with the bme280.ino ;)
+You do not need to do anythings as the EEPROM is included into the EcoBoard
