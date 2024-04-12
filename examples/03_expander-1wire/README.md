@@ -16,7 +16,9 @@ You wil see how to turn on/off the two LED connected to the PCF8574 (p5 & P6)
 P4 is used to power the 1-Wire sensor.
 
 ## 1-Wire - Ds18B20 sensor
-We will play with the DS18B20 sensor (Waterproof temperature sensor)
+We will play with the DS18B20 sensor (Waterproof temperature sensor).
+
+You can check the [EcoDs18b20](https://github.com/ecosensors/EcoDs18b20) as well. There is a very interresting section about the compensated temperature value.
 
 ### Datasheet
 * Operating voltage : 3.0 - 5.5VDC
