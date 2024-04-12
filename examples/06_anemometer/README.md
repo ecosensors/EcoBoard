@@ -17,7 +17,7 @@ Close and reopen Arduino IDE
 
 Anemo | Pin | Connector
 --- | --- | --
-Yellwo| VCC | J0
+Yellwo| 3V3 | J0
 Red | GND | J0
 Black | A0 | J0 (Wind spped)
 GREEN | A1 | J1 (Wind direction) with a 4.7K pullup
