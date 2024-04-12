@@ -1,4 +1,4 @@
-# GPIO Port Expander - 1-Wire (DS18B20)
+# GPIO Port Expander & 1-Wire (DS18B20)
 
 This is an example to use PCF8574 (GPIO port expander) with the EcoBoard
 You can easly use that example for an other application, but the code and the explication below are written for
