@@ -1,4 +1,4 @@
-# ECOBOARD - ANEMONETER
+# ECOBOARD - ANEMOMETER
 
 Read the README of the [EcoAnemo library](https://github.com/ecosensors/EcoAnemo), particulary about [the calibration](https://github.com/ecosensors/EcoAnemo?tab=readme-ov-file#calibration) of wind direction sensor.
 
@@ -23,7 +23,7 @@ Black | A0 | J0 (Wind spped)
 GREEN | A1 | J1 (Wind direction) with a 4.7K pullup
 
 ## Sketch
-You can play with the [example file](https://github.com/ecosensors/EcoAnemo/blob/main/examples/calibration.ino) of the EcoAnemo library to calibrate the wind direction sensor. While calibrating the sensor, do not forget update the first colum of the [WDdirection array](https://github.com/ecosensors/EcoAnemo/blob/main/EcoAnemo.h#L24) with the measured values.
+You can play with the [example file](https://github.com/ecosensors/EcoAnemo/blob/main/examples/calibration.ino) of the EcoAnemo library to calibrate the wind direction sensor. While calibrating the sensor, do not forget to update the first colum of the [WDdirection array](https://github.com/ecosensors/EcoAnemo/blob/main/EcoAnemo.h#L24) with the measured values.
 
 
 All should work fine, but feel free to report errors or improvement. :) 
