@@ -36,7 +36,7 @@ Note: The color can be different for some sensors. Look at the datasheet
 
 ## Requirement
 * Solder the Jumper JP_4 to P4 (not to 3V3)
-* Solder the Jumper JP4 to UP (not DOWN) to have a 4.7kOhm pullup resistence on the READ pin (A4)
+* Solder the Jumper JP4 to UP (not DOWN) to have a 4.7kOhm pullup resistance on the READ pin (A4)
 
 ## WIRE
 Connect the sensor to J4
@@ -45,7 +45,7 @@ Connect the sensor to J4
 
 
 * The red wire (POWER) is connected to pin P4 of the PCF8574. It will power the sensor when we need to ake a measure
-* The yellow wire (READ) is connected to A4 of the ATSAM21 microcontroller **With a 4.7K pullup resistence**
+* The yellow wire (READ) is connected to A4 of the ATSAM21 microcontroller **With a 4.7K pullup resistance**
 
 
 ## Libraries
