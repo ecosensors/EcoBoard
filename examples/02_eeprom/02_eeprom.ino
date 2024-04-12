@@ -1,65 +1,57 @@
 /*
- * EcoSensors
+ * EcoSensors - EEPROM
  * 
  * Here is a short and simple example to write and read a char into te EEPROM 24LC
- *
- * WARNING: This script is presented for informational purposes only and no warranty is given as to its suitability for 
- * your environment
- * The script will to be updated and improved following your needs
- *
+ * The script is distributed WITHOUT WARRANTY.
  */
 
-#include <Ecoboard.h>
-bool isSdEnable = false;    // Disable SD card
-Ecoboard Eco(isSdEnable);
-#include <Wire.h>           // Need for I2C Bus
-#define EEPROM_ADDR 0x50    //Address of 24LC256 eeprom chip
-byte pos, pos1, pos2 = 0;   // Position of the text in the EEPROM
-
-unsigned char rdata[100];   // Buffer for text read from the EEPROM
+#include <Wire.h>                         // Need for I2C Bus
+#define EEPROM_ADDR 0x50                  //Address of 24LC01 eeprom chip
+byte pos, pos1, pos2 = 0;                 // Position of the text in the EEPROM
+unsigned char rdata[100];                 // Buffer for text read from the EEPROM
 
 void setup(void)
 {
   Serial.begin(9600);
   Wire.begin();  
 
-  delay(8000);
-
-  Eco.begin();
+  delay(3000);                            // give a delay to open the terminaé
   
-  Serial.println("     ECOBOARD     ");
-  Serial.println("      EEPROM      ");
-  Serial.println("------------------");
+  Serial.println("ECOBOARD - EEPROM");
+  Serial.println("-----------------");
   Serial.println("");
-  Serial.println(F("Simple example with 74LC"));
+  Serial.println(F("A simple example with a 74LC"));
  
   char str_data[]={"Hello World!"}; 
-  Serial.print(F("# Writing at pos ")); Serial.println(pos);
+  Serial.print(F(".. Writing Hello World at pos ")); Serial.println(pos);  // write to the eeprom
   writeEEPROM(EEPROM_ADDR,pos,str_data);                      // (Addr, position, text)
-  Serial.print("# Reading from pos "); Serial.println(pos);
+  Serial.print(".. Reading from pos "); Serial.println(pos);   // Read from the eeprom from a position
   readEEPROM(EEPROM_ADDR, (pos), rdata, strlen(str_data));
+  Serial.print(">> ");
   Serial.write(rdata,strlen(str_data));
   Serial.println("");
   
   char str_data1[]={"How are you?"};
-  pos1 = pos + strlen(str_data);                       // Moving the cursor for the next test
-  Serial.print(F("# Writing at pos ")); Serial.println(pos1);
+  pos1 = pos + strlen(str_data);                              // Moving the cursor to text free position
+  Serial.print(F(".. Writing How are you at pos ")); Serial.println(pos1);
   writeEEPROM(EEPROM_ADDR,pos1,str_data1);
-  Serial.print("# Reading from pos "); Serial.println(pos1);
+  Serial.print(".. Reading from pos "); Serial.println(pos1);
   readEEPROM(EEPROM_ADDR, (pos1), rdata, strlen(str_data1));
+  Serial.print(">> ");
   Serial.write(rdata,strlen(str_data1));
   Serial.println("");
   
   char str_data2[]={"Fine!!"};
-  pos2 = pos1 + strlen(str_data1);
-  Serial.print(F("# Writing at pos ")); Serial.println(pos2);
+  pos2 = pos1 + strlen(str_data1);                            // Moving the cursor to text free position
+  Serial.print(F(".. Writing Fine!! at pos ")); Serial.println(pos2);
   writeEEPROM(EEPROM_ADDR,pos2,str_data2);
-  Serial.print("# Reading from pos "); Serial.println(pos2);
+  Serial.print(".. Reading from pos "); Serial.println(pos2);
   readEEPROM(EEPROM_ADDR, (pos2), rdata, strlen(str_data2));
+  Serial.print(">> ");
   Serial.write(rdata,strlen(str_data2));
-
-
   Serial.println(F(""));
+  Serial.println(F(""));
+  Serial.println(F("That's it"));
 
 }
  
