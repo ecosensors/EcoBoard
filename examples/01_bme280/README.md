@@ -1,6 +1,6 @@
 # BME280
 
-## Librarries
+## Libraries
 
 Make sure you have the needed libraries in SKETSCHBOOK/Libraries/
 
