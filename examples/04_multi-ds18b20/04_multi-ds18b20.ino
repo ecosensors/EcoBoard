@@ -3,26 +3,18 @@
  * 
  * Here we will show you how to use multiple DS18B20 (1-Wire)
  *
- * The script is distributed WITHOUT WARRANTY and it has not been fully tested.
- * The script will to be updated and improved following your needs
+ * THE SCRIPT HAS NOT BEEN FULLY TESTED
+ * The script is distributed WITHOUT WARRANTY
  * 
- * - ATSAMD21G18 ARM Corted MO 48Mhz
- * - 256K Flash
- * - 32 of RAM
- * (Same as Arduino Zero)
- * with 4 1-Wire connectors. 
  * 
  * Connection
  * ==========
  * Red => VCC
  * Blue or black => GND
- * Yellow or white => Signal
- * 
- * Important: additionally, you have to solder a 4.7kHom between the signal and the VCC.
+ * Yellow or white => Signal (You need a 4.7K pullup resistence)
  * 
  * In that exercise, you will have to connect the red wires of the DS18B20 together, 
  * the GND wires (black or Blue) together and the signal (white or yellow) wires together as well. 
- *
  *
  * We connected the signal wire to A5.
  * In order to power the DS18B20 only when we need to take a measure, we connected it the red wire to a pin
