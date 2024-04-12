@@ -33,9 +33,9 @@ We added several useful features
 All [examples](https://github.com/ecosensors/EcoBoard/tree/master/examples) are done for the EcoBoard, but you can easly use it for other Arduino board, with may be, a few modification.
 
 Actually, I have some examples code for the EcoBoard
-* How to work with the [EEPROM](https://github.com/ecosensors/EcoBoard/tree/master/examples/eeprom)
+* How to work with the [EEPROM](https://github.com/ecosensors/EcoBoard/tree/master/examples/02_eeprom)
 * How to use [the GPIO I/O expander port and a 1Wire sensor](https://github.com/ecosensors/EcoBoard/tree/master/examples/expander-1wire) (DS19B20)
-* How to use [a barometer (BME280) ](https://github.com/ecosensors/EcoBoard/tree/master/examples/bme280)
+* How to use [a barometer (BME280) ](https://github.com/ecosensors/EcoBoard/tree/master/examples/01_bme280)
 
 In the very near future, I will provide example codes to use
 
@@ -111,13 +111,11 @@ EN2 | HIGH
 ## EEPROM
 EcoLora has a 1KB EEPROM  (74LC01) to store relatively small amounts of data as keys or parameters.
 
-See simple example [here](https://github.com/ecosensors/EcoBoard/tree/master/examples/eeprom)
+See simple example [here](https://github.com/ecosensors/EcoBoard/tree/master/examples/02_eeprom)
 
 ## SD Card
 
 We add an SD card to log the activities or to save some parameters or other values. The MicroSD card is not provided with the board
-
-See a SD example with [bme280](https://github.com/ecosensors/EcoBoard/tree/main/examples/sd-bme280)
 
 
 

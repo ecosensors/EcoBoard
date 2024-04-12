@@ -1,5 +1,7 @@
 /*
  * EcoSensors
+
+ * The script is distributed WITHOUT WARRANTY.
  * 
  * That file is still a draft
  *
