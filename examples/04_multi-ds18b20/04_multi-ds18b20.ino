@@ -3,8 +3,7 @@
  * 
  * Here we will show you how to use multiple DS18B20 (1-Wire)
  *
- * WARNING: This script is presented for informational purposes only and no warranty is given as to its suitability for 
- * your environment
+ * The script is distributed WITHOUT WARRANTY and it has not been fully tested.
  * The script will to be updated and improved following your needs
  * 
  * - ATSAMD21G18 ARM Corted MO 48Mhz
@@ -106,8 +105,8 @@
    * If you power the DS18B20 with VCC, ignoe this part as well and adapt my script
    */
 
-  #include "PCF8574.h"                  // Required for PCF857
-  PCF8574 expander;
+  #include <Adafruit_PCF8574.h>                  // Required for PCF857
+  Adafruit_PCF8574 expander;
   int ds18b20_pwd = 0;                  // 0 belong to pin P0 of the PCF8574.
                                         // If you do not use a PCF854, replace this value
                                         // with a pin of you microcontroller
