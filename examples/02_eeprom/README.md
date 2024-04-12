@@ -1,7 +1,5 @@
 # BME280
 
-## Librarries
-
 Make sure you have the needed libraries in SKETSCHBOOK/Libraries/
 
 Open Arduino IDE, and then go to **Sketch -> Add Library -> Manage Libraries** 
