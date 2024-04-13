@@ -1,4 +1,5 @@
 # BME280
+The script is distributed WITHOUT WARRANTY
 
 ## Libraries
 
