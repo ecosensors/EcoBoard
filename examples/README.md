@@ -28,3 +28,6 @@ All examples are distributed WITHOUT WARRANTY!
 
 * Developping the GPRS/GPS PCB board to be used with the EcoBoard v3
 
+## License
+EcoBoard © 2024 by Pierre Amey is licensed under CC BY-NC-SA 4.0
+
