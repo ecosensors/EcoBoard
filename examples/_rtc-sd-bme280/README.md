@@ -44,7 +44,8 @@ The libraries need some dependencies:
 Close the Arduino IDE and reopen it.
 
 ## Sketch
-**IMPORTANT** It's necessary to change the SPI clock speed `SD_SCK_MHZ(50)` to `SD_SCK_MHZ(12)`
+* **IMPORTANT** It's necessary to change the SPI clock speed `SD_SCK_MHZ(50)` to `SD_SCK_MHZ(12)`
+* Note: The DS3231 has a default I2C address of 0x68
 
 ## Wire
 
