@@ -20,7 +20,7 @@ All examples are distributed WITHOUT WARRANTY!
 * Pyranometer
 * Sending data over a LoRaWAN soalr Gateway
 
-![EcoBoard with Lora module](../assets/remorque-loarawan-solaire)
+![EcoBoard with Lora module](../assets/remorque-loarawan-solaire.jpg)
 
 * Developping the GPRS/GPS PCB board
 
