@@ -1,13 +1,15 @@
 
 # Examples
 ## Why
-My aim is to bring together 6 years of work on my various embedded system projects on a board and to provide various simple examples to learn how to develop with Arduino based on my own board EcoBoard v3.
+My aim is to bring together 6 years of work on my various embedded system projects on a board and to provide various simple examples to learn how to develop with Arduino based on my own developpement board EcoBoard v3. 
+
+My goal is to write/improve/adjust all of the provided examples for student projects or education purpose.
 
 ![EcoBoard with Lora module](../assets/ecoboard-lora.jpg)
 
 I do this work in my spare time and as a hobby.
 
-The developpement of the exercice are in progress. For now, all exercises preceded by a number (0x_name) are ready.
+The developpement of the exercices are in progress. For now, all exercises preceded by a number (0x_name) are ready.
 
 All examples are distributed WITHOUT WARRANTY!
 
@@ -19,6 +21,7 @@ All examples are distributed WITHOUT WARRANTY!
 * Rain gauge / Watering drop sensors
 * Pyranometer sensor
 * Sending data over a LoRaWAN soalr Gateway
+* All in one exercice!!
 * WATERMARK sensors ([Irrigation of the soil crops](https://eco-sensors.ch/smart-irrigation/))
 
 ![EcoBoard with Lora module](../assets/remorque-loarawan-solaire.jpg)
