@@ -22,7 +22,7 @@ All examples are distributed WITHOUT WARRANTY!
 * Pyranometer sensor
 * Sending data over a LoRaWAN soalr Gateway
 
-![Solar LoRaWAN Gateway {LoRaWAN Gateway powered with solar panels}](../assets/remorque-loarawan-solaire.jpg)
+![Solar LoRaWAN Gateway {caption=LoRaWAN Gateway powered with solar panels}](../assets/remorque-loarawan-solaire.jpg)
 
 * All in one exercice!!
 * WATERMARK sensors ([Irrigation of the soil crops](https://eco-sensors.ch/smart-irrigation/))
