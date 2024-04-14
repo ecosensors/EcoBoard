@@ -18,3 +18,9 @@ All examples are distributed WITHOUT WARRANTY!
 * Play wuth LEDs
 * Rain gauge
 * Pyranometer
+* Sending data over a LoRaWAN soalr Gateway
+
+![EcoBoard with Lora module](../assets/remorque-loarawan-solaire)
+
+* Developping the GPRS/GPS PCB board
+
