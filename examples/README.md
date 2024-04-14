@@ -20,7 +20,7 @@ All examples are distributed WITHOUT WARRANTY!
 * Play with LEDs and monitor LiPO Battery of the board 
 * Rain gauge / Watering drop sensors
 * Pyranometer sensor
-* Sending data over a LoRaWAN soalr Gateway
+* Sending data over a LoRaWAN Gateway powered with solar panels
 
 ![Solar LoRaWAN Gateway {caption=LoRaWAN Gateway powered with solar panels}](../assets/remorque-loarawan-solaire.jpg)
 
