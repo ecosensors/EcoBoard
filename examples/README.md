@@ -23,6 +23,7 @@ All examples are distributed WITHOUT WARRANTY!
 * Sending data over a LoRaWAN Gateway powered with solar panels
 
 ![Solar LoRaWAN Gateway {caption=LoRaWAN Gateway powered with solar panels}](../assets/remorque-loarawan-solaire.jpg)
+*LoRaWAN Gateway powered with solar panels*
 
 * All in one exercice!!
 * WATERMARK sensors ([Irrigation of the soil crops](https://eco-sensors.ch/smart-irrigation/))
