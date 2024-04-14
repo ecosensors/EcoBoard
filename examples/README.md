@@ -15,12 +15,13 @@ All examples are distributed WITHOUT WARRANTY!
 * rtc-sd-bme280
 
 ## Next
-* Play wuth LEDs
-* Rain gauge
-* Pyranometer
+* Play with LEDs and monitor LiPO Battery of the board 
+* Rain gauge / Watering drop sensors
+* Pyranometer sensor
 * Sending data over a LoRaWAN soalr Gateway
+* WATERMARK sensors ([Irrigation of the soil crops](https://eco-sensors.ch/smart-irrigation/))
 
 ![EcoBoard with Lora module](../assets/remorque-loarawan-solaire.jpg)
 
-* Developping the GPRS/GPS PCB board
+* Developping the GPRS/GPS PCB board to be used with the EcoBoard v3
 
