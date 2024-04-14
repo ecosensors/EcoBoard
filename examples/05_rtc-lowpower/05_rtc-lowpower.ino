@@ -38,10 +38,10 @@ int32_t lastTx;                     // Record the time of the last send (unix fo
 char date_time[18];                 //1010-10-10 11:11:11
 
 /*
- * If it's the first time you run the DS3231 or if you want to modify the time 
+ * If it's the first time you run the DS3231 or if you want to modify the time,
  * Uncomment #define RTC_CALIBRATE to calibrate/set the time
- * and define here the time.
- * 1. Upload the script and run your board
+ * and define here the time, below RTC_CALIBRATE
+ * 1. Upload the script and run once the script on your board
  * 2. Sitch off the board
  * 3. Re-comment #define RTC_CALIBRATE
  * 4. Upload the script
@@ -72,9 +72,10 @@ void setup() {
    * RTC
    */
 
+  Serial.println(F("# Start RTC Clock"));
   if(!rtc.begin())
   {
-    Serial.println(F("ERROR: Could not start RTC"));
+    Serial.println(F(".. Could not start RTC"));
     while(true);
   }
 
@@ -200,6 +201,9 @@ void loop() {
       delay(1000);
       
   }while(RtcInterval(lastTx,interval, false) == false && flagBtn == false);
+  DateTime now = rtc.now();
+  lastTx = now.unixtime(); 
+  
   if(active_sleep_mode)
     Serial.println(F(".. Wakeup"));
 

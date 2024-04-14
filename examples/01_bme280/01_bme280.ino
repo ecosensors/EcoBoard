@@ -1,8 +1,7 @@
 /*
  * EcoSensors - BME280 (I2C)
  * 
- * WARNING: This script is presented for informational purposes only and no warranty is given as to its suitability for 
- * your environment
+ * The script is distributed WITHOUT WARRANTY.
  *
  */
 
@@ -10,8 +9,8 @@
 
 /* BME280 */
 #define SEALEVELPRESSURE_HPA (1013.25)
-#include <Adafruit_BME280.h>            // Import the library
-Adafruit_BME280 bme;                    // Create an instence for I2C bus
+#include <Adafruit_BME280.h>            // include the library
+Adafruit_BME280 bme;                    // Create an object
 
 /* Interval */
 int32_t lastMeasure = 0;
@@ -40,7 +39,7 @@ void setup(void)
 
 
   if (!status) {
-    Serial.println(F("# BME280 FAILED!"));
+    Serial.println(F(".. BME280 FAILED!"));
     Serial.println(F("Could not find a valid BME280 sensor, check wiring!"));
     while (1);
   }
