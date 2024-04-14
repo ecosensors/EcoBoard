@@ -21,11 +21,11 @@ All examples are distributed WITHOUT WARRANTY!
 * Rain gauge / Watering drop sensors
 * Pyranometer sensor
 * Sending data over a LoRaWAN soalr Gateway
+
+![Solar LoRaWAN Gateway {LoRaWAN Gateway powered with solar panels}](../assets/remorque-loarawan-solaire.jpg)
+
 * All in one exercice!!
 * WATERMARK sensors ([Irrigation of the soil crops](https://eco-sensors.ch/smart-irrigation/))
-
-![EcoBoard with Lora module](../assets/remorque-loarawan-solaire.jpg)
-
 * Developping the GPRS/GPS PCB board to be used with the EcoBoard v3
 
 ## License
