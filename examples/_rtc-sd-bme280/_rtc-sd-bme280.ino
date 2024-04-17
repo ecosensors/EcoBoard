@@ -23,7 +23,8 @@
 
 /* Global variables */
 bool debug = true;                  // Display the event from the library
-bool debug_rtc = true;              // Used to debug the RtcInterval() function or the print RTC time
+bool debug_rtc = false;             // Used to debug the RtcInterval() function or the print RTC time
+bool debug_sd = false;              // Used to debug the SD writing/reading
 // Interval
 int32_t lastMeasure = 0;
 #define TX_INTERVAL 10            // Define an interval between each loop (seocnds). 
@@ -100,7 +101,7 @@ void setup(void)
   Serial.println("");
 
   /* Begin the BME280 sensor */
-  Serial.println(F("# Init BME280"));
+  Serial.println(F("#  Init BME280"));
   bool status;
   status = bme.begin();                   // 0x77 (default addr)
                                           // You can change the I2C addresss as the following: 
@@ -129,7 +130,7 @@ void setup(void)
   }     
 
   /* Begin the RTC Clock */
-  Serial.println(F("# Start RTC Clock"));
+  Serial.println(F("#  Start RTC Clock"));
   if(!rtc.begin())
   {
     Serial.println(F(".. Could not start RTC"));
@@ -178,7 +179,7 @@ void setup(void)
   unix_time = now.unixtime();               // Save the unix time
 
   // Print the time
-  Serial.println(F("# Time"));
+  Serial.println(F("#  Time"));
   Serial.print(F(">> "));
   Serial.print(y);
   Serial.print(F("/"));
@@ -194,11 +195,11 @@ void setup(void)
   Serial.print(mn);
   Serial.print(F(":"));
   Serial.println(s);
-  Serial.print(F(".. Since midnight 1/1/1970 = "));
+  Serial.print(F("   Since midnight 1/1/1970 = "));
   Serial.println(unix_time);
 
   sprintf(date_time,"%i-%i-%i %i:%i:%i",y,m,d,h,mn,s); // Concatanate into date_time (char)
-  Serial.println(F(",, ISO 8601: "));
+  Serial.print(F(".  ISO 8601: "));
   Serial.println(date_time);
 
   lastTx = unix_time;
@@ -210,12 +211,12 @@ void setup(void)
   byte c=1;                                               // used to count the attend to start the SD crard
   pinMode(carddetect, INPUT_PULLUP);                      // Define the pin mode
 
-  Serial.println(F("# Begin SD"));                                                
+  Serial.println(F("#  Begin SD"));                                                
   do
   { 
-    if (!sd.begin(chipselect))                                // INITIALIZE and check the SD card
+    if (!sd.begin(chipselect, SD_SCK_MHZ(12)))                               // INITIALIZE and check the SD card
     {
-      Serial.println(F("..Attending to detect the SD card"));
+      Serial.println(F(".. Attending to detect the SD card"));
       isSdReady = false;                                       // The status must remind false
       c++;                                                      // Increment the lopping count
       delay(1000);                                              // Give a delay of 1 sec
@@ -228,27 +229,50 @@ void setup(void)
   
   if(!isSdReady)                                          // If the card is not ready
   {
-    Serial.println(F("KO SD could not be initiazed"));    // Errors here is mostly due to the SD card. Is it inserted?
+    Serial.println(F(">> SD could not be initiazed"));    // Errors here is mostly due to the SD card. Is it inserted?
     Serial.println(F(".. Is the SD card enabled"));
     Serial.println(F(".. Did you insert a card?"));
     while(1);                                             // Stop the script
   }
   else
   {
-    Serial.println(F("OK SD Card"));
-    Serial.println(F("\nList of files on the SD.\n"));
-    sd.ls("/", LS_R);
-    sd.chdir();                                                // If the card is ready, chdir to the root
-    Serial.println(F("\nList of files on the SD.\n"));
+    Serial.println(F(">> OK SD Card"));
+    Serial.println(F("\n#. List of files on the SD"));
+    Serial.println(F("--------------------------"));
     sd.ls("/", LS_R);
   }
 
   Serial.println(F(""));
   Serial.println(F("LET'S GO!"));
+  Serial.println(F("================================================================================"));
+
+  lastTx = now.unixtime() - (TX_INTERVAL * 2);          //  Hook to start immediately the measures
+
+  Serial.print(F("Time\t\t\t"));
+  Serial.print(F("Temperature\t"));
+  Serial.print(F("Pressure\t"));
+  Serial.print(F("Aprox Alt.\t"));
+  Serial.println(F("Humidity\t"));
 }
  
 void loop(){
   
+  /*
+  do{
+    // Run the measures here
+    // delay(1000);
+  }while(RtcInterval(lastTx, TX_INTERVAL, false) == false);
+  DateTime now = rtc.now();
+  lastTx = now.unixtime(); 
+  Serial.println(F("Next"));
+  */
+  
+  /* 
+  TODO 
+  if (millis() > scheduler)             // Interval with ATSAMD21 clock
+  {
+     scheduler = millis() + TX_INTERVAL;    // schedule take the millis of the moment + the INTERVAL defined above
+  */
   if(RtcInterval(lastTx, TX_INTERVAL, debug_rtc) == false)
   {
     // We need to wait the next interval until RtcInterval return true
@@ -256,21 +280,39 @@ void loop(){
   }
   else
   {
+    //DateTime now = rtc.now();
+    lastTx = unix_time;               // Save the lastest measures
+
+    sprintf(date_time,"%i-%i-%i %i:%i:%i",y,m,d,h,mn,s); // Concatanate into date_time (char)
+    Serial.print(date_time);
+    Serial.print(F("\t"));
+
+    float f_tem, f_pre, f_alt, f_hum;
+
+    // Only needed in forced mode! In normal mode, you can remove the next line.
+    bme.takeForcedMeasurement(); // has no effect in normal mode
+    f_tem = bme.readTemperature();
+    Serial.print(f_tem, 1);
+    Serial.print(F(" *C \t"));
+    sd_write("log.txt", (int16_t)f_tem, false);
   
-    /*
-    if (millis() > scheduler)             // Interval with ATSAMD21 clock
-    {
-      scheduler = millis() + TX_INTERVAL;    // schedule take the millis of the moment + the INTERVAL defined above
-    */
-    if (sd.exists("Folder1") || sd.exists("Folder1/file1.txt") || sd.exists("Folder1/File2.txt")) {
-      Serial.println(F("Please remove existing Folder1, file1.txt, and File2.txt"));
-    }
+    f_pre = bme.readPressure() / 100.0F;
+    Serial.print(f_pre, 0);
+    Serial.print(F(" hPa\t\t"));
+  
+    f_alt = bme.readAltitude(SEALEVELPRESSURE_HPA);
+    Serial.print(f_alt, 0);
+    Serial.print(F(" m\t\t"));
+    sd_write("log.txt", (int16_t)f_alt, false);
 
-
-
-    /*
-    * Developpement in progress
-    */
+    f_hum = bme.readHumidity();
+    Serial.print(f_hum, 0);
+    Serial.println(F(" %"));
+    sd_write("log.txt", (int16_t)f_hum, true);
+  
+    //if (sd.exists("Folder1") || sd.exists("Folder1/file1.txt") || sd.exists("Folder1/File2.txt")) {
+    //  Serial.println(F("Please remove existing Folder1, file1.txt, and File2.txt"));
+    //}
 
   } 
 }
@@ -293,9 +335,10 @@ bool RtcInterval(int32_t lastTx, int32_t tx_interval, bool debug)
 
   //Serial.println(now.unixtime());
   unix_t = t.unixtime();                    // Save the unix time
+  unix_time = unix_t;
     
   if(debug==true){
-    Serial.println(F("DEBUG"));
+    Serial.println(F("#  DEBUG"));
     Serial.print(F(".. UNIX time: "));
     Serial.print(unix_t);
     Serial.print(F(" - Next Tx: "));
@@ -312,6 +355,52 @@ bool RtcInterval(int32_t lastTx, int32_t tx_interval, bool debug)
   }
   else
   {
+    return false;
+  }
+}
+
+
+//bool sd_write(const char * fileName, const __FlashStringHelper * text, bool ln)
+bool sd_write(const char * fileName, int16_t text, bool ln)
+{
+  return sd_write(fileName, text, ln, false);
+}
+
+// TODO: I am working on this function
+bool sd_write(const char * fileName, int16_t text, bool ln, bool sd_debug)
+{
+  if(sd_debug){
+    Serial.println(F("#  Writing to SD"));
+    Serial.print(F(".. ")); Serial.println(text);
+  }
+
+  File sd_log;  
+
+  sd_log = sd.open(fileName, O_RDWR | O_CREAT | O_AT_END);
+  
+  if(sd_log)
+  {
+    // TODO: Create the folder tree
+    if(ln == true)
+      sd_log.println(text);
+    else
+      sd_log.print(text);
+        
+    sd_log.close();
+    
+    if(sd_debug)
+      Serial.println(F(">> Done!"));
+    
+    return true;
+  }
+  else
+  {
+    if(sd_debug)
+    {
+      Serial.print(F(".. Error opening the file: "));
+      Serial.println(fileName);
+      Serial.println(F(">> KO"));
+    }
     return false;
   }
 }

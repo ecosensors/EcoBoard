@@ -22,7 +22,7 @@ All examples are distributed WITHOUT WARRANTY!
 * Pyranometer sensor
 * Sending data over a LoRaWAN Gateway
 
-![Solar LoRaWAN Gateway {caption=LoRaWAN Gateway powered with solar panels}](../assets/remorque-loarawan-solaire.jpg)
+![Solar LoRaWAN Gateway](../assets/remorque-loarawan-solaire.jpg)
 *LoRaWAN Gateway powered with solar panels*
 
 * All in one exercice!!
