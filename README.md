@@ -33,17 +33,16 @@ We added several useful features
 All [examples](https://github.com/ecosensors/EcoBoard/tree/master/examples) are done for the EcoBoard, but you can easly use it for other Arduino board, with may be, a few modification.
 
 Actually, I have some examples code for the EcoBoard
-* How to work with the [EEPROM](https://github.com/ecosensors/EcoBoard/tree/master/examples/02_eeprom)
-* How to use [the GPIO I/O expander port and a 1Wire sensor](https://github.com/ecosensors/EcoBoard/tree/master/examples/expander-1wire) (DS19B20)
-* How to use [a barometer (BME280) ](https://github.com/ecosensors/EcoBoard/tree/master/examples/01_bme280)
+* How to work with the EEPROM
+* How to use the GPIO I/O expander port and a 1-Wire Digital temperature sensor (DS18B20)
+* How to use a barometer (BME280)
+* How to use a Davis anemometer
 
 In the very near future, I will provide example codes to use
 
-* a anemometer (you already have a very close example [here](https://github.com/ecosensors/EcoAnemo))
 * a pyranometer
 * a rain gauge
 * a drop counter for watering crops
-* a waterproof DS18B20 Digital temperature sensor
 * a barometer
 * a Waternark sensors to better plan crop irrigation
 

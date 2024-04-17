@@ -1,6 +1,6 @@
 # ECOBOARD - ANEMOMETER
 
-Read the README of the [EcoAnemo library](https://github.com/ecosensors/EcoAnemo), particulary about [the calibration](https://github.com/ecosensors/EcoAnemo?tab=readme-ov-file#calibration) of wind direction sensor.
+Read the README of the [EcoAnemo library](https://github.com/ecosensors/EcoAnemo), particulary about [the wiring and the calibration](https://github.com/ecosensors/EcoAnemo?tab=readme-ov-file#calibration) of wind direction sensor.
 
 ## Libraries
 
