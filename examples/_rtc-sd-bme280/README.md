@@ -3,7 +3,9 @@
 > [13.04.204] This example is currently being written.
 > The BME280 and the RTC colck are raedy. I am now writtting the script to log the measure into the SD card.
 
-In this exercice, You are going to log the measures of the temperature, the humidity, altitude and the pressure (BME250) into a SD card. You are going to use a RTC clock chip to log the measure.
+In this exercice, You are going to log the measures of the temperature, the humidity, altitude and the pressure (BME250) into a SD card. The data will be saved in **a JSON format**.
+
+You are going to use a RTC clock chip to log the measure.
 
 The log files will order into folders '/2024/04/10/log.txt'
 
@@ -33,6 +35,7 @@ Search and install the following libraries:
 * SdFat by Bill Germain
 * RTClib by Adafruit
 * Adafruit BME280 Library
+* Arduino_JSON by Arduino
 
 ### Dependencies
 The libraries need some dependencies:
