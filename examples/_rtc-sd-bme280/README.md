@@ -35,7 +35,7 @@ Search and install the following libraries:
 * SdFat by Bill Germain
 * RTClib by Adafruit
 * Adafruit BME280 Library
-* Arduino_JSON by Arduino
+* Arduinojson by Benoit Blanchon
 
 ### Dependencies
 The libraries need some dependencies:
