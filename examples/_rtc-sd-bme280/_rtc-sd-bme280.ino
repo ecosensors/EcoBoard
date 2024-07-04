@@ -1,16 +1,22 @@
 /*
  * EcoSensors - RTC / SD / BME280
  * The script is distributed WITHOUT WARRANTY.
- */
-
- /*
+ *
  * The script is being rewriting
+ *
+ * Feel free to collaborate and share suggestions for improvement
+ *
  */
+ 
+
+ // To calibrate the RTC clock, uncomment //#define RTC_CALIBRATE  and define the date and time
 
 /* Libraries */
 #include <Wire.h>                       // Need for I2C Bus
 #include <Adafruit_BME280.h>            // include the library for the BME280 sensor
 #include <RTClib.h>                     // Include the RTC Clock library
+#include <ArduinoJson.h>                // Include the JSON library
+//#include <ArduinoJson.hpp>              
 
 #include <BufferedPrint.h>
 #include <FreeStack.h>
@@ -24,13 +30,21 @@
 /* Global variables */
 bool debug = true;                  // Display the event from the library
 bool debug_rtc = false;             // Used to debug the RtcInterval() function or the print RTC time
-bool debug_sd = false;              // Used to debug the SD writing/reading
+bool debug_sd = true;              // Used to debug the SD writing/reading
 // Interval
 int32_t lastMeasure = 0;
 #define TX_INTERVAL 10            // Define an interval between each loop (seocnds). 
                                   // Do not use an interval < 1 second
 unsigned long scheduler;          // Used incase RTC is disable
 
+
+/* JSON */
+// The object is created bellow
+//JsonDocument json;
+//String str_json;
+const char * filename = "log.jsonl"; // jsonl stand for JSON Line (or ndJSON): https://jsonlines.org/
+char* output_json;
+size_t outputCapacity;
 
 /* BME280 */
 #define SEALEVELPRESSURE_HPA (1013.25)
@@ -208,16 +222,16 @@ void setup(void)
   /* 
   * SD Card
   */
-  byte c=1;                                               // used to count the attend to start the SD crard
-  pinMode(carddetect, INPUT_PULLUP);                      // Define the pin mode
+  byte c=1;                                                     // used to count the attend to start the SD crard
+  pinMode(carddetect, INPUT_PULLUP);                            // Define the pin mode
 
   Serial.println(F("#  Begin SD"));                                                
   do
   { 
-    if (!sd.begin(chipselect, SD_SCK_MHZ(12)))                               // INITIALIZE and check the SD card
+    if (!sd.begin(chipselect, SD_SCK_MHZ(12)))                  // INITIALIZE and check the SD card
     {
       Serial.println(F(".. Attending to detect the SD card"));
-      isSdReady = false;                                       // The status must remind false
+      isSdReady = false;                                        // The status must remind false
       c++;                                                      // Increment the lopping count
       delay(1000);                                              // Give a delay of 1 sec
     }
@@ -239,8 +253,12 @@ void setup(void)
     Serial.println(F(">> OK SD Card"));
     Serial.println(F("\n#. List of files on the SD"));
     Serial.println(F("--------------------------"));
-    sd.ls("/", LS_R);
+    //sd.ls("/", LS_R);
+
+    checkVolumeWorkingDirectory(); // /log/year/month/day/
+
   }
+while(1);
 
   Serial.println(F(""));
   Serial.println(F("LET'S GO!"));
@@ -253,10 +271,13 @@ void setup(void)
   Serial.print(F("Pressure\t"));
   Serial.print(F("Aprox Alt.\t"));
   Serial.println(F("Humidity\t"));
+
 }
  
 void loop(){
-  
+  Serial.println(F("#  Free Memory"));
+  Serial.print(F(">  "));
+  Serial.println(freeMemory());
   /*
   do{
     // Run the measures here
@@ -275,46 +296,134 @@ void loop(){
   */
   if(RtcInterval(lastTx, TX_INTERVAL, debug_rtc) == false)
   {
-    // We need to wait the next interval until RtcInterval return true
+    /*
+    * We need to wait the next interval until RtcInterval return true
+    * Note: RtcInterval() update the global variables  y,m,d,h,mn,s and unix_time at each loop
+    */
     delay(500);
   }
   else
   {
+    Serial.println(F("#  Creating a JSON object"));
+    JsonDocument ser_json;
+   
     //DateTime now = rtc.now();
     lastTx = unix_time;               // Save the lastest measures
 
     sprintf(date_time,"%i-%i-%i %i:%i:%i",y,m,d,h,mn,s); // Concatanate into date_time (char)
-    Serial.print(date_time);
-    Serial.print(F("\t"));
+    // Serial.print(date_time);
+    // Serial.print(F("\t"));
+    ser_json["time"] = date_time;
 
-    float f_tem, f_pre, f_alt, f_hum;
+    float f_temperature, f_pressure, f_altitude, f_humidity;
 
     // Only needed in forced mode! In normal mode, you can remove the next line.
     bme.takeForcedMeasurement(); // has no effect in normal mode
-    f_tem = bme.readTemperature();
-    Serial.print(f_tem, 1);
-    Serial.print(F(" *C \t"));
-    sd_write("log.txt", (int16_t)f_tem, false);
+    f_temperature = bme.readTemperature();
+    //Serial.print(f_temperature, 1);
+    //Serial.print(F(" *C \t"));
+    ser_json["data"][0]["temperature"] = f_temperature;
   
-    f_pre = bme.readPressure() / 100.0F;
-    Serial.print(f_pre, 0);
-    Serial.print(F(" hPa\t\t"));
+    f_pressure = bme.readPressure() / 100.0F;
+    // Serial.print(f_pressure, 0);
+    // Serial.print(F(" hPa\t\t"));
+    ser_json["data"][1]["pressure"] = f_pressure;
   
-    f_alt = bme.readAltitude(SEALEVELPRESSURE_HPA);
-    Serial.print(f_alt, 0);
-    Serial.print(F(" m\t\t"));
-    sd_write("log.txt", (int16_t)f_alt, false);
-
-    f_hum = bme.readHumidity();
-    Serial.print(f_hum, 0);
-    Serial.println(F(" %"));
-    sd_write("log.txt", (int16_t)f_hum, true);
+    f_altitude = bme.readAltitude(SEALEVELPRESSURE_HPA);
+    // Serial.print(f_altitude, 0);
+    // Serial.print(F(" m\t\t"));
+    ser_json["data"][2]["altitude"] = f_altitude;
   
-    //if (sd.exists("Folder1") || sd.exists("Folder1/file1.txt") || sd.exists("Folder1/File2.txt")) {
-    //  Serial.println(F("Please remove existing Folder1, file1.txt, and File2.txt"));
-    //}
+    f_humidity = bme.readHumidity();
+    // Serial.print(f_humidity, 0);
+    // Serial.println(F(" %"));
+    ser_json["data"][3]["altitude"] = f_humidity;
+    
+    serializeJson(ser_json, output_json, outputCapacity);
+    Serial.println(output_json);
+    sd_write("log.txt", output_json, true);
 
   } 
+}
+
+int gotToVolumeWorkingDirectory()
+{
+  return volumeWorkingDirectory(true);
+}
+
+int checkVolumeWorkingDirectory()
+{
+  return volumeWorkingDirectory(false);
+}
+
+int volumeWorkingDirectory(bool gotToVWD){         //
+  /*
+  The logs are saved into the folder /log/year/month/day/log.jsonl
+  The volumeWorkingDirectory() function  
+  1. checks if the folder where the log are saved, exists, if goToVWD is false
+  2. create the folder where are saved the log, if goToVWD is true
+
+  returned values:
+  -2 = Failed the VWD
+  -1 = Failed to create the volume working directory
+  0 = Can not chdir root
+  1 = the volume working directory exists
+  2 = the volume working directory has been created
+  */
+
+  char sd_pathLog[20];
+
+  DateTime now = rtc.now();
+  int16_t yy = now.year();                           // Save the year
+  int16_t mm = now.month();                          // Save the month
+  int16_t dd = now.day();                            // Save the day
+
+  Serial.println(yy);
+  Serial.println(mm);
+  Serial.println(dd);
+
+  if(sd.chdir()) // go to root
+  {
+    sprintf(sd_pathLog,"/LOG/%i/%i/%i/",yy,mm,dd);
+
+    Serial.print("Path: ");
+    Serial.println(sd_pathLog);
+
+    if(!sd.exists(sd_pathLog))
+    {
+      if(!sd.mkdir(sd_pathLog,true))                      // Create missing parent directories if true
+      {
+        Serial.println(F("Failed to mkdir"));
+        return -0;
+      }
+      else
+      {
+        Serial.print(F(sd_pathLog));
+        Serial.println(F(" has been created"));
+        return 2;
+      }
+    }
+    else
+    {
+      Serial.print(F(sd_pathLog)); 
+      Serial.println(F(" aldeady exist"));
+
+      if(gotToVWD)
+      {
+        if(!sd.chdir(sd_pathLog));
+        {
+          Serial.println(F("Failed to chdir the VWD"));
+          return -2;
+        }
+      }
+      return 1;
+    }
+  }
+  else
+  {
+    Serial.println(F("Could not chdir root"));
+    return -0;
+  }
 }
 
 /*
@@ -360,31 +469,44 @@ bool RtcInterval(int32_t lastTx, int32_t tx_interval, bool debug)
 }
 
 
-//bool sd_write(const char * fileName, const __FlashStringHelper * text, bool ln)
-bool sd_write(const char * fileName, int16_t text, bool ln)
+// Write the value with \n (new line) and no debug
+bool sd_write(const char * fileName, const char * value)
 {
-  return sd_write(fileName, text, ln, false);
+  return sd_write(fileName, value, true, false);
+}
+// Write the value with no debug
+bool sd_write(const char * fileName, const char * value, bool ln)
+{
+  return sd_write(fileName, value, ln, false);
 }
 
 // TODO: I am working on this function
-bool sd_write(const char * fileName, int16_t text, bool ln, bool sd_debug)
+bool sd_write(const char * fileName, const char * value, bool ln, bool sd_debug)
 {
   if(sd_debug){
     Serial.println(F("#  Writing to SD"));
-    Serial.print(F(".. ")); Serial.println(text);
+    Serial.print(F(".. ")); Serial.println(value);
   }
+
+  gotToVolumeWorkingDirectory();
 
   File sd_log;  
 
   sd_log = sd.open(fileName, O_RDWR | O_CREAT | O_AT_END);
   
+  unsigned long pos;
+  sd_log.seek(pos);
+
   if(sd_log)
   {
     // TODO: Create the folder tree
     if(ln == true)
-      sd_log.println(text);
+    {
+      sd_log.print(value);
+      sd_log.print(F("\n"));
+    }
     else
-      sd_log.print(text);
+      sd_log.print(value);
         
     sd_log.close();
     
@@ -403,4 +525,18 @@ bool sd_write(const char * fileName, int16_t text, bool ln, bool sd_debug)
     }
     return false;
   }
+}
+
+/*
+* Print SRAM
+*/
+int freeMemory() {
+  char top;
+  #ifdef __arm__
+    return &top - reinterpret_cast<char*>(sbrk(0));
+  #elif defined(CORE_TEENSY) || (ARDUINO > 103 && ARDUINO != 151)
+    return &top - __brkval;
+  #else  // __arm__
+    return __brkval ? &top - __brkval : &top - __malloc_heap_start;
+  #endif  // __arm__
 }
