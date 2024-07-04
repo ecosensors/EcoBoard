@@ -1,6 +1,7 @@
 /*
  * EcoSensors
  * The script is distributed WITHOUT WARRANTY.
+ * Feel free to collaborate and share suggestions for improvement
  *
  * Read rhe README file for more information about he GPIO port expender and the 1.Wire D18B20 sensor
  */

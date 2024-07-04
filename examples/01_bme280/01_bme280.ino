@@ -2,6 +2,7 @@
  * EcoSensors - BME280 (I2C)
  * 
  * The script is distributed WITHOUT WARRANTY.
+ * Feel free to collaborate and share suggestions for improvement
  *
  */
 

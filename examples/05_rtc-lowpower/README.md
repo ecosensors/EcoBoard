@@ -1,5 +1,6 @@
 # RTC and sleep mode
 The script is distributed WITHOUT WARRANTY.
+Feel free to collaborate and share suggestions for improvement
 
 In this exercice, you will see how to use a RTC clock and how to make you board in sleep mode.
 

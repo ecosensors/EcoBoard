@@ -1,5 +1,6 @@
 # EEPROM 74LC01
 In this simple example, you will see how to save and read some text into the EEPROM chip.
+Feel free to collaborate and share suggestions for improvement
 
 ## Libraries
 

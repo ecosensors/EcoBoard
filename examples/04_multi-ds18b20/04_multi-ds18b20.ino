@@ -5,6 +5,8 @@
  *
  * THE SCRIPT HAS NOT BEEN FULLY TESTED
  * The script is distributed WITHOUT WARRANTY
+ *
+ * Feel free to collaborate and share suggestions for improvement
  * 
  * 
  * Connection

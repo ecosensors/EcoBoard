@@ -3,6 +3,9 @@
  * 
  * Here is a short and simple example to write and read a char into te EEPROM 24LC
  * The script is distributed WITHOUT WARRANTY.
+ *
+ * Feel free to collaborate and share suggestions for improvement
+ *
  */
 
 #include <Wire.h>                         // Need for I2C Bus

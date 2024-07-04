@@ -1,6 +1,7 @@
 /*
  * EcoSensors - RTC and sleep mode
  * The script is distributed WITHOUT WARRANTY.
+ * Feel free to collaborate and share suggestions for improvement
  */
 
  /* 
@@ -9,7 +10,6 @@
  * 
  * Do not forget to insert a CR1225 cell coin battery
  * 
- * Feel free to propose improvement
  */
 
 #include <Wire.h>               // Need for I2C Bus
