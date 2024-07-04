@@ -15,7 +15,7 @@ The exercice has been written ans tested for the EcoBoard, but you can use for a
 
 The examples are distributed WITHOUT WARRANTY
 
-Feel free to collaborate and share suggestions for improvement :)
+**Feel free to collaborate and share suggestions for improvement** :)
 
 
 ## Prequisite
