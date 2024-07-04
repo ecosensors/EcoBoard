@@ -11,7 +11,9 @@
 
  // To calibrate the RTC clock, uncomment //#define RTC_CALIBRATE  and define the date and time
 
-/* Libraries */
+/* 
+* Libraries 
+*/
 #include <Wire.h>                       // Need for I2C Bus
 #include <Adafruit_BME280.h>            // include the library for the BME280 sensor
 #include <RTClib.h>                     // Include the RTC Clock library
@@ -27,7 +29,9 @@
 #include <sdios.h>
 
 
-/* Global variables */
+/* 
+* Global variables 
+*/
 bool debug = true;                  // Display the event from the library
 bool debug_rtc = false;             // Used to debug the RtcInterval() function or the print RTC time
 bool debug_sd = true;              // Used to debug the SD writing/reading
@@ -38,20 +42,27 @@ int32_t lastMeasure = 0;
 unsigned long scheduler;          // Used incase RTC is disable
 
 
-/* JSON */
+/* 
+* JSON 
+*/
 // The object is created bellow
+
 //JsonDocument json;
 //String str_json;
 const char * filename = "log.jsonl"; // jsonl stand for JSON Line (or ndJSON): https://jsonlines.org/
 char* output_json;
 size_t outputCapacity;
 
-/* BME280 */
+/* 
+* BME280 
+*/
 #define SEALEVELPRESSURE_HPA (1013.25)
 Adafruit_BME280 bme;                // Create an object
 
 
-/* RTC Clock */
+/* 
+* RTC Clock 
+*/
 RTC_DS3231 rtc;                    // Create an object
 char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 int16_t y,m,d,h,mn,s;               // Used for RTC time
@@ -76,7 +87,9 @@ int16_t minutes = 42;               // minutes
 int16_t secondes = 00;              // seconds
 
 
-/* SD */
+/* 
+SD card 
+*/
 bool isSdReady = false; 
 const int carddetect = 7;   
 const int chipselect = 4;  
@@ -218,10 +231,7 @@ void setup(void)
 
   lastTx = unix_time;
   
-
-  /* 
-  * SD Card
-  */
+  /* Begin SD Card */
   byte c=1;                                                     // used to count the attend to start the SD crard
   pinMode(carddetect, INPUT_PULLUP);                            // Define the pin mode
 
@@ -250,13 +260,21 @@ void setup(void)
   }
   else
   {
-    Serial.println(F(">> OK SD Card"));
+    //sd.ls("/", LS_R);                                // List the SD card content
     Serial.println(F("\n#. List of files on the SD"));
-    Serial.println(F("--------------------------"));
-    //sd.ls("/", LS_R);
-
-    checkVolumeWorkingDirectory(); // /log/year/month/day/
-
+    if(checkVolumeWorkingDirectory()==1)                  // the volume working directory is /log/year/month/day/
+    {
+      Serial.println(F(".. the VWD exists"));
+    }
+    else if(checkVolumeWorkingDirectory()==2)
+    {
+      Serial.println(F(".. the VWD has been created"));
+    }
+    else
+    {
+      Serial.println(F(".. an error occured will check the VWD"));
+    }; 
+    Serial.println(F(">> OK SD Card"));
   }
 
   Serial.println(F(""));
@@ -277,22 +295,14 @@ void loop(){
   Serial.println(F("#  Free Memory"));
   Serial.print(F(">  "));
   Serial.println(freeMemory());
+
   /*
   do{
     // Run the measures here
     // delay(1000);
   }while(RtcInterval(lastTx, TX_INTERVAL, false) == false);
-  DateTime now = rtc.now();
-  lastTx = now.unixtime(); 
-  Serial.println(F("Next"));
   */
-  
-  /* 
-  TODO 
-  if (millis() > scheduler)             // Interval with ATSAMD21 clock
-  {
-     scheduler = millis() + TX_INTERVAL;    // schedule take the millis of the moment + the INTERVAL defined above
-  */
+
   if(RtcInterval(lastTx, TX_INTERVAL, debug_rtc) == false)
   {
     /*
@@ -307,7 +317,7 @@ void loop(){
     JsonDocument ser_json;
    
     //DateTime now = rtc.now();
-    lastTx = unix_time;               // Save the lastest measures
+    lastTx = unix_time;               // Save the lastest measures (unix_time is updated in RtcInterval())
 
     sprintf(date_time,"%i-%i-%i %i:%i:%i",y,m,d,h,mn,s); // Concatanate into date_time (char)
     // Serial.print(date_time);
@@ -426,7 +436,13 @@ int volumeWorkingDirectory(bool gotToVWD){         //
 }
 
 /*
-* That function calculates the interval according to TX_INTERVAL
+* That function need the RTC module. It calculates the interval according to TX_INTERVAL
+*
+* lastTx is the time when the last measurement is taken
+* tx_interval is the interval between the measurement
+* begug display messages
+*
+* if the different between lastTx and the time being is greater than tx_interval, RtcInterval() return true
 */
 bool RtcInterval(int32_t lastTx, int32_t tx_interval, bool debug)
 { 
@@ -443,7 +459,7 @@ bool RtcInterval(int32_t lastTx, int32_t tx_interval, bool debug)
 
   //Serial.println(now.unixtime());
   unix_t = t.unixtime();                    // Save the unix time
-  unix_time = unix_t;
+  unix_time = unix_t;                       // save the value into the global variable
     
   if(debug==true){
     Serial.println(F("#  DEBUG"));
