@@ -1,15 +1,13 @@
 # RTC / SD / BME280
 
-> [13.04.204] This example is currently being written.
+> [5.06.2024] This example is currently being written.
 > The BME280 and the RTC colck are ready. I am now writtting the script to log the measure into the SD card.
 
 In this exercice, You are going to log the measures of the temperature, the humidity, altitude and the pressure (BME250) into a SD card. The data will be saved in **a JSON format**.
 
-You are going to use a RTC clock chip to log the measure.
+You are going to use a RTC clock chip to log the measures in a regular time into a SD card.
 
-The log files will order into folders '/2024/04/10/log.txt'
-
-If you do not have a RTC clock, you will be able to inactive it and save the measures into the SD card without the time. The log file will order one folders '/log/log.txt'.
+The log files will order into folders '/log/year/month/day/log.jsonl'
 
 The exercice has been written ans tested for the EcoBoard, but you can use for almost all MO and Arduino board.
 
