@@ -258,7 +258,6 @@ void setup(void)
     checkVolumeWorkingDirectory(); // /log/year/month/day/
 
   }
-while(1);
 
   Serial.println(F(""));
   Serial.println(F("LET'S GO!"));
