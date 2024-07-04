@@ -1,5 +1,6 @@
 # BME280
 The script is distributed WITHOUT WARRANTY
+
 Feel free to collaborate and share suggestions for improvement
 
 ## Libraries
