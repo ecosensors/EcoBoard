@@ -20,12 +20,13 @@
 #include <ArduinoJson.h>                // Include the JSON library
 //#include <ArduinoJson.hpp>              
 
-#include <BufferedPrint.h>
 #include <FreeStack.h>
-#include <MinimumSerial.h>
-#include <RingBuf.h>
+
+//#include <BufferedPrint.h>
+//#include <MinimumSerial.h>
+//#include <RingBuf.h>
 #include <SdFat.h>
-#include <SdFatConfig.h>
+//#include <SdFatConfig.h>
 #include <sdios.h>
 
 
@@ -92,9 +93,10 @@ SD card
 */
 bool isSdReady = false; 
 const int carddetect = 7;   
-const int chipselect = 4;  
+const int chipselect = 4;
+char sd_pathLog[20];
 
-#define SD_FAT_TYPE 0               // SD_FAT_TYPE = 0 for SdFat/File as defined in SdFatConfig.h,
+#define SD_FAT_TYPE 3               // SD_FAT_TYPE = 0 for SdFat/File as defined in SdFatConfig.h,
                                     // 1 for FAT16/FAT32, 2 for exFAT, 3 for FAT16/FAT32 and exFAT.
 
 #if SD_FAT_TYPE == 0
@@ -114,8 +116,6 @@ const int chipselect = 4;
   FsFile file;
   FsFile root;
 #endif  // SD_FAT_TYPE
-
-
 
 void setup(void)
 {
@@ -261,12 +261,13 @@ void setup(void)
   else
   {
     //sd.ls("/", LS_R);                                // List the SD card content
-    Serial.println(F("\n#. List of files on the SD"));
-    if(checkVolumeWorkingDirectory()==1)                  // the volume working directory is /log/year/month/day/
+    //Serial.println(F("\n#. List of files on the SD"));
+    
+    if(defineVolumeWorkingDirectory()==1)                  // the volume working directory is /log/year/month/day/
     {
       Serial.println(F(".. the VWD exists"));
     }
-    else if(checkVolumeWorkingDirectory()==2)
+    else if(defineVolumeWorkingDirectory()==2)
     {
       Serial.println(F(".. the VWD has been created"));
     }
@@ -355,6 +356,22 @@ void loop(){
   } 
 }
 
+int defineVolumeWorkingDirectory()
+{
+  DateTime now = rtc.now();
+  int16_t yy = now.year();                           // Save the year
+  int16_t mm = now.month();                          // Save the month
+  int16_t dd = now.day();                            // Save the day
+
+  Serial.println(yy);
+  Serial.println(mm);
+  Serial.println(dd);
+
+  sprintf(sd_pathLog,"/LOG/%i/%i/%i/",yy,mm,dd);
+
+  return volumeWorkingDirectory(false);
+
+}
 int gotToVolumeWorkingDirectory()
 {
   return volumeWorkingDirectory(true);
@@ -365,7 +382,7 @@ int checkVolumeWorkingDirectory()
   return volumeWorkingDirectory(false);
 }
 
-int volumeWorkingDirectory(bool gotToVWD){         //
+int volumeWorkingDirectory(bool gotToVWD){ 
   /*
   The logs are saved into the folder /log/year/month/day/log.jsonl
   The volumeWorkingDirectory() function  
@@ -380,8 +397,7 @@ int volumeWorkingDirectory(bool gotToVWD){         //
   2 = the volume working directory has been created
   */
 
-  char sd_pathLog[20];
-
+  /* DELETE but check and test first defineVolumeWorkingDirectory()
   DateTime now = rtc.now();
   int16_t yy = now.year();                           // Save the year
   int16_t mm = now.month();                          // Save the month
@@ -391,12 +407,15 @@ int volumeWorkingDirectory(bool gotToVWD){         //
   Serial.println(mm);
   Serial.println(dd);
 
+  sprintf(sd_pathLog,"/LOG/%i/%i/%i/",yy,mm,dd);
+  */
+  
+
   if(sd.chdir()) // go to root
   {
-    sprintf(sd_pathLog,"/LOG/%i/%i/%i/",yy,mm,dd);
 
     Serial.print("Path: ");
-    Serial.println(sd_pathLog);
+    Serial.println(sd_pathLog);                           // sd_pathLog is a global variable and defined in defineVolumeWorkingDirectory()
 
     if(!sd.exists(sd_pathLog))
     {
@@ -504,6 +523,8 @@ bool sd_write(const char * fileName, const char * value, bool ln, bool sd_debug)
   }
 
   gotToVolumeWorkingDirectory();
+  if(sd_debug)
+    Serial.println(F(".. chdir the VWD"));
 
   File sd_log;  
 
