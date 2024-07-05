@@ -118,7 +118,7 @@ char sd_pathLog[20];
 void setup(void)
 {
   Serial.begin(9600);
-  delay(5000);                            // Give a delay to open the terminal
+  delay(8000);                            // Give a delay to open the terminal
 
   Serial.println("");
   Serial.println(" ECOBOARD - RTC / SD / BME280");
@@ -233,7 +233,7 @@ void setup(void)
   byte c=1;                                                     // used to count the attend to start the SD crard
   pinMode(carddetect, INPUT_PULLUP);                            // Define the pin mode
 
-  Serial.println(F("#  Begin SD"));                                                
+  Serial.println(F("\r\n#  Begin SD"));                                                
   do
   { 
     if (!sd.begin(chipselect, SD_SCK_MHZ(12)))                  // INITIALIZE and check the SD card
@@ -260,18 +260,18 @@ void setup(void)
   {
     //sd.ls("/", LS_R);                                         // List the SD card content
     //Serial.println(F("\n#. List of files on the SD"));
-    
-    if(defineVolumeWorkingDirectory()==1)                       // the volume working directory is /log/year/month/day/
+    int d = defineVolumeWorkingDirectory();
+    if(d==1)                       // the volume working directory is /log/year/month/day/
     {
       Serial.println(F(".. the VWD exists"));
     }
-    else if(defineVolumeWorkingDirectory()==2)
+    else if(d==2)
     {
       Serial.println(F(".. the VWD has been created"));
     }
     else
     {
-      Serial.println(F(".. an error occured will check the VWD"));
+      Serial.println(F(".. an error occured will checking the VWD"));
     }; 
     Serial.println(F(">> OK SD Card"));
   }
@@ -396,6 +396,7 @@ int volumeWorkingDirectory(bool gotToVWD){
   2. create the folder where are saved the log, if goToVWD is true
 
   returned values:
+  -3 = Failed to mkdir
   -2 = Failed the VWD
   -1 = Failed to create the volume working directory
   0 = Can not chdir root
@@ -422,7 +423,7 @@ int volumeWorkingDirectory(bool gotToVWD){
 
     if(debug)
     {
-      Serial.print("Path: ");
+      Serial.print(".. Path: ");
       Serial.println(sd_pathLog);                                   // sd_pathLog is a global variable and defined in defineVolumeWorkingDirectory()
     }
 
@@ -431,13 +432,13 @@ int volumeWorkingDirectory(bool gotToVWD){
       if(!sd.mkdir(sd_pathLog,true))                              // Create missing parent directories if true
       {
         Serial.println(F(".. Failed to mkdir"));
-        return -0;
+        return -3;
       }
       else
       {
         Serial.print(F(".. "));
         Serial.print(F(sd_pathLog));
-        Serial.println(F(" has been created"));
+        Serial.println(F(" hass been created"));
         return 2;
       }
     }
@@ -467,7 +468,7 @@ int volumeWorkingDirectory(bool gotToVWD){
   else
   {
     Serial.println(F("Could not chdir root"));
-    return -0;
+    return 0;
   }
 }
 
