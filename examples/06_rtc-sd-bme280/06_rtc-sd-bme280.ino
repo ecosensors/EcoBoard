@@ -33,43 +33,41 @@
 /* 
 * Global variables 
 */
-bool debug = true;                  // Display the event from the library
-bool debug_rtc = false;             // Used to debug the RtcInterval() function or the print RTC time
-bool debug_sd = true;              // Used to debug the SD writing/reading
+bool debug = true;                      // Display the event from the library
+bool debug_rtc = false;                 // Used to debug the RtcInterval() function or the print RTC time
+bool debug_sd = true;                   // Used to debug the SD writing/reading
 // Interval
 int32_t lastMeasure = 0;
-#define TX_INTERVAL 10            // Define an interval between each loop (seocnds). 
-                                  // Do not use an interval < 1 second
-unsigned long scheduler;          // Used incase RTC is disable
+#define TX_INTERVAL 10                  // Define an interval between each loop (seocnds). 
+                                        // Do not use an interval < 1 second
+unsigned long scheduler;                // Used incase RTC is disable
 
 
 /* 
 * JSON 
 */
-// The object is created bellow
 
-//JsonDocument json;
-//String str_json;
-const char * filename = "log.jsonl"; // jsonl stand for JSON Line (or ndJSON): https://jsonlines.org/
-char* output_json;
-size_t outputCapacity;
+//JsonDocument json;                    // The object is created bellow
+const char * fileName = "log.jsonl";    // jsonl stand for JSON Line (or ndJSON): https://jsonlines.org/
+//char* output_json;
+//size_t outputCapacity;
 
 /* 
 * BME280 
 */
 #define SEALEVELPRESSURE_HPA (1013.25)
-Adafruit_BME280 bme;                // Create an object
+Adafruit_BME280 bme;                    // Create an object
 
 
 /* 
 * RTC Clock 
 */
-RTC_DS3231 rtc;                    // Create an object
+RTC_DS3231 rtc;                         // Create an object
 char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-int16_t y,m,d,h,mn,s;               // Used for RTC time
-int32_t unix_time;                  // Used for unix time
-int32_t lastTx;                     // Used to record the time of the last measure (unix format)
-char date_time[18];                 //1010-10-10 11:11:11
+int16_t y,m,d,h,mn,s;                   // Used for RTC time
+int32_t unix_time;                      // Used for unix time
+int32_t lastTx;                         // Used to record the time of the last measure (unix format)
+char date_time[18];                     //1010-10-10 11:11:11
 /*
  * If it's the first time you run the DS3231 or if you want to modify the time, 
  * Uncomment #define RTC_CALIBRATE to calibrate/set the time
@@ -79,13 +77,13 @@ char date_time[18];                 //1010-10-10 11:11:11
  * 3. Re-comment #define RTC_CALIBRATE
  * 4. Upload the script
  */
-//#define RTC_CALIBRATE             // Uncomment to calibrate/set the time 
-int16_t annee = 2024;               // year 
-int16_t mois = 4;                   // month
-int16_t jour = 23;                  // day
-int16_t heure = 22;                 // hour
-int16_t minutes = 42;               // minutes
-int16_t secondes = 00;              // seconds
+//#define RTC_CALIBRATE                 // Uncomment to calibrate/set the time 
+int16_t annee = 2024;                   // year 
+int16_t mois = 4;                       // month
+int16_t jour = 23;                      // day
+int16_t heure = 22;                     // hour
+int16_t minutes = 42;                   // minutes
+int16_t secondes = 00;                  // seconds
 
 
 /* 
@@ -96,8 +94,8 @@ const int carddetect = 7;
 const int chipselect = 4;
 char sd_pathLog[20];
 
-#define SD_FAT_TYPE 3               // SD_FAT_TYPE = 0 for SdFat/File as defined in SdFatConfig.h,
-                                    // 1 for FAT16/FAT32, 2 for exFAT, 3 for FAT16/FAT32 and exFAT.
+#define SD_FAT_TYPE 3                   // SD_FAT_TYPE = 0 for SdFat/File as defined in SdFatConfig.h,
+                                        // 1 for FAT16/FAT32, 2 for exFAT, 3 for FAT16/FAT32 and exFAT.
 
 #if SD_FAT_TYPE == 0
   SdFat sd;
@@ -120,7 +118,7 @@ char sd_pathLog[20];
 void setup(void)
 {
   Serial.begin(9600);
-  delay(5000);                      // Give a delay to open the terminal
+  delay(5000);                            // Give a delay to open the terminal
 
   Serial.println("");
   Serial.println(" ECOBOARD - RTC / SD / BME280");
@@ -247,23 +245,23 @@ void setup(void)
     }
     else                                                        // the cond return true
     {
-      isSdReady = true;                                   // Change the status. The SD is ready, then change the value of _isSdReady to true
+      isSdReady = true;                                         // Change the status. The SD is ready, then change the value of _isSdReady to true
     }
-  }while(isSdReady == false && c < 4);                    // If the _isSdReady is always False, loop only 3 timne then, exit and continue
+  }while(isSdReady == false && c < 4);                          // If the _isSdReady is always False, loop only 3 timne then, exit and continue
   
-  if(!isSdReady)                                          // If the card is not ready
+  if(!isSdReady)                                                // If the card is not ready
   {
-    Serial.println(F(">> SD could not be initiazed"));    // Errors here is mostly due to the SD card. Is it inserted?
+    Serial.println(F(">> SD could not be initiazed"));          // Errors here is mostly due to the SD card. Is it inserted?
     Serial.println(F(".. Is the SD card enabled"));
     Serial.println(F(".. Did you insert a card?"));
-    while(1);                                             // Stop the script
+    while(1);                                                   // Stop the script
   }
   else
   {
-    //sd.ls("/", LS_R);                                // List the SD card content
+    //sd.ls("/", LS_R);                                         // List the SD card content
     //Serial.println(F("\n#. List of files on the SD"));
     
-    if(defineVolumeWorkingDirectory()==1)                  // the volume working directory is /log/year/month/day/
+    if(defineVolumeWorkingDirectory()==1)                       // the volume working directory is /log/year/month/day/
     {
       Serial.println(F(".. the VWD exists"));
     }
@@ -282,7 +280,7 @@ void setup(void)
   Serial.println(F("LET'S GO!"));
   Serial.println(F("================================================================================"));
 
-  lastTx = now.unixtime() - (TX_INTERVAL * 2);          //  Hook to start immediately the measures
+  lastTx = now.unixtime() - (TX_INTERVAL * 2);                    //  Hook to start immediately the measures
 
   Serial.print(F("Time\t\t\t"));
   Serial.print(F("Temperature\t"));
@@ -293,9 +291,12 @@ void setup(void)
 }
  
 void loop(){
-  Serial.println(F("#  Free Memory"));
-  Serial.print(F(">  "));
-  Serial.println(freeMemory());
+  if(debug)
+  {
+    // Serial.println(F("#  Free Memory"));
+    // Serial.print(F(">  "));
+    // Serial.println(freeMemory());
+  }
 
   /*
   do{
@@ -314,44 +315,53 @@ void loop(){
   }
   else
   {
-    Serial.println(F("#  Creating a JSON object"));
-    JsonDocument ser_json;
-   
-    //DateTime now = rtc.now();
-    lastTx = unix_time;               // Save the lastest measures (unix_time is updated in RtcInterval())
+    lastTx = unix_time;                                           // Save the lastest measures (unix_time is updated in RtcInterval())
+    
+    JsonDocument jdoc;                                            // Creating a JSON object
 
-    sprintf(date_time,"%i-%i-%i %i:%i:%i",y,m,d,h,mn,s); // Concatanate into date_time (char)
+    jdoc["module"] = "demo";
+   
+    sprintf(date_time,"%i-%i-%i %i:%i:%i",y,m,d,h,mn,s);          // Concatanate into date_time (char)
+                                                                  // (y,m,d,hare global variable and their are updated in RtcInterval())
     // Serial.print(date_time);
     // Serial.print(F("\t"));
-    ser_json["time"] = date_time;
+    jdoc["time"] = date_time;
 
     float f_temperature, f_pressure, f_altitude, f_humidity;
 
     // Only needed in forced mode! In normal mode, you can remove the next line.
     bme.takeForcedMeasurement(); // has no effect in normal mode
     f_temperature = bme.readTemperature();
-    //Serial.print(f_temperature, 1);
-    //Serial.print(F(" *C \t"));
-    ser_json["data"][0]["temperature"] = f_temperature;
+    Serial.print(f_temperature, 1);
+    Serial.print(F(" *C \t"));
+    jdoc["sensors"][0]["temperature"] = f_temperature;
   
     f_pressure = bme.readPressure() / 100.0F;
-    // Serial.print(f_pressure, 0);
-    // Serial.print(F(" hPa\t\t"));
-    ser_json["data"][1]["pressure"] = f_pressure;
+    Serial.print(f_pressure, 0);
+    Serial.print(F(" hPa\t\t"));
+    jdoc["sensors"][1]["pressure"] = f_pressure;
   
     f_altitude = bme.readAltitude(SEALEVELPRESSURE_HPA);
-    // Serial.print(f_altitude, 0);
-    // Serial.print(F(" m\t\t"));
-    ser_json["data"][2]["altitude"] = f_altitude;
+    Serial.print(f_altitude, 0);
+    Serial.print(F(" m\t\t"));
+    jdoc["sensors"][2]["altitude"] = f_altitude;
   
     f_humidity = bme.readHumidity();
-    // Serial.print(f_humidity, 0);
-    // Serial.println(F(" %"));
-    ser_json["data"][3]["altitude"] = f_humidity;
+    Serial.print(f_humidity, 0);
+    Serial.println(F(" %"));
+    jdoc["sensors"][3]["altitude"] = f_humidity;
     
-    serializeJson(ser_json, output_json, outputCapacity);
-    Serial.println(output_json);
-    sd_write("log.txt", output_json, true);
+    // Prepare to write
+    gotToVolumeWorkingDirectory();                                // Got to the volume working firectory /log/yaer/month/day/
+
+    File sd_log;  
+    sd_log = sd.open(fileName, O_RDWR | O_CREAT | O_AT_END);      // Open the file log.jsonl
+    serializeJson(jdoc,sd_log);                                   // serialize and write te directly to the file  
+    sd_log.close();                                               // Colse the file
+    
+    //serializeJson(jdoc, output_json, outputCapacity);
+    //Serial.println(output_json);
+    //sd_write("log.jsonl", output_json, true);
 
   } 
 }
@@ -359,13 +369,9 @@ void loop(){
 int defineVolumeWorkingDirectory()
 {
   DateTime now = rtc.now();
-  int16_t yy = now.year();                           // Save the year
-  int16_t mm = now.month();                          // Save the month
-  int16_t dd = now.day();                            // Save the day
-
-  Serial.println(yy);
-  Serial.println(mm);
-  Serial.println(dd);
+  int16_t yy = now.year();                                        // Save the year
+  int16_t mm = now.month();                                       // Save the month
+  int16_t dd = now.day();                                         // Save the day
 
   sprintf(sd_pathLog,"/LOG/%i/%i/%i/",yy,mm,dd);
 
@@ -399,9 +405,9 @@ int volumeWorkingDirectory(bool gotToVWD){
 
   /* DELETE but check and test first defineVolumeWorkingDirectory()
   DateTime now = rtc.now();
-  int16_t yy = now.year();                           // Save the year
-  int16_t mm = now.month();                          // Save the month
-  int16_t dd = now.day();                            // Save the day
+  int16_t yy = now.year();                                        // Save the year
+  int16_t mm = now.month();                                       // Save the month
+  int16_t dd = now.day();                                         // Save the day
 
   Serial.println(yy);
   Serial.println(mm);
@@ -414,18 +420,22 @@ int volumeWorkingDirectory(bool gotToVWD){
   if(sd.chdir()) // go to root
   {
 
-    Serial.print("Path: ");
-    Serial.println(sd_pathLog);                           // sd_pathLog is a global variable and defined in defineVolumeWorkingDirectory()
+    if(debug)
+    {
+      Serial.print("Path: ");
+      Serial.println(sd_pathLog);                                   // sd_pathLog is a global variable and defined in defineVolumeWorkingDirectory()
+    }
 
     if(!sd.exists(sd_pathLog))
     {
-      if(!sd.mkdir(sd_pathLog,true))                      // Create missing parent directories if true
+      if(!sd.mkdir(sd_pathLog,true))                              // Create missing parent directories if true
       {
-        Serial.println(F("Failed to mkdir"));
+        Serial.println(F(".. Failed to mkdir"));
         return -0;
       }
       else
       {
+        Serial.print(F(".. "));
         Serial.print(F(sd_pathLog));
         Serial.println(F(" has been created"));
         return 2;
@@ -433,14 +443,21 @@ int volumeWorkingDirectory(bool gotToVWD){
     }
     else
     {
-      Serial.print(F(sd_pathLog)); 
-      Serial.println(F(" aldeady exist"));
-
+      if(debug)
+      {
+        Serial.print(F(".. "));
+        Serial.print(F(sd_pathLog)); 
+        Serial.println(F(" aldeady exist"));
+      }
       if(gotToVWD)
       {
         if(!sd.chdir(sd_pathLog));
         {
-          Serial.println(F("Failed to chdir the VWD"));
+          if(debug)
+          {
+            Serial.print(F(".. "));
+            Serial.println(F("Failed to chdir the VWD"));
+          }
           return -2;
         }
       }
@@ -469,12 +486,12 @@ bool RtcInterval(int32_t lastTx, int32_t tx_interval, bool debug)
   int32_t unix_t;  
     
   DateTime t = rtc.now();
-  y = t.year();                           // Save the year
-  m = t.month();                          // Save the month
-  d = t.day();                            // Save the day
-  h = t.hour();                           // Save the hour
-  mn = t.minute();                        // Save the minutes
-  s = t.second();                         // Save the seconds 
+  y = t.year();                             // Save the year
+  m = t.month();                            // Save the month
+  d = t.day();                              // Save the day
+  h = t.hour();                             // Save the hour
+  mn = t.minute();                          // Save the minutes
+  s = t.second();                           // Save the seconds 
 
   //Serial.println(now.unixtime());
   unix_t = t.unixtime();                    // Save the unix time
