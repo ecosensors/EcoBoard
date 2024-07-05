@@ -17,10 +17,8 @@
 #include <Wire.h>                       // Need for I2C Bus
 #include <Adafruit_BME280.h>            // include the library for the BME280 sensor
 #include <RTClib.h>                     // Include the RTC Clock library
-#include <ArduinoJson.h>                // Include the JSON library
-//#include <ArduinoJson.hpp>              
-
-#include <FreeStack.h>
+#include <ArduinoJson.h>                // Include the JSON library             
+#include <FreeStack.h>                  // needed for freeMemory()
 
 //#include <BufferedPrint.h>
 //#include <MinimumSerial.h>
@@ -46,11 +44,8 @@ unsigned long scheduler;                // Used incase RTC is disable
 /* 
 * JSON 
 */
-
 //JsonDocument json;                    // The object is created bellow
 const char * fileName = "log.jsonl";    // jsonl stand for JSON Line (or ndJSON): https://jsonlines.org/
-//char* output_json;
-//size_t outputCapacity;
 
 /* 
 * BME280 
@@ -92,7 +87,7 @@ SD card
 bool isSdReady = false; 
 const int carddetect = 7;   
 const int chipselect = 4;
-char sd_pathLog[20];
+char sd_pathLog[18];
 
 #define SD_FAT_TYPE 3                   // SD_FAT_TYPE = 0 for SdFat/File as defined in SdFatConfig.h,
                                         // 1 for FAT16/FAT32, 2 for exFAT, 3 for FAT16/FAT32 and exFAT.
@@ -323,8 +318,8 @@ void loop(){
    
     sprintf(date_time,"%i-%i-%i %i:%i:%i",y,m,d,h,mn,s);          // Concatanate into date_time (char)
                                                                   // (y,m,d,hare global variable and their are updated in RtcInterval())
-    // Serial.print(date_time);
-    // Serial.print(F("\t"));
+    Serial.print(date_time);
+    Serial.print(F("\t"));
     jdoc["time"] = date_time;
 
     float f_temperature, f_pressure, f_altitude, f_humidity;
@@ -356,12 +351,9 @@ void loop(){
 
     File sd_log;  
     sd_log = sd.open(fileName, O_RDWR | O_CREAT | O_AT_END);      // Open the file log.jsonl
-    serializeJson(jdoc,sd_log);                                   // serialize and write te directly to the file  
+    serializeJson(jdoc,sd_log);                                   // serialize and write te directly to the file
+    sd_log.println();                                             // Add a \n
     sd_log.close();                                               // Colse the file
-    
-    //serializeJson(jdoc, output_json, outputCapacity);
-    //Serial.println(output_json);
-    //sd_write("log.jsonl", output_json, true);
 
   } 
 }
@@ -373,11 +365,11 @@ int defineVolumeWorkingDirectory()
   int16_t mm = now.month();                                       // Save the month
   int16_t dd = now.day();                                         // Save the day
 
-  sprintf(sd_pathLog,"/LOG/%i/%i/%i/",yy,mm,dd);
+  sprintf(sd_pathLog,"/LOG/%i/%i/%i/",yy,mm,dd);                  // sd_pathLog is a global variable
 
   return volumeWorkingDirectory(false);
-
 }
+
 int gotToVolumeWorkingDirectory()
 {
   return volumeWorkingDirectory(true);
@@ -403,24 +395,9 @@ int volumeWorkingDirectory(bool gotToVWD){
   1 = the volume working directory exists
   2 = the volume working directory has been created
   */
-
-  /* DELETE but check and test first defineVolumeWorkingDirectory()
-  DateTime now = rtc.now();
-  int16_t yy = now.year();                                        // Save the year
-  int16_t mm = now.month();                                       // Save the month
-  int16_t dd = now.day();                                         // Save the day
-
-  Serial.println(yy);
-  Serial.println(mm);
-  Serial.println(dd);
-
-  sprintf(sd_pathLog,"/LOG/%i/%i/%i/",yy,mm,dd);
-  */
   
-
   if(sd.chdir()) // go to root
   {
-
     if(debug)
     {
       Serial.print(".. Path: ");
@@ -448,16 +425,17 @@ int volumeWorkingDirectory(bool gotToVWD){
       {
         Serial.print(F(".. "));
         Serial.print(F(sd_pathLog)); 
-        Serial.println(F(" aldeady exist"));
+        Serial.println(F(" already exists"));
       }
       if(gotToVWD)
       {
-        if(!sd.chdir(sd_pathLog));
+        bool b = sd.chdir(sd_pathLog);
+        if(b == false);
         {
           if(debug)
           {
             Serial.print(F(".. "));
-            Serial.println(F("Failed to chdir the VWD"));
+            Serial.println(F("failed to chdir the VWD"));
           }
           return -2;
         }
@@ -497,6 +475,7 @@ bool RtcInterval(int32_t lastTx, int32_t tx_interval, bool debug)
   //Serial.println(now.unixtime());
   unix_t = t.unixtime();                    // Save the unix time
   unix_time = unix_t;                       // save the value into the global variable
+  sprintf(date_time,"%i-%i-%i %i:%i:%i",y,m,d,h,mn,s); // Concatanate into date_time (char)
     
   if(debug==true){
     Serial.println(F("#  DEBUG"));
@@ -504,9 +483,7 @@ bool RtcInterval(int32_t lastTx, int32_t tx_interval, bool debug)
     Serial.print(unix_t);
     Serial.print(F(" - Next Tx: "));
     Serial.println(nextTx);
-    
     Serial.print(F(".. Time: "));
-    sprintf(date_time,"%i-%i-%i %i:%i:%i",y,m,d,h,mn,s); // Concatanate into date_time (char)
     Serial.println(date_time);
   }
 
@@ -516,67 +493,6 @@ bool RtcInterval(int32_t lastTx, int32_t tx_interval, bool debug)
   }
   else
   {
-    return false;
-  }
-}
-
-
-// Write the value with \n (new line) and no debug
-bool sd_write(const char * fileName, const char * value)
-{
-  return sd_write(fileName, value, true, false);
-}
-// Write the value with no debug
-bool sd_write(const char * fileName, const char * value, bool ln)
-{
-  return sd_write(fileName, value, ln, false);
-}
-
-// TODO: I am working on this function
-bool sd_write(const char * fileName, const char * value, bool ln, bool sd_debug)
-{
-  if(sd_debug){
-    Serial.println(F("#  Writing to SD"));
-    Serial.print(F(".. ")); Serial.println(value);
-  }
-
-  gotToVolumeWorkingDirectory();
-  if(sd_debug)
-    Serial.println(F(".. chdir the VWD"));
-
-  File sd_log;  
-
-  sd_log = sd.open(fileName, O_RDWR | O_CREAT | O_AT_END);
-  
-  unsigned long pos;
-  sd_log.seek(pos);
-
-  if(sd_log)
-  {
-    // TODO: Create the folder tree
-    if(ln == true)
-    {
-      sd_log.print(value);
-      sd_log.print(F("\n"));
-    }
-    else
-      sd_log.print(value);
-        
-    sd_log.close();
-    
-    if(sd_debug)
-      Serial.println(F(">> Done!"));
-    
-    return true;
-  }
-  else
-  {
-    if(sd_debug)
-    {
-      Serial.print(F(".. Error opening the file: "));
-      Serial.println(fileName);
-      Serial.println(F(">> KO"));
-    }
     return false;
   }
 }
