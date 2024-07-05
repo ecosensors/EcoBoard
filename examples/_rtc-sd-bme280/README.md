@@ -3,7 +3,7 @@
 > [5.06.2024] This example is currently being written.
 > The BME280 and the RTC colck are ready. I am now writtting the script to log the measure into the SD card.
 
-In this exercice, You are going to log the measures of the temperature, the humidity, altitude and the pressure (BME250) into a SD card. The data will be saved in **a JSON format**.
+In this exercice, You are going to log the measures of the temperature, the humidity, altitude and the pressure (BME250) into a SD card. The data will be saved in **a JSON Line format**.
 
 You are going to use a RTC clock chip to log the measures in a regular time into a SD card.
 
@@ -14,6 +14,8 @@ The exercice has been written ans tested for the EcoBoard, but you can use for a
 The examples are distributed WITHOUT WARRANTY
 
 **Feel free to collaborate and share suggestions for improvement** :)
+
+> NOTE: JSON Lines (also called newline-delimited JSON) is a convenient format for storing structured data that may be processed one record at a time. It works well with unix-style text processing tools and shell pipelines. It's a great format for log files. It's also a flexible format for passing messages between cooperating processes. 
 
 
 ## Prequisite
