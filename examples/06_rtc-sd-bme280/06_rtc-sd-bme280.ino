@@ -2,14 +2,11 @@
  * EcoSensors - RTC / SD / BME280
  * The script is distributed WITHOUT WARRANTY.
  *
- * The script is being rewriting
- *
  * Feel free to collaborate and share suggestions for improvement
  *
+ * To calibrate the RTC clock, uncomment //#define RTC_CALIBRATE  and define the date and time
  */
  
-
- // To calibrate the RTC clock, uncomment //#define RTC_CALIBRATE  and define the date and time
 
 /* 
 * Libraries 
@@ -31,14 +28,13 @@
 /* 
 * Global variables 
 */
-bool debug = true;                      // Display the event from the library
+bool debug = false;                      // Display the event from the library
 bool debug_rtc = false;                 // Used to debug the RtcInterval() function or the print RTC time
-bool debug_sd = true;                   // Used to debug the SD writing/reading
+bool debug_sd = false;                   // Used to debug the SD writing/reading
 // Interval
 int32_t lastMeasure = 0;
 #define TX_INTERVAL 10                  // Define an interval between each loop (seocnds). 
                                         // Do not use an interval < 1 second
-unsigned long scheduler;                // Used incase RTC is disable
 
 
 /* 
@@ -46,6 +42,7 @@ unsigned long scheduler;                // Used incase RTC is disable
 */
 //JsonDocument json;                    // The object is created bellow
 const char * fileName = "log.jsonl";    // jsonl stand for JSON Line (or ndJSON): https://jsonlines.org/
+
 
 /* 
 * BME280 
@@ -62,7 +59,7 @@ char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursd
 int16_t y,m,d,h,mn,s;                   // Used for RTC time
 int32_t unix_time;                      // Used for unix time
 int32_t lastTx;                         // Used to record the time of the last measure (unix format)
-char date_time[18];                     //1010-10-10 11:11:11
+char date_time[20];                     //1010-10-10 11:11:11
 /*
  * If it's the first time you run the DS3231 or if you want to modify the time, 
  * Uncomment #define RTC_CALIBRATE to calibrate/set the time
@@ -74,11 +71,11 @@ char date_time[18];                     //1010-10-10 11:11:11
  */
 //#define RTC_CALIBRATE                 // Uncomment to calibrate/set the time 
 int16_t annee = 2024;                   // year 
-int16_t mois = 4;                       // month
-int16_t jour = 23;                      // day
-int16_t heure = 22;                     // hour
-int16_t minutes = 42;                   // minutes
-int16_t secondes = 00;                  // seconds
+int16_t mois = 7;                       // month
+int16_t jour = 7;                      // day
+int16_t heure = 0;                     // hour
+int16_t minutes = 10;                   // minutes
+int16_t secondes = 0;                  // seconds
 
 
 /* 
@@ -87,11 +84,11 @@ SD card
 bool isSdReady = false; 
 const int carddetect = 7;   
 const int chipselect = 4;
-char sd_pathLog[18];
+char sd_pathLog[18];                    // /log/2024/07/04
+
 
 #define SD_FAT_TYPE 3                   // SD_FAT_TYPE = 0 for SdFat/File as defined in SdFatConfig.h,
                                         // 1 for FAT16/FAT32, 2 for exFAT, 3 for FAT16/FAT32 and exFAT.
-
 #if SD_FAT_TYPE == 0
   SdFat sd;
   File file;
@@ -115,10 +112,10 @@ void setup(void)
   Serial.begin(9600);
   delay(8000);                            // Give a delay to open the terminal
 
-  Serial.println("");
-  Serial.println(" ECOBOARD - RTC / SD / BME280");
-  Serial.println("-----------------------------");
-  Serial.println("");
+  Serial.println(F(""));
+  Serial.println(F(" ECOBOARD - RTC / SD / BME280"));
+  Serial.println(F("-----------------------------"));
+  Serial.println(F(""));
 
   /* Begin the BME280 sensor */
   Serial.println(F("#  Init BME280"));
@@ -255,7 +252,7 @@ void setup(void)
   {
     //sd.ls("/", LS_R);                                         // List the SD card content
     //Serial.println(F("\n#. List of files on the SD"));
-    int d = defineVolumeWorkingDirectory();
+    int d = checkVolumeWorkingDirectory();
     if(d==1)                       // the volume working directory is /log/year/month/day/
     {
       Serial.println(F(".. the VWD exists"));
@@ -281,24 +278,11 @@ void setup(void)
   Serial.print(F("Temperature\t"));
   Serial.print(F("Pressure\t"));
   Serial.print(F("Aprox Alt.\t"));
-  Serial.println(F("Humidity\t"));
-
+  Serial.print(F("Humidity\t"));
+  Serial.println(F("RAM"));
 }
  
 void loop(){
-  if(debug)
-  {
-    // Serial.println(F("#  Free Memory"));
-    // Serial.print(F(">  "));
-    // Serial.println(freeMemory());
-  }
-
-  /*
-  do{
-    // Run the measures here
-    // delay(1000);
-  }while(RtcInterval(lastTx, TX_INTERVAL, false) == false);
-  */
 
   if(RtcInterval(lastTx, TX_INTERVAL, debug_rtc) == false)
   {
@@ -306,10 +290,11 @@ void loop(){
     * We need to wait the next interval until RtcInterval return true
     * Note: RtcInterval() update the global variables  y,m,d,h,mn,s and unix_time at each loop
     */
-    delay(500);
+    delay(100);
   }
   else
   {
+  
     lastTx = unix_time;                                           // Save the lastest measures (unix_time is updated in RtcInterval())
     
     JsonDocument jdoc;                                            // Creating a JSON object
@@ -343,8 +328,12 @@ void loop(){
   
     f_humidity = bme.readHumidity();
     Serial.print(f_humidity, 0);
-    Serial.println(F(" %"));
+    Serial.print(F(" %\t\t"));
     jdoc["sensors"][3]["altitude"] = f_humidity;
+
+    int ram = freeMemory();
+    Serial.println(ram);
+    jdoc["SRAM"] = ram;
     
     // Prepare to write
     gotToVolumeWorkingDirectory();                                // Got to the volume working firectory /log/yaer/month/day/
@@ -356,18 +345,6 @@ void loop(){
     sd_log.close();                                               // Colse the file
 
   } 
-}
-
-int defineVolumeWorkingDirectory()
-{
-  DateTime now = rtc.now();
-  int16_t yy = now.year();                                        // Save the year
-  int16_t mm = now.month();                                       // Save the month
-  int16_t dd = now.day();                                         // Save the day
-
-  sprintf(sd_pathLog,"/LOG/%i/%i/%i/",yy,mm,dd);                  // sd_pathLog is a global variable
-
-  return volumeWorkingDirectory(false);
 }
 
 int gotToVolumeWorkingDirectory()
@@ -395,6 +372,8 @@ int volumeWorkingDirectory(bool gotToVWD){
   1 = the volume working directory exists
   2 = the volume working directory has been created
   */
+
+  sprintf(sd_pathLog,"/LOG/%i/%i/%i",y,m,d);                      // sd_pathLog is a global variable 
   
   if(sd.chdir()) // go to root
   {
@@ -430,7 +409,7 @@ int volumeWorkingDirectory(bool gotToVWD){
       if(gotToVWD)
       {
         bool b = sd.chdir(sd_pathLog);
-        if(b == false);
+        if(b == false)
         {
           if(debug)
           {
