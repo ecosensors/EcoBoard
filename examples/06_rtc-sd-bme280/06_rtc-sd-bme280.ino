@@ -284,6 +284,7 @@ void setup(void)
  
 void loop(){
 
+  // Check bool RtcInterval() function at the bottom
   if(RtcInterval(lastTx, TX_INTERVAL, debug_rtc) == false)
   {
     /*
