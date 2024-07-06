@@ -341,7 +341,7 @@ void loop(){
     File sd_log;  
     sd_log = sd.open(fileName, O_RDWR | O_CREAT | O_AT_END);      // Open the file log.jsonl
     serializeJson(jdoc,sd_log);                                   // serialize and write te directly to the file
-    sd_log.println();                                             // Add a \n
+    sd_log.write('\n');                                           // Add a \n
     sd_log.close();                                               // Colse the file
 
   } 
