@@ -45,7 +45,6 @@ In the very near future, I will provide example codes to use
 * a pyranometer
 * a rain gauge
 * a drop counter for watering crops
-* a barometer
 * a Waternark sensors to better plan crop irrigation
 
 
