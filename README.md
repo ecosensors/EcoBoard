@@ -29,8 +29,6 @@ We added several useful features
 
 ## Examples
 
-[10.4.2024] I am actually rewriting the exemple code for the SD card and I am reviewing the other examples
-
 All [examples](https://github.com/ecosensors/EcoBoard/tree/master/examples) are done for the EcoBoard, but you can easly use it for other Arduino board, with may be, a few modification.
 
 For all example scripts, **feel free to collaborate and share suggestions for improvement** :)
@@ -40,6 +38,7 @@ Actually, I have some examples code for the EcoBoard
 * How to use the GPIO I/O expander port and a 1-Wire Digital temperature sensor (DS18B20)
 * How to use a barometer (BME280)
 * How to use a Davis anemometer
+* How to log data into a SD card
 
 In the very near future, I will provide example codes to use
 

@@ -13,8 +13,6 @@ The developpement of the exercices are in progress. For now, all exercises prece
 
 All examples are distributed WITHOUT WARRANTY!
 
-## In progress
-* rtc-sd-bme280
 
 ## Next
 * Play with LEDs and monitor LiPO Battery of the board 
