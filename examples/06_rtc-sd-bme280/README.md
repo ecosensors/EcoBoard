@@ -1,8 +1,6 @@
 # RTC / SD / BME280
 
-> The BME280 and the RTC colck are ready. I am now writtting the script to log the measure into the SD card.
-
-In this exercice, You are going to log the measures of the temperature, the humidity, altitude and the pressure (BME250) into a SD card. The data will be saved in **a JSON Line format**. You are going to use a RTC clock chip to log the measures in a regular time into a SD card.
+In this exercice, you are going to log the measurements of the temperature, the humidity, altitude and the pressure (BME250) into a SD card, in a regular time thaks to the RTC clock (DS3231). The data will be saved in [a JSON Line format](https://jsonlines.org/). 
 
 The log files will saved into the folder '/log/year/month/day/'
 
