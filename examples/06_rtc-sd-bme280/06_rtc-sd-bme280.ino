@@ -300,41 +300,41 @@ void loop(){
     
     JsonDocument jdoc;                                            // Creating a JSON object
 
-    jdoc["module"] = "demo";
+    jdoc["module"] = "demo";                                      // Adding an name and a value to the object
    
     sprintf(date_time,"%i-%i-%i %i:%i:%i",y,m,d,h,mn,s);          // Concatanate into date_time (char)
                                                                   // (y,m,d,hare global variable and their are updated in RtcInterval())
-    Serial.print(date_time);
+    Serial.print(date_time);                                      // Print the date and the time
     Serial.print(F("\t"));
-    jdoc["time"] = date_time;
+    jdoc["time"] = date_time;                                     // Adding an name and a value to the object
 
     float f_temperature, f_pressure, f_altitude, f_humidity;
 
     // Only needed in forced mode! In normal mode, you can remove the next line.
     bme.takeForcedMeasurement(); // has no effect in normal mode
     f_temperature = bme.readTemperature();
-    Serial.print(f_temperature, 1);
+    Serial.print(f_temperature, 1);                               // Print the temperature
     Serial.print(F(" *C \t"));
-    jdoc["sensors"][0]["temperature"] = f_temperature;
+    jdoc["sensors"][0]["temperature"] = f_temperature;            // Adding an name and a value to the object
   
     f_pressure = bme.readPressure() / 100.0F;
-    Serial.print(f_pressure, 0);
+    Serial.print(f_pressure, 0);                                  // Print the pressure
     Serial.print(F(" hPa\t\t"));
-    jdoc["sensors"][1]["pressure"] = f_pressure;
+    jdoc["sensors"][1]["pressure"] = f_pressure;                  // Adding an name and a value to the object
   
     f_altitude = bme.readAltitude(SEALEVELPRESSURE_HPA);
-    Serial.print(f_altitude, 0);
+    Serial.print(f_altitude, 0);                                  // Print the altitude
     Serial.print(F(" m\t\t"));
-    jdoc["sensors"][2]["altitude"] = f_altitude;
+    jdoc["sensors"][2]["altitude"] = f_altitude;                  // // Adding an name and a value to the object
   
     f_humidity = bme.readHumidity();
-    Serial.print(f_humidity, 0);
+    Serial.print(f_humidity, 0);                                  // Print the humidity
     Serial.print(F(" %\t\t"));
-    jdoc["sensors"][3]["altitude"] = f_humidity;
+    jdoc["sensors"][3]["humidity"] = f_humidity;                  // Adding an name and a value to the object
 
     int ram = freeMemory();
-    Serial.println(ram);
-    jdoc["SRAM"] = ram;
+    Serial.println(ram);                                          // Print the reminding SRAM
+    jdoc["SRAM"] = ram;                                           // Adding an name and a value to the object
     
     // Prepare to write
     gotToVolumeWorkingDirectory();                                // Got to the volume working firectory /log/yaer/month/day/
