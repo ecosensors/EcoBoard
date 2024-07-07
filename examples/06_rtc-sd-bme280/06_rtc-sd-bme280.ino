@@ -32,7 +32,6 @@ bool debug = false;                      // Display the event from the library
 bool debug_rtc = false;                 // Used to debug the RtcInterval() function or the print RTC time
 bool debug_sd = false;                   // Used to debug the SD writing/reading
 // Interval
-int32_t lastMeasure = 0;
 #define TX_INTERVAL 10                  // Define an interval between each loop (seocnds). 
                                         // Do not use an interval < 1 second
 
@@ -61,10 +60,10 @@ int32_t unix_time;                      // Used for unix time
 int32_t lastTx;                         // Used to record the time of the last measure (unix format)
 char date_time[20];                     //1010-10-10 11:11:11
 /*
- * If it's the first time you run the DS3231 or if you want to modify the time, 
- * Uncomment #define RTC_CALIBRATE to calibrate/set the time
- * and define here the time below RTC_CALIBRATE.
- * 1. Upload the script and run once the script on board once.
+ * If it's the first time you run the DS3231 or if you want to calibrate the time, 
+ * uncomment #define RTC_CALIBRATE.
+ * Then you can define here, the time below RTC_CALIBRATE.
+ * 1. Upload the script and run once the script on board once (the script will stop after the new time has been recorded).
  * 2. Sitch off the board
  * 3. Re-comment #define RTC_CALIBRATE
  * 4. Upload the script
@@ -431,13 +430,13 @@ int volumeWorkingDirectory(bool gotToVWD){
 }
 
 /*
-* That function need the RTC module. It calculates the interval according to TX_INTERVAL
+* This function need the RTC module. It calculates the interval between two measurements according to TX_INTERVAL
 *
-* lastTx is the time when the last measurement is taken
-* tx_interval is the interval between the measurement
-* begug display messages
+* 'lastTx' is the time when the last measurement is taken
+* 'tx_interval' is the interval between two measurements
+* 'degug' display messages
 *
-* if the different between lastTx and the time being is greater than tx_interval, RtcInterval() return true
+* If the different between lastTx and the time being is greater than tx_interval, RtcInterval() return true
 */
 bool RtcInterval(int32_t lastTx, int32_t tx_interval, bool debug)
 { 
