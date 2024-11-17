@@ -7,7 +7,7 @@ The example file is coming.... :)
 
 ## Wiring
 wire | Pin
-=== | ===
+--- | ---
 Green wire | Output (0 to +3VDC); **1.67 mV per W/m2**
 Red & Black wires | Ground
 Yellow wire | +3 VDC ±10%; 1mA (typical)
