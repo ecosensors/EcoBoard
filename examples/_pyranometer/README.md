@@ -1,4 +1,5 @@
 # Davis Pyranometer 6450
+(This example is being written)
 
 Ref: https://www.meteo-shopping.fr/Station-meteo/Pyranometre-pour-mesure-du-rayonnement-solaire-6450-Davis-Instruments#caracteristique
  
