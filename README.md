@@ -6,9 +6,6 @@ You can connect a LoRaWAN module to send the data to a LoRaWAN Gateway.
 
 We added several useful features
 * LoRaWAN RFM69/9x (868Mhz) hat
-* GPRS/GPS (SIM808) hat (nest future)
-* a RTC clock hat (near future)
-* a 128x64 OLED screen hat (near future)
 * Solar panel input
 * 1Kb EEPROM
 * A MicroSD card
@@ -21,6 +18,11 @@ We added several useful features
 * A reset buton
 * A programable buton
 * A switch ON/OFF Button
+
+Next features
+* GPRS/GPS (SIM808) hat (near future)
+* a RTC clock hat (near future)
+* a 128x64 OLED screen hat (near future)
 
 
 ## Pictures
