@@ -10,6 +10,7 @@
 #include "Ecoboard.h"
 
 #include <SD.h>
+#include <sdios.h>
 
 Ecoboard::Ecoboard()
 {
@@ -54,16 +55,19 @@ void Ecoboard::begin()
 bool Ecoboard::sd_begin()
 {
   pinMode(_carddetect, INPUT_PULLUP);                           // Define the pin mode
-	if (_debug)
+	
+  if (_debug)
       Serial.println(F("# Begin SD"));
- 
+
   byte c=1;                                                     // used to count the attend to start the SD crard
   do
   { 
     if (!_sd.begin(_chipselect, SD_SCK_MHZ(12)))                                // INITIALIZE and check the SD card
     {
       if(_debug)
-        Serial.println(F("..Attending to detect the SD card"));
+        Serial.print(c);
+        Serial.println(F(": Attending to detect the SD card"));
+     
       _isSdReady = false;                                       // The status must remind false
       c++;                                                      // Increment the lopping count
       delay(1000);                                              // Give a delay of 1 sec
@@ -72,7 +76,8 @@ bool Ecoboard::sd_begin()
     {
       _isSdReady = true;                                         // Change the status. The SD is ready, then change the value of _isSdReady to true
     }
-  }while(_isSdReady == false && c < 4);                          // If the _isSdReady is always False, loop only 3 timne then, exit and continue
+
+  }while(_isSdReady == false && c <= 3);                          // If the _isSdReady is always False, loop only 3 timne then, exit and continue
   
   if(_isSdReady == false)                                       // If the card is not ready
   {
@@ -83,7 +88,7 @@ bool Ecoboard::sd_begin()
   }
   else
   {
-    _sd.chdir();                                                // If the card is ready, chdir to the root
+    //_sd.chdir();                                                // If the card is ready, chdir to the root
   }
 
   return _isSdReady;
@@ -106,6 +111,8 @@ bool Ecoboard::sd_begin()
 * -7: Failed mkdir day
 * -8: Failed chdir day
 */
+
+  /*
 int Ecoboard::sd_init_logFile(int16_t y, int16_t m, int16_t d, int16_t h, int16_t mn, int16_t s)
 {
   if(_isSdEnable == false)
@@ -238,7 +245,7 @@ int Ecoboard::sd_init_logFile(int16_t y, int16_t m, int16_t d, int16_t h, int16_
   Serial.println(_sd_pathLog);
   return 1;
 
-
+/*
 
 
   /*
@@ -257,7 +264,9 @@ int Ecoboard::sd_init_logFile(int16_t y, int16_t m, int16_t d, int16_t h, int16_
   */
 
 
-}
+//}
+
+
 /*
 // vwd() bug with the latest version of SdFat
 // I need to update this part
@@ -322,17 +331,17 @@ void Ecoboard::_sd_showCwd()
 }
 */
 
+/*
 
 bool Ecoboard::_sd_checkCard()
 {
 	bool isCardInserted = true;
   	Serial.println(F("Checking SD card"));
   	delay(5);
-  	/*
-   	* When the SD card is removed digitalRead(CARDDETECT) does not return 0 for a unknow reason 
-   	* The script is temporarely stopped (because of while(1)).
-   	* When the reason will be know and the problem solved, change this part of code
-   	*/
+  	
+   	// When the SD card is removed digitalRead(CARDDETECT) does not return 0 for a unknow reason 
+   	// The script is temporarely stopped (because of while(1)).
+   	// When the reason will be know and the problem solved, change this part of code
 
   	//  while(!digitalRead(CARDDETECT))
   	while(1)
@@ -401,8 +410,6 @@ int Ecoboard::_sd_write(const char * fileName, const __FlashStringHelper * text,
     return 2;
 
   bool isWrite = false;
-  
-//#if defined(LOGGER) && defined(FEATHERWINGS)
 
     File writeFileFl;  
     if(_isSdReady == true)
@@ -438,20 +445,17 @@ int Ecoboard::_sd_write(const char * fileName, const __FlashStringHelper * text,
 
     if(isWrite == false)
       _sd_checkCard();
-/*
-  #else
-    sprint(F("LOGGER not defined"),0);
-    isWrite = false;
-  #endif
-*/
+
   if(isWrite == true)
     return 1;
   else
     return 0;
 }
 
+
 int Ecoboard::_sd_write(const char * fileName, char const * text, bool ln)
 {
+
   	if(_isSdEnable == false)
     	return 2;
 
@@ -487,15 +491,11 @@ int Ecoboard::_sd_write(const char * fileName, char const * text, bool ln)
 
     if(isWrite==false)
      	_sd_checkCard();
-  /*  
-  #else
-    sprint(F("LOGGER not defined"),0);
-    isWrite = false;
-  #endif
-  */
 
   	if(isWrite == true)
     	return 1;
   	else
     	return 0;
+
 }
+*/
