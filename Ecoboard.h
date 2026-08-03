@@ -39,8 +39,26 @@ class Ecoboard{
  		/* RTC */
  		bool _isRTCEnable;
 		
- 		
+ 		/*SD Card */
+ 		#if SD_FAT_TYPE == 0
+		  SdFat _sd;
+		  File _file;
+		  File _root;
+		#elif SD_FAT_TYPE == 1
+		  SdFat32 _sd;
+		  File32 _file;
+		  File32 _root;
+		#elif SD_FAT_TYPE == 2
+		  SdExFat _sd;
+		  ExFile _file;
+		  ExFile _root;
+		#elif SD_FAT_TYPE == 3
+		  SdFs _sd;
+		  FsFile _file;
+		  FsFile _root;
+		#endif  // SD_FAT_TYPE
 
+		bool _logger;
  		bool _isSdEnable;
  		bool _isSdReady;
  		int _carddetect;
@@ -49,7 +67,7 @@ class Ecoboard{
 		char _logFile[SD_PATHSIZE+FILESIZE];	
 													// store the logfile name
 		//void _sd_showCwd();
-		/*
+		
 		bool _sd_checkCard();
 		int _sd_writeln(char * fileName, char const * text);								
 		int _sd_write(const char * fileName, char const * text);							
@@ -57,28 +75,9 @@ class Ecoboard{
 		int _sd_writeln(char * fileName, const __FlashStringHelper * text);
 		int _sd_write(const char * fileName, const __FlashStringHelper * text, bool ln);
 		int _sd_write(const char * fileName, char const * text, bool ln);
-	*/
+	
 
 	public:
-
-		/*SD Card */
- 		#if SD_FAT_TYPE == 0
-		  SdFat sd;
-		  File file;
-		  File root;
-		#elif SD_FAT_TYPE == 1
-		  SdFat32 sd;
-		  File32 file;
-		  File32 root;
-		#elif SD_FAT_TYPE == 2
-		  SdExFat sd;
-		  ExFile file;
-		  ExFile root;
-		#elif SD_FAT_TYPE == 3
-		  SdFs sd;
-		  FsFile file;
-		  FsFile root;
-		#endif  // SD_FAT_TYPE
 
 		Ecoboard();
 		Ecoboard(bool isSdEnable, bool isRTCEnable, bool debug);
@@ -89,7 +88,8 @@ class Ecoboard{
 		//void listFiles(const char * folder);
 		
 		int sd_init_logFile(int16_t y, int16_t m, int16_t d, int16_t h, int16_t mn, int16_t s);
-		/*int sd_writeln(char const * text);
+		/*
+		int sd_writeln(char const * text);
 		int sd_write(char const * text);
 		int sd_write(int16_t text);
 		*/

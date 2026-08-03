@@ -31,14 +31,15 @@ Ecoboard::Ecoboard(bool isSdEnable, bool isRTCEnable, bool debug)
 
 void Ecoboard::begin()
 {
+  /*
 	Serial.println(F("*******************"));
 	Serial.println(F("*     Welcome     *"));
 	Serial.println(F("* with EcoSensors *"));
 	Serial.println(F("*******************"));
 	Serial.println("");
+  */
 
-  if(!_isSdEnable && _debug)
-    Serial.println(F("SD is disable"));
+  
   if(!_isRTCEnable && _debug)
     Serial.println(F("RTC is disable"));
 
@@ -56,17 +57,23 @@ bool Ecoboard::sd_begin()
   pinMode(_carddetect, INPUT_PULLUP);                           // Define the pin mode
 	
   if (_debug)
-      Serial.println(F("# Begin SD"));
+    Serial.println(F("# Begin SD"));
+  
+  if(!_isSdEnable && _debug)
+    Serial.println(F("SD is disable"));
+
 
   byte c=1;                                                     // used to count the attend to start the SD crard
   do
   { 
-    if (!sd.begin(_chipselect, SD_SCK_MHZ(12)))                                // INITIALIZE and check the SD card
+    if (!_sd.begin(_chipselect, SD_SCK_MHZ(12)))                                // INITIALIZE and check the SD card
     {
       if(_debug)
+      {
         Serial.print(c);
         Serial.println(F(": Attending to detect the SD card"));
-     
+      }
+
       _isSdReady = false;                                       // The status must remind false
       c++;                                                      // Increment the lopping count
       delay(1000);                                              // Give a delay of 1 sec
@@ -81,14 +88,17 @@ bool Ecoboard::sd_begin()
   if(_isSdReady == false)                                       // If the card is not ready
   {
     _isSdEnable = false;                                        // Consider the card as disabke
-    //_logger = false;                                          // No log into the card is possible
+    _logger = false;                                            // No log into the card is possible
 
     return _isSdReady;
   }
   else
   {
-    //_sd.chdir();                                                // If the card is ready, chdir to the root
+    _sd.chdir();                                                // If the card is ready, chdir to the root
   }
+
+  if (_debug)
+      Serial.println(F("\t Sd is ready"));
 
   return _isSdReady;
 }
@@ -98,24 +108,35 @@ bool Ecoboard::sd_begin()
 * Init the card to log the activities of the board
 * You need a RTC clock
 *
+* 3: SD is enable but not the RTC
 * 2: SD disable
 * 1: OK
 * 0: Failed chdir root
 * -1: Could not create LOG folder
 * -2: Failed chdir log
 * -3: Failed mkdir year
-* -4: Failed chdir yes
+* -4: Failed chdir year
 * -5: Failed mkdir month
 * -6: Failed chdir month
 * -7: Failed mkdir day
 * -8: Failed chdir day
 */
 
-  /*
+
 int Ecoboard::sd_init_logFile(int16_t y, int16_t m, int16_t d, int16_t h, int16_t mn, int16_t s)
 {
   if(_isSdEnable == false)
     return 2;
+
+  if(_debug)
+    Serial.println(F("# Init the log file..."));
+
+  if( _isRTCEnable == false){
+    if(_debug)
+      Serial.println(F("\t RTC is not enable. The log file can not initilized"));
+
+    return 3;
+  }
 
   char yy[2];
   char mm[2];
@@ -131,11 +152,11 @@ int Ecoboard::sd_init_logFile(int16_t y, int16_t m, int16_t d, int16_t h, int16_
   snprintf(sec,3,"%i",s);
 
   if(_debug)
-    Serial.println(F("Prepare the log file..."));
+    Serial.println(F("\tPrepare the log file..."));
 
   if(!_sd.chdir())
   {
-    Serial.println(F("Could not chdir root"));
+    Serial.println(F("\tCould not chdir root"));
     return 0;
   }
 
@@ -143,14 +164,14 @@ int Ecoboard::sd_init_logFile(int16_t y, int16_t m, int16_t d, int16_t h, int16_
   {
     if(!_sd.mkdir("/LOG"))
     {
-      Serial.println(F("Folder /LOG Could't be created"));
+      Serial.println(F("\tFolder /LOG Could't be created"));
       return -1;
     }
   }
 
   if (!_sd.chdir("/LOG"))
   {
-    Serial.println(F("Failed chdir LOG"));
+    Serial.println(F("\tFailed chdir LOG"));
     return -2;
   }
   
@@ -160,7 +181,7 @@ int Ecoboard::sd_init_logFile(int16_t y, int16_t m, int16_t d, int16_t h, int16_
 
     if(!_sd.mkdir(yy))
     {
-      Serial.print(F("Failed (yy) mkdir "));
+      Serial.print(F("\tFailed mkdir year dir "));
       Serial.println(yy);
       return -3;
     }
@@ -168,7 +189,7 @@ int Ecoboard::sd_init_logFile(int16_t y, int16_t m, int16_t d, int16_t h, int16_
 
   // Change volume working directory
   if (!_sd.chdir(yy)) {
-    Serial.print(F("Failed chdir (yy) "));
+    Serial.print(F("\tFailed chdir the year dir "));
     Serial.println(yy);
     return -4;
   }
@@ -178,7 +199,7 @@ int Ecoboard::sd_init_logFile(int16_t y, int16_t m, int16_t d, int16_t h, int16_
   {
     if(!_sd.mkdir(mm))
     {
-      Serial.print(F("Failed mkdir (mm) "));
+      Serial.print(F("\tFailed mkdir month dir "));
       Serial.println(mm);
       return -5;
     }
@@ -186,7 +207,7 @@ int Ecoboard::sd_init_logFile(int16_t y, int16_t m, int16_t d, int16_t h, int16_
 
   // Change volume working directory
   if (!_sd.chdir(mm)) {
-    Serial.print(F("Failed chdir "));
+    Serial.print(F("\tFailed chdir month dir "));
     Serial.println(mm);
     return -6;
   }
@@ -196,7 +217,7 @@ int Ecoboard::sd_init_logFile(int16_t y, int16_t m, int16_t d, int16_t h, int16_
   {
     if(!_sd.mkdir(dd))
     {
-      Serial.print(F("Failed mkdir "));
+      Serial.print(F("\tFailed mkdir day dir "));
       Serial.println(dd);
       return -7;
     }
@@ -204,7 +225,7 @@ int Ecoboard::sd_init_logFile(int16_t y, int16_t m, int16_t d, int16_t h, int16_
   // Change volume working directory.
   if (!_sd.chdir(dd))
   {
-    Serial.print(F("Failed chdir "));
+    Serial.print(F("\tFailed chdir day dir "));
     Serial.println(dd);
     return -8;
   }
@@ -222,29 +243,30 @@ int Ecoboard::sd_init_logFile(int16_t y, int16_t m, int16_t d, int16_t h, int16_
 
   if(!_sd.chdir())												// Put the cursor back to root of the card
   {
-    Serial.println(F("Could not chdir ROOT after creating"));
+    Serial.println(F("\t Could not chdir ROOT after creating the struct"));
     return 0;
   }
 
-  _sd.chdir();
+  //_sd.chdir(); ??
 
   if(!_sd.chdir(_sd_pathLog))
   {
-    Serial.print(F("Could not chdir /LOG"));
-    Serial.print(F(yy));
-    Serial.print(F("/"));
-    Serial.print(F(mm));
-    Serial.print(F("/"));
-    Serial.print(F(dd));
-    Serial.println(F("/"));
+    if(_debug){
+      Serial.print(F("\tCould not chdir /LOG"));
+      Serial.print(F(yy));
+      Serial.print(F("/"));
+      Serial.print(F(mm));
+      Serial.print(F("/"));
+      Serial.print(F(dd));
+      Serial.println(F("/"));
+    }
     return 0;
   }
 
-  Serial.print(F("Log Folder: "));
+  Serial.print(F("\tLog Folder: "));
   Serial.println(_sd_pathLog);
-  return 1;
 
-/*
+  return 1;
 
 
   /*
@@ -261,9 +283,7 @@ int Ecoboard::sd_init_logFile(int16_t y, int16_t m, int16_t d, int16_t h, int16_
     }
   }
   */
-
-
-//}
+}
 
 
 /*
@@ -330,7 +350,7 @@ void Ecoboard::_sd_showCwd()
 }
 */
 
-/*
+
 
 bool Ecoboard::_sd_checkCard()
 {
@@ -363,7 +383,7 @@ bool Ecoboard::_sd_checkCard()
   	return isCardInserted;
 }
 
-
+/*
 int Ecoboard::sd_writeln(char const * text)
 {
   return _sd_write(_logFile, text, true);
@@ -380,6 +400,7 @@ int Ecoboard::sd_write(int16_t text)
   snprintf(mess,sizeof(mess), "%d", text);
   return _sd_write(_logFile, mess, false);
 }
+*/
 
 int Ecoboard::_sd_writeln(char * fileName, char const * text)
 {
@@ -495,6 +516,4 @@ int Ecoboard::_sd_write(const char * fileName, char const * text, bool ln)
     	return 1;
   	else
     	return 0;
-
 }
-*/
