@@ -1,9 +1,10 @@
 /*
 * EcoBoard © 2022 by Pierre Amey is licensed under CC BY-NC-SA 4.0
-* That file is underdevelopment. Do not use it for now
+* That file is underdevelopment.
+*
+* Feel free to collaborate and make it better
 *
 * The follwing code can be used without garranty.
-I will double check it later with EcoLora
 *
 */
 
