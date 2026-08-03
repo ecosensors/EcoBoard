@@ -39,24 +39,7 @@ class Ecoboard{
  		/* RTC */
  		bool _isRTCEnable;
 		
- 		/*SD Card */
- 		#if SD_FAT_TYPE == 0
-		  SdFat _sd;
-		  File file;
-		  File root;
-		#elif SD_FAT_TYPE == 1
-		  SdFat32 _sd;
-		  File32 file;
-		  File32 root;
-		#elif SD_FAT_TYPE == 2
-		  SdExFat sd;
-		  ExFile file;
-		  ExFile root;
-		#elif SD_FAT_TYPE == 3
-		  SdFs sd;
-		  FsFile file;
-		  FsFile root;
-		#endif  // SD_FAT_TYPE
+ 		
 
  		bool _isSdEnable;
  		bool _isSdReady;
@@ -77,6 +60,26 @@ class Ecoboard{
 	*/
 
 	public:
+
+		/*SD Card */
+ 		#if SD_FAT_TYPE == 0
+		  SdFat sd;
+		  File file;
+		  File root;
+		#elif SD_FAT_TYPE == 1
+		  SdFat32 sd;
+		  File32 file;
+		  File32 root;
+		#elif SD_FAT_TYPE == 2
+		  SdExFat sd;
+		  ExFile file;
+		  ExFile root;
+		#elif SD_FAT_TYPE == 3
+		  SdFs sd;
+		  FsFile file;
+		  FsFile root;
+		#endif  // SD_FAT_TYPE
+
 		Ecoboard();
 		Ecoboard(bool isSdEnable, bool isRTCEnable, bool debug);
 		void begin();

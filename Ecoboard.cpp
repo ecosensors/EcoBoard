@@ -9,18 +9,16 @@
 #include "Arduino.h"
 #include "Ecoboard.h"
 
-#include <SD.h>
-#include <sdios.h>
 
 Ecoboard::Ecoboard()
 {
   Ecoboard(false, false, false);
 }
 
-Ecoboard::Ecoboard(bool isSdEnable, bool isRTCEnable, bool rebug)
+Ecoboard::Ecoboard(bool isSdEnable, bool isRTCEnable, bool debug)
 {
 	// GENERAL
-  _debug;
+  _debug = debug;
   _isRTCEnable = isRTCEnable;                 // used to store the RTS status
 	_isSdEnable = isSdEnable;                  // used to store the status of the card
   _isSdReady = false;                        // used to check if the card is raedy or not. If the SD crad is not inserted, the value is Not Ready (dalse)
@@ -43,6 +41,7 @@ void Ecoboard::begin()
     Serial.println(F("SD is disable"));
   if(!_isRTCEnable && _debug)
     Serial.println(F("RTC is disable"));
+
 }
 
 
@@ -62,7 +61,7 @@ bool Ecoboard::sd_begin()
   byte c=1;                                                     // used to count the attend to start the SD crard
   do
   { 
-    if (!_sd.begin(_chipselect, SD_SCK_MHZ(12)))                                // INITIALIZE and check the SD card
+    if (!sd.begin(_chipselect, SD_SCK_MHZ(12)))                                // INITIALIZE and check the SD card
     {
       if(_debug)
         Serial.print(c);
