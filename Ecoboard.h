@@ -13,6 +13,7 @@ I will double check it later with EcoLora
 
 
 //SD
+#define SD_FAT_TYPE 3 // 1 for FAT16/FAT32, 2 for exFAT, 3 for FAT16/FAT32 and exFAT.
 #include <FreeStack.h> // For SdFAT
 #include <SdFat.h>
 //#include <SdFatConfig.h>
@@ -21,10 +22,6 @@ I will double check it later with EcoLora
 #include "Arduino.h"
 
 #define SD_PATHSIZE 20
-#define SD_FAT_TYPE 3 // 1 for FAT16/FAT32, 2 for exFAT, 3 for FAT16/FAT32 and exFAT.
-
-
-
 #define FILESIZE 12
 
 
@@ -93,7 +90,5 @@ class Ecoboard{
 		int sd_write(char const * text);
 		int sd_write(int16_t text);
 		*/
-
-
  };
  #endif
