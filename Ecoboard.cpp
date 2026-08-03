@@ -9,6 +9,8 @@
 #include "Arduino.h"
 #include "Ecoboard.h"
 
+#include <SD.h>
+
 Ecoboard::Ecoboard()
 {
   Ecoboard(false, false, false);
@@ -58,7 +60,7 @@ bool Ecoboard::sd_begin()
   byte c=1;                                                     // used to count the attend to start the SD crard
   do
   { 
-    if (!_sd.begin(_chipselect))                                // INITIALIZE and check the SD card
+    if (!_sd.begin(_chipselect, SD_SCK_MHZ(12)))                                // INITIALIZE and check the SD card
     {
       if(_debug)
         Serial.println(F("..Attending to detect the SD card"));

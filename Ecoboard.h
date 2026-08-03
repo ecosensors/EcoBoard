@@ -17,6 +17,7 @@ I will double check it later with EcoLora
 
 #define FILESIZE 12
 #define SD_PATHSIZE 20
+#define SD_FAT_TYPE 1 // 1 for FAT16/FAT32, 2 for exFAT, 3 for FAT16/FAT32 and exFAT.
 
 class Ecoboard{
  	protected:
