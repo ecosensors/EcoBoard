@@ -8,38 +8,39 @@
 *
 */
 
+
+/*TODO
+* Check and do all _save_config
+*/
 #include "Arduino.h"
 #include "Ecoboard.h"
+#include "RTClib.h"
 
 
 Ecoboard::Ecoboard()
 {
-  Ecoboard(false, false, false);
+  Ecoboard(false, false, true, false);
 }
 
-Ecoboard::Ecoboard(bool isSdEnable, bool isRTCEnable, bool debug)
+Ecoboard::Ecoboard(bool isSdEnable, bool isRTCEnable, bool print, bool debug)
 {
 	// GENERAL
   _debug = debug;
+  _print = print;
   _isRTCEnable = isRTCEnable;                 // used to store the RTS status
-	_isSdEnable = isSdEnable;                  // used to store the status of the card
+  _isSdEnable = isSdEnable;                  // used to store the status of the card
   _isSdReady = false;                        // used to check if the card is raedy or not. If the SD crad is not inserted, the value is Not Ready (dalse)
 	
   // SD CARD
   _carddetect = 7;                           // used as the MicroSD card CD (card detect)
-	_chipselect = 4;                           // used as the MicroSD card CS (chip select) pin
+  _chipselect = 4;                           // used as the MicroSD card CS (chip select) pin
 }
 
 
 void Ecoboard::begin()
 {
-  /*
-	Serial.println(F("*******************"));
-	Serial.println(F("*     Welcome     *"));
-	Serial.println(F("* with EcoSensors *"));
-	Serial.println(F("*******************"));
+	Serial.println(F("Welcome with EcoSensors"));
 	Serial.println("");
-  */
 
   
   if(!_isRTCEnable && _debug)
@@ -47,6 +48,9 @@ void Ecoboard::begin()
 
 }
 
+// ===========================================
+// SD
+// ===========================================
 
 /*
 * INITIALIZE THE SD CARD
@@ -100,7 +104,7 @@ bool Ecoboard::sd_begin()
   }
 
   if (_debug)
-      Serial.println(F("\t Sd is ready"));
+      Serial.println(F("SD is ready"));
 
   return _isSdReady;
 }
@@ -125,7 +129,7 @@ bool Ecoboard::sd_begin()
 */
 
 
-int Ecoboard::sd_init_logFile(int16_t y, int16_t m, int16_t d, int16_t h, int16_t mn, int16_t s)
+int Ecoboard::sd_init_log(int16_t y, int16_t m, int16_t d, int16_t h, int16_t mn, int16_t s)
 {
   if(_isSdEnable == false)
     return 2;
@@ -519,3 +523,795 @@ int Ecoboard::_sd_write(const char * fileName, char const * text, bool ln)
   	else
     	return 0;
 }
+
+
+
+// ===========================================
+// RTC
+// ===========================================
+void Ecoboard::RtcGetTime(int16_t &y, int16_t &m, int16_t &d, int16_t &h, int16_t &mn, int16_t &s, char * date_time)
+{
+  int32_t last_tx;
+  RtcGetTime(y, m, d, h, mn, s, last_tx, date_time, true);
+}
+void Ecoboard::RtcGetTime(int16_t &y, int16_t &m, int16_t &d, int16_t &h, int16_t &mn, int16_t &s, int32_t &unix_time, char * date_time)
+{
+  RtcGetTime(y, m, d, h, mn, s, unix_time, date_time, true);
+}
+void Ecoboard::RtcGetTime(int16_t &y, int16_t &m, int16_t &d, int16_t &h, int16_t &mn, int16_t &s, int32_t &unix_time, char * date_time, bool debug)
+{
+  /* TODO if the day changed we have to change the log file (See: sd_init_logFile)
+  */
+  DateTime now = rtc.now();
+
+  y = now.year();
+  y = y-2000;
+  m = now.month();
+  d = now.day();
+  h = now.hour();
+  mn = now.minute();
+  s = now.second();
+
+  sprintf(date_time,"%i-%i-%i %i:%i:%i",y,m,d,h,mn,s);
+   
+  if(debug==true)
+  {
+  sprint(y,0);
+  sprint(F("/"),0);
+    
+  sprint(m,0);
+  sprint(F("/"),0);
+    
+  sprint(d, 0);
+  sprint(F(" ("),0);
+  sprint(daysOfTheWeek[now.dayOfTheWeek()],0);
+  sprint(F(") "),0);
+  sprint(F(" "),0);
+    
+  sprint(h, 0);
+  sprint(F(":"),0);
+    
+  sprint(mn, 0);
+  sprint(F(":"),0);
+    
+  sprintln(s, 0);
+
+  sprint(F("Since midnight 1/1/1970 = "),0);
+  }
+  unix_time = now.unixtime();
+  if(debug==true)
+  {
+  sprintln(unix_time,0);
+  }
+}
+
+
+
+void Ecoboard::RtcGetUnixTime(int32_t &unix_time)
+{
+  DateTime now_u = rtc.now();
+  unix_time = now_u.unixtime();
+}
+
+
+bool Ecoboard::RtcBegin()
+{
+  if(rtc.begin())
+  {
+    /*
+    _sd.chdir();
+    
+    if (!_sd.exists(_config_rtc_file))
+    {
+      Serial.print(_config_rtc_file);
+      Serial.print(F(" does not exist"));
+      _config_rtc.year = 0;
+      _config_rtc.month = 0;
+      _config_rtc.day = 0;
+      _config_rtc.hour = 0;
+      _config_rtc.minute = 0;
+      _config_rtc.second = 0;
+
+      if(_save_Config_rtc(_config_rtc_file, false) == 1)
+      {
+        sprint(_config_rtc_file,0);
+        sprintln(F(" created."),0);
+      }
+      else
+      {
+        sprint(_config_rtc_file,0);
+        sprintln(F(" failed to be created...."),0);
+        return false; 
+      }
+    }
+    */
+    
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+
+}
+
+int Ecoboard::RtcCalibrate()
+{
+  if(_isSdEnable == false)
+    return 2;
+
+//  if(_load_Config_rtc(_config_rtc_file) == 1)
+//  {
+    //(We can not use the second paramet with the value of 2 sptint(,2), because this action is done before the SD is ready)
+    sprint(F("\tYear: "),0);
+    sprintln(_config_rtc.year,0);
+    sprint(F("\tMonth: "),0);
+    sprintln(_config_rtc.month,0);
+    sprint(F("\tDay: "),0);
+    sprintln(_config_rtc.day,0);
+    sprint(F("\tHour: "),0);
+    sprintln(_config_rtc.hour,0);
+    sprint(F("\tMinute: "),0);
+    sprintln(_config_rtc.minute,0);
+    sprint(F("\tSecond: "),0);
+    sprintln(_config_rtc.second,0);
+    
+    if(_config_rtc.year == 0 && _config_rtc.month == 0 && _config_rtc.day == 0 && _config_rtc.hour == 0 && _config_rtc.minute == 0 && _config_rtc.second == 0)
+    {
+      return -2;
+    }
+    else if(_config_rtc.year != 1970 || _config_rtc.month != 1 || _config_rtc.day != 1 || _config_rtc.hour != 0 || _config_rtc.minute != 0 || _config_rtc.second != 0)
+    {
+      sprintln(F("Calibrating the RTS DS3231"),0);
+      rtc.adjust(DateTime(_config_rtc.year, _config_rtc.month, _config_rtc.day, _config_rtc.hour, _config_rtc.minute, _config_rtc.second));
+      delay(100);
+
+      //TODO
+      //_save_Config_rtc(_config_rtc_file, true); // True init the file to 1970-1-1 0:0:0 
+      delay(100);
+      //TODO
+      //_load_Config_rtc(_config_rtc_file);
+      
+      sprint(F("\tYear: "),0);
+      sprintln(_config_rtc.year,0);
+      sprint(F("\tMonth: "),0);
+      sprintln(_config_rtc.month,0);
+      sprint(F("\tDay: "),0);
+      sprintln(_config_rtc.day,0);
+      sprint(F("\tHour: "),0);
+      sprintln(_config_rtc.hour,0);
+      sprint(F("\tMinute: "),0);
+      sprintln(_config_rtc.minute,0);
+      sprint(F("\tSecond: "),0);
+      sprintln(_config_rtc.second,0);
+
+      return 1;
+    }
+    else
+    {
+      return 0;
+    }
+  //} return -1;
+}
+
+
+bool Ecoboard::RtcCalibrate(int16_t &y, int16_t &m, int16_t &d, int16_t &h, int16_t &mn, int16_t &s)
+{
+  sprintln(F("Calibrating the RTS DS3231 (int16_t)"),0);
+  rtc.adjust(DateTime(y, m, d, h, mn, s));
+  return true;
+}
+
+bool Ecoboard::RtcLostPower()
+{
+  if (rtc.lostPower())
+  {
+    sprintln(F("RTC lost power, lets set the time!"),0);
+    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+bool Ecoboard::RtcInterval(int32_t lastTx, int32_t tx_interval, bool datetime_active, int debug)
+{ 
+    if(debug==1){
+      Serial.print(F("******\r\nlastTx: "));
+      Serial.println(lastTx);
+      Serial.print(F("tx_int: "));
+      Serial.println(tx_interval);
+      Serial.println();
+    }
+    
+    int32_t nextTx = lastTx + tx_interval;
+    
+    int32_t unix_t;
+
+    //Serial.print(F("NextTx:"));
+    //Serial.println(nextTx);
+    
+    if(datetime_active)
+    {
+      DateTime t = rtc.now();
+      unix_t = t.unixtime();
+    }else{
+      unix_t = millis()/1000;
+    }
+    /*
+    Serial.print(F("unix_t:"));
+    Serial.println(unix_t);
+    Serial.println(F("***** Done *****\r\n"));
+    */
+    
+    if(debug==1){
+      Serial.print("unix_t: "); Serial.print(unix_t);
+      Serial.print(F(" - "));
+      Serial.print("Next tx: "); Serial.println(nextTx);
+    }
+
+    if(unix_t > nextTx)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+}
+
+
+// ===========================================
+// PRINTS
+// ===========================================
+
+void Ecoboard::sprint(int message, int base, int logToSd)
+{
+  if (logToSd == 0 || logToSd == 2)
+  {
+    if(_print)
+    {
+      Serial.print(message,base);
+    }
+  }
+
+  if (logToSd == 1 || logToSd == 2)
+  {
+    if(_logger)
+    {
+      //Serial.print("Check here:");
+      char mess[10];
+      snprintf(mess,sizeof(mess), "%d", message);
+      //Serial1.print(message, 'HEX');
+      _sd_write(_logFile, mess);
+    }
+  }
+}
+
+
+void Ecoboard::sprint(int message, int logToSd)
+{
+  if (logToSd == 0 || logToSd == 2)
+  {
+    if(_print)
+    { 
+      Serial.print(message);
+    }
+  }
+
+  if (logToSd == 1 || logToSd == 2)
+  {
+    if(_logger)
+    {
+      char mess[10];
+      snprintf(mess, sizeof(mess), "%d", message);
+      //Serial1.print(message, 'DEC');
+      _sd_write(_logFile, mess);
+   }
+  }
+}
+
+void Ecoboard::sprint(uint32_t message, int logToSd)
+{
+  if (logToSd == 0 || logToSd == 2)
+  {
+    if(_print)
+    {
+      Serial.print(message);
+    }
+  }
+
+  if (logToSd == 1 || logToSd == 2)
+  {
+    if(_logger)
+    {
+      char mess[15 ];
+      snprintf(mess, sizeof(mess), "%d", message);
+      _sd_write(_logFile, mess);
+    }
+  }
+}
+
+void Ecoboard::sprint(int32_t message, int logToSd)
+{
+  if (logToSd == 0 || logToSd == 2)
+  {
+    if(_print)
+    {
+      Serial.print(message);
+    }
+  }
+
+  if (logToSd == 1 || logToSd == 2)
+  {
+    if(_logger){
+      char mess[15 ];
+      snprintf(mess, sizeof(mess), "%d", message);
+      _sd_write(_logFile, mess);
+    }
+  }
+}
+
+void Ecoboard::sprint(uint16_t message, int logToSd)
+{
+  if (logToSd == 0 || logToSd == 2)
+  {
+    if(_print)
+    {
+      Serial.print(message);
+    }
+  }
+
+  if (logToSd == 1 || logToSd == 2)
+  {
+    if(_logger)
+    {
+      char mess[15];
+      snprintf(mess, sizeof(mess), "%d", message);
+      _sd_write(_logFile, mess);
+    }
+  }
+}
+
+void Ecoboard::sprint(int16_t message, int logToSd)
+{
+  if (logToSd == 0 || logToSd == 2)
+  {
+    if(_print)
+    {
+      Serial.print(message);
+    }
+  }
+
+  if (logToSd == 1 || logToSd == 2)
+  {
+    if(_logger)
+    {  
+      char mess[15];
+      snprintf(mess, sizeof(mess), "%d", message);
+      _sd_write(_logFile, mess);
+    }
+  }
+}
+
+void Ecoboard::sprint(uint8_t message, int logToSd)
+{
+  if (logToSd == 0 || logToSd == 2)
+  {
+    if(_print)
+    { 
+      Serial.print(message);
+    }
+  }
+
+  if (logToSd == 1 || logToSd == 2)
+  {
+    if(_logger)
+    {
+      char mess[10];
+      snprintf(mess, sizeof(mess), "%d", message);
+      _sd_write(_logFile, mess);
+    }
+  }
+}
+
+
+
+void Ecoboard::sprint(int8_t message, int logToSd)
+{
+
+  if (logToSd == 0 || logToSd == 2)
+  {
+    if(_print)
+    {
+      Serial.print(message);
+    }
+  }
+
+
+  if (logToSd == 1 || logToSd == 2)
+  {
+    if(_logger)
+    {
+      char mess[10];
+      snprintf(mess, sizeof(mess), "%d", message);
+      _sd_write(_logFile, mess);
+    }
+  }
+}
+
+void Ecoboard::sprint(const __FlashStringHelper * message, int logToSd)
+{
+  if (logToSd == 0 || logToSd == 2)
+  {
+    if(_print)
+    { 
+      Serial.print(message);
+    }
+  }
+
+  if (logToSd == 1 || logToSd == 2)
+  {
+    if(_logger)
+    {
+      _sd_write(_logFile, message);
+    }
+  }
+}
+
+void Ecoboard::sprint(char const * message, int logToSd)
+{
+  if (logToSd == 0 || logToSd == 2)
+  {
+    if(_print)
+    {
+      Serial.print(message);
+    }
+  }
+
+  if (logToSd == 1 || logToSd == 2)
+  {
+    if(_logger)
+    {
+      _sd_write(_logFile, message);
+    }
+  }
+}
+
+void Ecoboard::sprintln(double message, int logToSd)
+{
+
+  if (logToSd == 0 || logToSd == 2)
+  {
+    if(_print)
+    {
+      Serial.println(message);
+    }
+  }
+
+  if (logToSd == 1 || logToSd == 2)
+  {
+    if(_logger)
+    {
+      char mess[15];
+      snprintf(mess, sizeof(mess), "%d", message);
+      _sd_writeln(_logFile, mess);
+    }
+  }
+}
+
+
+void Ecoboard::sprint(double message, int logToSd)
+{
+
+  if (logToSd == 0 || logToSd == 2)
+  {
+    if(_print)
+    { 
+      Serial.print(message);
+    }
+  }
+
+  if (logToSd == 1 || logToSd == 2)
+  {
+    if(_logger)
+    {
+      char mess[15];
+      snprintf(mess, sizeof(mess), "%d", message);
+      _sd_write(_logFile, mess);
+    }
+  }
+}
+
+void Ecoboard::sprintln(int message, int base, int logToSd)
+{
+  if (logToSd == 0 || logToSd == 2)
+  {
+    if(_print)
+    {  
+      Serial.println(message,base);
+    }
+  }
+
+  if (logToSd == 1 || logToSd == 2)
+  {
+    if(_logger)
+    {
+      //Serial.print("Check here:");
+      char mess[10];
+      snprintf(mess, sizeof(mess), "%d", message);
+      //Serial1.print(message, 'HEX');
+      _sd_writeln(_logFile, mess);
+    }
+  }
+}
+
+
+void Ecoboard::sprintln(int message, int logToSd)
+{
+
+  if (logToSd == 0 || logToSd == 2)
+  {
+    if(_print)
+    { 
+      Serial.println(message);
+    }
+  }
+
+  if (logToSd == 1 || logToSd == 2)
+  {
+    if(_logger)
+    {
+      char mess[10];
+      snprintf(mess, sizeof(mess), "%d", message);
+      _sd_writeln(_logFile, mess);
+    }
+  }
+}
+
+void Ecoboard::sprintln(uint32_t message, int logToSd)
+{
+
+  if (logToSd == 0 || logToSd == 2)
+  {
+    if(_print)
+    { 
+      Serial.println(message);
+    }
+  }
+
+  if (logToSd == 1 || logToSd == 2)
+  {
+    if(_logger)
+    {   
+      char mess[15];
+      snprintf(mess, sizeof(mess), "%d", message);
+      _sd_writeln(_logFile, mess);
+    }
+  }
+}
+
+void Ecoboard::sprintln(uint16_t message, int logToSd)
+{
+
+  if (logToSd == 0 || logToSd == 2)
+  {
+    if(_print)
+    { 
+      Serial.println(message);
+    }
+  }
+
+  if (logToSd == 1 || logToSd == 2)
+  {
+    if(_logger)
+    {
+      char mess[15];
+      snprintf(mess,sizeof(mess), "%d", message);
+      _sd_writeln(_logFile, mess);
+    }
+  }
+}
+
+void Ecoboard::sprintln(int16_t message, int logToSd)
+{
+
+  if (logToSd == 0 || logToSd == 2)
+  {
+    if(_print)
+    {  
+      Serial.println(message);
+    }
+  }
+
+  if (logToSd == 1 || logToSd == 2)
+  {
+    if(_logger)
+    {
+      char mess[10];
+      snprintf(mess, sizeof(mess), "%d", message);
+      _sd_writeln(_logFile, mess);
+    }
+  }
+}
+
+void Ecoboard::sprintln(int32_t message, int logToSd)
+{
+
+  if (logToSd == 0 || logToSd == 2)
+  {
+    if(_print)
+    {  
+      Serial.println(message);
+    }
+  }
+
+  if (logToSd == 1 || logToSd == 2)
+  {
+    if(_logger)
+    {
+      char mess[10];
+      snprintf(mess, sizeof(mess), "%d", message);
+      _sd_writeln(_logFile, mess);
+    }
+  }
+}
+
+void Ecoboard::sprintln(uint8_t message, int logToSd)
+{
+
+  if (logToSd == 0 || logToSd == 2)
+  {
+    if(_print)
+    { 
+      Serial.println(message);
+    }
+  }
+
+  if (logToSd == 1 || logToSd == 2)
+  {
+    if(_logger)
+    {
+      char mess[10];
+      snprintf(mess, sizeof(mess), "%d", message);
+      _sd_writeln(_logFile, mess);
+    }
+  }
+}
+
+
+void Ecoboard::sprintln(char * message, int logToSd)
+{
+
+  if (logToSd == 0 || logToSd == 2)
+  {
+    if(_print)
+    { 
+      Serial.println(message);
+    }
+  }
+
+  if (logToSd == 1 || logToSd == 2)
+  {
+    if(_logger)
+    {
+      _sd_writeln(_logFile, message);
+    }
+  }
+}
+
+
+void Ecoboard::sprintln(const __FlashStringHelper * message, int logToSd)
+{
+
+  if (logToSd == 0 || logToSd == 2)
+  {
+    if(_print)
+    { 
+      Serial.println(message);
+    }
+  }
+
+  if (logToSd == 1 || logToSd == 2)
+  {
+      if(_logger)
+    {
+      _sd_writeln(_logFile, message);
+    }
+  }
+}
+
+void Ecoboard::sprintln(char const * message, int logToSd)
+{
+
+  if (logToSd == 0 || logToSd == 2)
+  {
+    if(_print)
+    { 
+      Serial.println(message);
+    }
+  }
+
+  if (logToSd == 1 || logToSd == 2)
+  {
+    if(_logger)
+    {
+      _sd_writeln(_logFile, message);
+    }
+  }
+}
+
+
+void Ecoboard::printFloat(float value, int places) {
+
+  // this is used to cast digits
+  int digit;
+  float tens = 0.1;
+  int tenscount = 0;
+  int i;
+  float tempfloat = value;
+
+  // make sure we round properly. this could use pow from <math.h>, but doesn't seem worth the import
+  // if this rounding step isn't here, the value  54.321 prints as 54.3209
+
+  // calculate rounding term d:   0.5/pow(10,places)
+  float d = 0.5;
+  if (value < 0)
+    d *= -1.0;
+  // divide by ten for each decimal place
+  for (i = 0; i < places; i++)
+    d /= 10.0;
+  // this small addition, combined with truncation will round our values properly
+  tempfloat += d;
+
+  // first get value tens to be the large power of ten less than value
+  // tenscount isn't necessary but it would be useful if you wanted to know after this how many chars the number will take
+
+  if (value < 0)
+    tempfloat *= -1.0;
+  while ((tens * 10.0) <= tempfloat) {
+    tens *= 10.0;
+    tenscount += 1;
+  }
+
+
+  // write out the negative if needed
+  if (value < 0) {
+    sprint("-", 0);
+  }
+
+  if (tenscount == 0)
+    sprint(0, 0);
+
+  for (i = 0; i < tenscount; i++) {
+    digit = (int) (tempfloat / tens);
+    sprint(digit, 0);
+    tempfloat = tempfloat - ((float)digit * tens);
+    tens /= 10.0;
+  }
+
+  // if no places after decimal, stop now and return
+  if (places <= 0)
+    return;
+
+  // otherwise, write the point and continue on
+  sprint(".", 0);
+
+  // now write out each decimal place by shifting digits one by one into the ones place and writing the truncated value
+  for (i = 0; i < places; i++) {
+    tempfloat *= 10.0;
+    digit = (int) tempfloat;
+    sprint(digit, 0);
+    // once written, subtract off that digit
+    tempfloat = tempfloat - (float) digit;
+  }
+
+}
+
+
+
+// ===========================================
+// Other function
+// ===========================================
