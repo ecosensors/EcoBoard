@@ -68,6 +68,8 @@ class Ecoboard{
 		  FsFile _root;
 		#endif  // SD_FAT_TYPE
 
+		bool _isOtaa;
+		bool _isEepromEnable;
 		bool _logger;
  		bool _isSdEnable;
  		bool _isSdReady;
@@ -75,8 +77,6 @@ class Ecoboard{
 		int _chipselect;
 		char _sd_pathLog[SD_PATHSIZE];														// store the path to the log file
 		char _logFile[SD_PATHSIZE+FILESIZE];	
-													// store the logfile name
-		//void _sd_showCwd();
 		
 		bool _sd_checkCard();
 		int _sd_writeln(char * fileName, char const * text);								
@@ -89,8 +89,7 @@ class Ecoboard{
 
 	public:
 
-		Ecoboard();
-		Ecoboard(bool isSdEnable, bool isRTCEnable, bool print, bool debug);
+		Ecoboard(bool isSdEnable, bool logger, bool isRTCEnable, bool isEeprom, bool isOtaa, bool debug);
 		void begin();
 		bool sd_begin();
 
@@ -100,7 +99,7 @@ class Ecoboard{
 		void RtcGetTime(int16_t &y, int16_t &m, int16_t &d, int16_t &h, int16_t &mn, int16_t &s, int32_t &unix_time, char * datetime);
 		void RtcGetTime(int16_t &y, int16_t &m, int16_t &d, int16_t &h, int16_t &mn, int16_t &s, int32_t &unix_time, char * datetime, bool debug);
 		void RtcGetUnixTime(int32_t &unix_time);
-		bool RtcInterval(int32_t lastTx, int32_t tx_interval, bool datetime_active, int debug);
+		bool RtcInterval(int32_t lastTx, int32_t tx_interval, bool datetime_active, bool debug);
 		bool RtcLostPower();
 		int RtcCalibrate();
 		bool RtcCalibrate(int16_t &y, int16_t &m, int16_t &d, int16_t &h, int16_t &mn, int16_t &s);
@@ -110,7 +109,7 @@ class Ecoboard{
 
 
 		// SD Card
-		//void listFiles(const char * folder);
+		void sd_ls();
 		
 		int sd_init_log(int16_t y, int16_t m, int16_t d, int16_t h, int16_t mn, int16_t s);
 		/*
@@ -119,7 +118,7 @@ class Ecoboard{
 		int sd_write(int16_t text);
 		*/
 
-		// RPINT
+		// PRINT
 		void sprint(int message, int base, int logToSd);
 		void sprint(int message, int logToSd);
 		void sprint(uint32_t message, int logToSd);

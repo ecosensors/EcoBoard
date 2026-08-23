@@ -4,12 +4,13 @@ EcoBord v3 is a microcontroler based on the processor ATSAMD21G18 ARM Cortex M0 
 The chip has **256K of FLASH and 32K of RAM**. It's fully compatible with Arduino and Adafruit libraries.
 You can connect a LoRaWAN module to send the data to a LoRaWAN Gateway.
 
+The version v4 is under developpement
+
 We added several useful features
 * LoRaWAN RFM69/9x (868Mhz) hat
 * Solar panel input
 * 1Kb EEPROM
 * A MicroSD card
-* A Real Time Clock (Option)
 * GPIO Port Expander
 * 2 I2C connector
 * 1 UART connector
@@ -19,10 +20,22 @@ We added several useful features
 * A programable buton
 * A switch ON/OFF Button
 
-Next features
-* GPRS/GPS (SIM808) hat (near future)
-* a RTC clock hat (near future)
-* a 128x64 OLED screen hat (near future)
+Some mudule (HAT) can be used
+* LoRaWAN
+* GPRS/GPS
+* Wathermaerk sensors
+* RTC
+* MOSFET enables you to control higher voltage project (up to 12V)
+* a 128x64 OLED screen hat
+
+The board is make for serveral sensors
+* a rain/gauge sensor
+* a Devis Anemometer
+* a Devis Pyranometer
+* a barometer (Temperatore, Humidity, Pression)
+* a luminosity sensor
+* a IR sensor
+* a OneWire sensor as a DS18B20 devise
 
 
 ## Pictures

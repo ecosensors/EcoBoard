@@ -17,20 +17,17 @@
 #include "RTClib.h"
 
 
-Ecoboard::Ecoboard()
-{
-  Ecoboard(false, false, true, false);
-}
-
-Ecoboard::Ecoboard(bool isSdEnable, bool isRTCEnable, bool print, bool debug)
+Ecoboard::Ecoboard(bool isSdEnable, bool logger, bool isRTCEnable, bool isEepromEnable, bool isOtaa, bool debug)
 {
 	// GENERAL
   _debug = debug;
-  _print = print;
   _isRTCEnable = isRTCEnable;                 // used to store the RTS status
   _isSdEnable = isSdEnable;                  // used to store the status of the card
   _isSdReady = false;                        // used to check if the card is raedy or not. If the SD crad is not inserted, the value is Not Ready (dalse)
-	
+	_isEepromEnable = isEepromEnable;
+  _isOtaa = isOtaa;
+  _logger = logger;
+
   // SD CARD
   _carddetect = 7;                           // used as the MicroSD card CD (card detect)
   _chipselect = 4;                           // used as the MicroSD card CS (chip select) pin
@@ -42,9 +39,30 @@ void Ecoboard::begin()
 	Serial.println(F("Welcome with EcoSensors"));
 	Serial.println("");
 
-  
-  if(!_isRTCEnable && _debug)
-    Serial.println(F("RTC is disable"));
+  if(_isOtaa)
+    Serial.println(F("LoRaWAN\tOTAA"));
+  else
+    Serial.println(F("LoRaWAN\tABP (CHANGE THAT WHEN LORA IS DISABLE (bool=>byte"));
+
+  if(_isRTCEnable)
+    Serial.println(F("RTC card\tenable"));
+  else
+    Serial.println(F("RTC card\tdisable"));
+
+  if(_isSdEnable)
+    Serial.println(F("SD card\tenable"));
+  else
+    Serial.println(F("SD card\tdisable"));
+
+  if(_logger)
+    Serial.println(F("LOGGER\tenable"));
+  else
+    Serial.println(F("LOGGER\tdisable"));
+
+  if(_isEepromEnable)
+    Serial.println(F("EEPROM\tenable"));
+  else
+    Serial.println(F("EEPROM\tdisable"));
 
 }
 
@@ -63,10 +81,10 @@ bool Ecoboard::sd_begin()
   pinMode(_carddetect, INPUT_PULLUP);                           // Define the pin mode
 	
   if (_debug)
-    Serial.println(F("# Begin SD"));
+    Serial.println(F("[Debug] Begin SD"));
   
   if(!_isSdEnable && _debug)
-    Serial.println(F("SD is disable"));
+    Serial.println(F("[Debug] SD is disable"));
 
 
   byte c=1;                                                     // used to count the attend to start the SD crard
@@ -76,6 +94,7 @@ bool Ecoboard::sd_begin()
     {
       if(_debug)
       {
+        Serial.print(F("[Debug]"));
         Serial.print(c);
         Serial.println(F(": Attending to detect the SD card"));
       }
@@ -104,7 +123,7 @@ bool Ecoboard::sd_begin()
   }
 
   if (_debug)
-      Serial.println(F("SD is ready"));
+    Serial.println(F("[Debug] SD is ready"));
 
   return _isSdReady;
 }
@@ -117,7 +136,7 @@ bool Ecoboard::sd_begin()
 * 3: SD is enable but not the RTC
 * 2: SD disable
 * 1: OK
-* 0: Failed chdir root
+* 0: Done but Failed chdir root
 * -1: Could not create LOG folder
 * -2: Failed chdir log
 * -3: Failed mkdir year
@@ -135,11 +154,11 @@ int Ecoboard::sd_init_log(int16_t y, int16_t m, int16_t d, int16_t h, int16_t mn
     return 2;
 
   if(_debug)
-    Serial.println(F("# Init the log file..."));
+    Serial.println(F("[Debug] Init the log file..."));
 
   if( _isRTCEnable == false){
     if(_debug)
-      Serial.println(F("\t RTC is not enable. The log file can not initilized"));
+      Serial.println(F("[Debug] RTC is not enable. The log file can not initilized"));
 
     return 3;
   }
@@ -158,11 +177,13 @@ int Ecoboard::sd_init_log(int16_t y, int16_t m, int16_t d, int16_t h, int16_t mn
   snprintf(sec,3,"%i",s);
 
   if(_debug)
-    Serial.println(F("\tPrepare the log file..."));
+    Serial.println(F("[Debug] Prepare the log file..."));
 
   if(!_sd.chdir())
   {
-    Serial.println(F("\tCould not chdir root"));
+    if(_debug)
+      Serial.println(F("[Debug] Could not chdir root"));
+  
     return 0;
   }
 
@@ -170,14 +191,18 @@ int Ecoboard::sd_init_log(int16_t y, int16_t m, int16_t d, int16_t h, int16_t mn
   {
     if(!_sd.mkdir("/LOG"))
     {
-      Serial.println(F("\tFolder /LOG Could't be created"));
+      if(_debug)
+        Serial.println(F("[Debug] Folder /LOG Could't be created"));
+      
       return -1;
     }
   }
 
   if (!_sd.chdir("/LOG"))
   {
-    Serial.println(F("\tFailed chdir LOG"));
+    if(_debug)
+      Serial.println(F("[Debug] Failed chdir LOG"));
+    
     return -2;
   }
   
@@ -187,16 +212,20 @@ int Ecoboard::sd_init_log(int16_t y, int16_t m, int16_t d, int16_t h, int16_t mn
 
     if(!_sd.mkdir(yy))
     {
-      Serial.print(F("\tFailed mkdir year dir "));
-      Serial.println(yy);
+      if(_debug){
+        Serial.print(F("[Debug] Failed mkdir year dir "));
+        Serial.println(yy);
+      }
       return -3;
     }
   }
 
   // Change volume working directory
   if (!_sd.chdir(yy)) {
-    Serial.print(F("\tFailed chdir the year dir "));
-    Serial.println(yy);
+    if(_debug){
+      Serial.print(F("[Debug] Failed chdir the year dir "));
+      Serial.println(yy);
+    }
     return -4;
   }
 
@@ -205,16 +234,20 @@ int Ecoboard::sd_init_log(int16_t y, int16_t m, int16_t d, int16_t h, int16_t mn
   {
     if(!_sd.mkdir(mm))
     {
-      Serial.print(F("\tFailed mkdir month dir "));
-      Serial.println(mm);
+      if(_debug){
+        Serial.print(F("[Debug] Failed mkdir month dir "));
+        Serial.println(mm);
+      }
       return -5;
     }
   }
 
   // Change volume working directory
   if (!_sd.chdir(mm)) {
-    Serial.print(F("\tFailed chdir month dir "));
-    Serial.println(mm);
+    if(_debug){
+      Serial.print(F("\tFailed chdir month dir "));
+      Serial.println(mm);
+    }
     return -6;
   }
 
@@ -223,22 +256,28 @@ int Ecoboard::sd_init_log(int16_t y, int16_t m, int16_t d, int16_t h, int16_t mn
   {
     if(!_sd.mkdir(dd))
     {
-      Serial.print(F("\tFailed mkdir day dir "));
-      Serial.println(dd);
+      if(_debug){
+        Serial.print(F("\tFailed mkdir day dir "));
+        Serial.println(dd);
+      }
       return -7;
     }
   }
   // Change volume working directory.
   if (!_sd.chdir(dd))
   {
-    Serial.print(F("\tFailed chdir day dir "));
-    Serial.println(dd);
+    if(_debug){
+      Serial.print(F("\tFailed chdir day dir "));
+      Serial.println(dd);
+    }
     return -8;
   }
 
   sprintf(_sd_pathLog,"/LOG/%s/%s/%s/",yy,mm,dd);				// set the path to the log file
   sprintf(_logFile,"%s%s-%s-%s.txt",_sd_pathLog,hh,min,sec);	// set the log file name 
   //sprintf(_logData,"%sdatalog.txt",_sd_pathLog);
+
+
 
   _sd_write(_logFile, "LOG: ");									// Write first lines in the log file
   _sd_write(_logFile, _sd_pathLog);
@@ -247,18 +286,20 @@ int Ecoboard::sd_init_log(int16_t y, int16_t m, int16_t d, int16_t h, int16_t mn
   
   delay(1000);
 
+  /*
   if(!_sd.chdir())												// Put the cursor back to root of the card
   {
-    Serial.println(F("\t Could not chdir ROOT after creating the struct"));
+    if(_debug)
+      Serial.println(F("\t Could not chdir ROOT after creating the struct"));
+    
     return 0;
   }
-
-  //_sd.chdir(); ??
+  */
 
   if(!_sd.chdir(_sd_pathLog))
   {
     if(_debug){
-      Serial.print(F("\tCould not chdir /LOG"));
+      Serial.print(F("[Debug] Could not chdir the log folder path"));
       Serial.print(F(yy));
       Serial.print(F("/"));
       Serial.print(F(mm));
@@ -268,15 +309,19 @@ int Ecoboard::sd_init_log(int16_t y, int16_t m, int16_t d, int16_t h, int16_t mn
     }
     return 0;
   }
+  else{
+    if(_debug){
+      Serial.print(F("[Debug] Log Folder: "));
+      Serial.println(_sd_pathLog);
+      Serial.print(F("[Debug] Log file: "));
+      Serial.println(_logFile);
+    }
 
-  Serial.print(F("\tLog Folder: "));
-  Serial.println(_sd_pathLog);
-
-  return 1;
-
+    return 1;
+  }
 
   /*
-  sprintf(_logFile,"%s",ADALOG);
+  sprintf(_logFile,"%s",ECOLOG);
   // Check if file exist sarting from ADALOG00.TXT
   for (uint8_t i = 0; i < 100; i++)
   {
@@ -289,104 +334,49 @@ int Ecoboard::sd_init_log(int16_t y, int16_t m, int16_t d, int16_t h, int16_t mn
     }
   }
   */
-}
-
-
-/*
-// vwd() bug with the latest version of SdFat
-// I need to update this part
-
-void Ecoboard::listFiles(const char * folder){
-  char fileNam[20];
-  Serial.print(F("\nListing files in "));
-  SdFile files;                             // for SDFAT
-  if(folder == NULL)
-  {
-    Serial.println(F("root:"));
-    if(!_sd.chdir())
-    {
-      Serial.println(F("Could not chdir root (listFile()"));
-    }
-    
-  }
-  else
-  {
-    Serial.print(folder);
-    Serial.println(F(":"));
-    if(!_sd.chdir(folder))
-    {
-      Serial.print(F("Could not chdir")); Serial.println(folder);
-    }
-  }
   
-  _sd_showCwd();
-    
-  _sd.vwd()->rewind(); // on se remet au debut du repecoire courrant
-  while (files.openNext(_sd.vwd(), O_READ))
-  {
-    files.printFileSize(&Serial);
-    Serial.write(' ');
-    files.printModifyDateTime(&Serial);
-    Serial.write(' ');
-    files.printName(&Serial);
+}
 
-    //file.getName(getNameFile, sizeof(getNameFile));
-    
-    if (files.isDir())
-    {
-      // Indicate a directory.
-      Serial.write('/');
-    }
-    Serial.println();
-    files.close();
-  }
-  Serial.println("listing Files Done!");
 
-};
-*/
-/*
 // vwd() bug with the latest version of SdFat
 // I need to update this part
-void Ecoboard::_sd_showCwd()
-{
-	char currentDirectory[20]; //Current Work Directory (cwd)
-    _sd.vwd()->getName(currentDirectory,sizeof(currentDirectory ));
-    Serial.print(F("Current directory: "));
-    Serial.println(currentDirectory);
-}
-*/
 
+void Ecoboard::sd_ls(){
+  Serial.println(F("\n# Listing files"));
+  _sd.ls("/", LS_R);
+};
 
 
 bool Ecoboard::_sd_checkCard()
 {
 	bool isCardInserted = true;
-  	Serial.println(F("Checking SD card"));
-  	delay(5);
+
+  Serial.println(F("Checking SD card"));
+  delay(5);
   	
    	// When the SD card is removed digitalRead(CARDDETECT) does not return 0 for a unknow reason 
    	// The script is temporarely stopped (because of while(1)).
    	// When the reason will be know and the problem solved, change this part of code
 
-  	//  while(!digitalRead(CARDDETECT))
-  	while(1)
-  	{
-    	isCardInserted = false;
-    	Serial.println(F("SD card is not ready. Check the card and reset the module"));
-    	_isSdReady = false;
+  //  while(1)
+  while(!digitalRead(_carddetect))
+  {
+    isCardInserted = false;
+    Serial.println(F("SD card is not ready. Check the card and reset the module"));
+    _isSdReady = false;
     
-    	delay(1000);
-  	}
+    delay(1000);
+  }
   
-  	if(isCardInserted == false)
-      sd_begin();
+  if(isCardInserted == false)
+    sd_begin();
 
-  	isCardInserted = true;
-  	// Serial.println(F("Sd card inserted"));
-  	_isSdReady = true;
+  isCardInserted = true;
+  // Serial.println(F("Sd card inserted"));
+  _isSdReady = true;
 
-    
-  	return isCardInserted;
+  
+  return isCardInserted;
 }
 
 /*
@@ -437,40 +427,40 @@ int Ecoboard::_sd_write(const char * fileName, const __FlashStringHelper * text,
 
   bool isWrite = false;
 
-    File writeFileFl;  
-    if(_isSdReady == true)
-    { 
+  File writeFileFl;  
+  if(_isSdReady == true)
+  { 
       //digitalWrite(PIN_SDLED, HIGH);
 
-      writeFileFl = _sd.open(fileName, O_RDWR | O_CREAT | O_AT_END);
-      if(writeFileFl)
+    writeFileFl = _sd.open(fileName, O_RDWR | O_CREAT | O_AT_END);
+    if(writeFileFl)
+    {
+      if(ln == true)
       {
-        if(ln == true)
-        {
-          writeFileFl.println(text);
-        }
-        else
-        {
-          writeFileFl.print(text);
-        }
-        
-        writeFileFl.close();
-        isWrite = true;
+        writeFileFl.println(text);
       }
       else
       {
-        Serial.println(F("\nError opening1 "));
-        isWrite = false;
+        writeFileFl.print(text);
       }
-      //digitalWrite(PIN_SDLED, LOW);
+        
+      writeFileFl.close();
+      isWrite = true;
     }
     else
     {
+      Serial.println(F("\nError opening1 "));
       isWrite = false;
     }
+      //digitalWrite(PIN_SDLED, LOW);
+  }
+  else
+  {
+    isWrite = false;
+  }
 
-    if(isWrite == false)
-      _sd_checkCard();
+  if(isWrite == false)
+    _sd_checkCard();
 
   if(isWrite == true)
     return 1;
@@ -482,46 +472,46 @@ int Ecoboard::_sd_write(const char * fileName, const __FlashStringHelper * text,
 int Ecoboard::_sd_write(const char * fileName, char const * text, bool ln)
 {
 
-  	if(_isSdEnable == false)
-    	return 2;
+  if(_isSdEnable == false)
+    return 2;
 
  	bool isWrite = false;
   
 	File writeFileCo;   //logFile
-    if(_isSdReady == true)
-    {
-       writeFileCo = _sd.open(fileName, FILE_WRITE);
-     	if(writeFileCo)
-      	{
-        	if(ln == true)
-        	{
-          		writeFileCo.println(text);
-        	}
-        	else
-        	{
-          		writeFileCo.print(text);
-        	}
-        	writeFileCo.close();
-        	isWrite = true;
-      	}
-      	else
-      	{
-        	Serial.print(F("\nError opening2 ")); Serial.println(fileName);
-        	isWrite = false;
-      	}
+  if(_isSdReady == true)
+  {
+    writeFileCo = _sd.open(fileName, FILE_WRITE);
+    if(writeFileCo)
+   	{
+      if(ln == true)
+      {
+        writeFileCo.println(text);
+      }
+      else
+      {
+        writeFileCo.print(text);
+      }
+      writeFileCo.close();
+      isWrite = true;
     }
     else
     {
-      	isWrite = false;
+      Serial.print(F("\nError opening2 ")); Serial.println(fileName);
+      isWrite = false;
     }
+  }
+  else
+  {
+    isWrite = false;
+  }
 
-    if(isWrite==false)
-     	_sd_checkCard();
+  if(isWrite==false)
+     _sd_checkCard();
 
-  	if(isWrite == true)
-    	return 1;
-  	else
-    	return 0;
+  if(isWrite == true)
+    return 1;
+  else
+    return 0;
 }
 
 
@@ -554,34 +544,34 @@ void Ecoboard::RtcGetTime(int16_t &y, int16_t &m, int16_t &d, int16_t &h, int16_
 
   sprintf(date_time,"%i-%i-%i %i:%i:%i",y,m,d,h,mn,s);
    
-  if(debug==true)
+  if(_debug)
   {
-  sprint(y,0);
-  sprint(F("/"),0);
+    sprint(y,0);
+    sprint(F("/"),0);
+      
+    sprint(m,0);
+    sprint(F("/"),0);
+      
+    sprint(d, 0);
+    sprint(F(" ("),0);
+    sprint(daysOfTheWeek[now.dayOfTheWeek()],0);
+    sprint(F(") "),0);
+    sprint(F(" "),0);
+      
+    sprint(h, 0);
+    sprint(F(":"),0);
+      
+    sprint(mn, 0);
+    sprint(F(":"),0);
+      
+    sprintln(s, 0);
     
-  sprint(m,0);
-  sprint(F("/"),0);
-    
-  sprint(d, 0);
-  sprint(F(" ("),0);
-  sprint(daysOfTheWeek[now.dayOfTheWeek()],0);
-  sprint(F(") "),0);
-  sprint(F(" "),0);
-    
-  sprint(h, 0);
-  sprint(F(":"),0);
-    
-  sprint(mn, 0);
-  sprint(F(":"),0);
-    
-  sprintln(s, 0);
-
-  sprint(F("Since midnight 1/1/1970 = "),0);
   }
   unix_time = now.unixtime();
-  if(debug==true)
+  if(_debug)
   {
-  sprintln(unix_time,0);
+    sprint(F("Since midnight 1/1/1970: "),0);
+    sprintln(unix_time,0);
   }
 }
 
@@ -716,12 +706,13 @@ bool Ecoboard::RtcLostPower()
   }
 }
 
-bool Ecoboard::RtcInterval(int32_t lastTx, int32_t tx_interval, bool datetime_active, int debug)
+bool Ecoboard::RtcInterval(int32_t lastTx, int32_t tx_interval, bool datetime_active, bool debug)
 { 
-    if(debug==1){
-      Serial.print(F("******\r\nlastTx: "));
+    if(debug){
+      Serial.println(F("DEBIUG 2: "));
+      Serial.print(F("lastTx:"));
       Serial.println(lastTx);
-      Serial.print(F("tx_int: "));
+      Serial.print(F("tx_interval: "));
       Serial.println(tx_interval);
       Serial.println();
     }
@@ -746,7 +737,7 @@ bool Ecoboard::RtcInterval(int32_t lastTx, int32_t tx_interval, bool datetime_ac
     Serial.println(F("***** Done *****\r\n"));
     */
     
-    if(debug==1){
+    if(debug){
       Serial.print("unix_t: "); Serial.print(unix_t);
       Serial.print(F(" - "));
       Serial.print("Next tx: "); Serial.println(nextTx);
@@ -771,10 +762,7 @@ void Ecoboard::sprint(int message, int base, int logToSd)
 {
   if (logToSd == 0 || logToSd == 2)
   {
-    if(_print)
-    {
-      Serial.print(message,base);
-    }
+    Serial.print(message,base);
   }
 
   if (logToSd == 1 || logToSd == 2)
@@ -795,10 +783,7 @@ void Ecoboard::sprint(int message, int logToSd)
 {
   if (logToSd == 0 || logToSd == 2)
   {
-    if(_print)
-    { 
-      Serial.print(message);
-    }
+    Serial.print(message);
   }
 
   if (logToSd == 1 || logToSd == 2)
@@ -817,10 +802,7 @@ void Ecoboard::sprint(uint32_t message, int logToSd)
 {
   if (logToSd == 0 || logToSd == 2)
   {
-    if(_print)
-    {
-      Serial.print(message);
-    }
+    Serial.print(message);
   }
 
   if (logToSd == 1 || logToSd == 2)
@@ -838,10 +820,7 @@ void Ecoboard::sprint(int32_t message, int logToSd)
 {
   if (logToSd == 0 || logToSd == 2)
   {
-    if(_print)
-    {
-      Serial.print(message);
-    }
+    Serial.print(message);
   }
 
   if (logToSd == 1 || logToSd == 2)
@@ -858,10 +837,7 @@ void Ecoboard::sprint(uint16_t message, int logToSd)
 {
   if (logToSd == 0 || logToSd == 2)
   {
-    if(_print)
-    {
-      Serial.print(message);
-    }
+    Serial.print(message);
   }
 
   if (logToSd == 1 || logToSd == 2)
@@ -879,10 +855,7 @@ void Ecoboard::sprint(int16_t message, int logToSd)
 {
   if (logToSd == 0 || logToSd == 2)
   {
-    if(_print)
-    {
-      Serial.print(message);
-    }
+    Serial.print(message);
   }
 
   if (logToSd == 1 || logToSd == 2)
@@ -900,10 +873,7 @@ void Ecoboard::sprint(uint8_t message, int logToSd)
 {
   if (logToSd == 0 || logToSd == 2)
   {
-    if(_print)
-    { 
-      Serial.print(message);
-    }
+    Serial.print(message);
   }
 
   if (logToSd == 1 || logToSd == 2)
@@ -924,10 +894,7 @@ void Ecoboard::sprint(int8_t message, int logToSd)
 
   if (logToSd == 0 || logToSd == 2)
   {
-    if(_print)
-    {
-      Serial.print(message);
-    }
+    Serial.print(message);
   }
 
 
@@ -946,10 +913,7 @@ void Ecoboard::sprint(const __FlashStringHelper * message, int logToSd)
 {
   if (logToSd == 0 || logToSd == 2)
   {
-    if(_print)
-    { 
-      Serial.print(message);
-    }
+    Serial.print(message);
   }
 
   if (logToSd == 1 || logToSd == 2)
@@ -965,10 +929,7 @@ void Ecoboard::sprint(char const * message, int logToSd)
 {
   if (logToSd == 0 || logToSd == 2)
   {
-    if(_print)
-    {
-      Serial.print(message);
-    }
+    Serial.print(message);
   }
 
   if (logToSd == 1 || logToSd == 2)
@@ -985,10 +946,7 @@ void Ecoboard::sprintln(double message, int logToSd)
 
   if (logToSd == 0 || logToSd == 2)
   {
-    if(_print)
-    {
-      Serial.println(message);
-    }
+    Serial.println(message);
   }
 
   if (logToSd == 1 || logToSd == 2)
@@ -1008,10 +966,7 @@ void Ecoboard::sprint(double message, int logToSd)
 
   if (logToSd == 0 || logToSd == 2)
   {
-    if(_print)
-    { 
-      Serial.print(message);
-    }
+    Serial.print(message);
   }
 
   if (logToSd == 1 || logToSd == 2)
@@ -1029,10 +984,7 @@ void Ecoboard::sprintln(int message, int base, int logToSd)
 {
   if (logToSd == 0 || logToSd == 2)
   {
-    if(_print)
-    {  
-      Serial.println(message,base);
-    }
+    Serial.println(message,base);
   }
 
   if (logToSd == 1 || logToSd == 2)
@@ -1054,10 +1006,7 @@ void Ecoboard::sprintln(int message, int logToSd)
 
   if (logToSd == 0 || logToSd == 2)
   {
-    if(_print)
-    { 
-      Serial.println(message);
-    }
+    Serial.println(message);
   }
 
   if (logToSd == 1 || logToSd == 2)
@@ -1076,10 +1025,7 @@ void Ecoboard::sprintln(uint32_t message, int logToSd)
 
   if (logToSd == 0 || logToSd == 2)
   {
-    if(_print)
-    { 
-      Serial.println(message);
-    }
+    Serial.println(message);
   }
 
   if (logToSd == 1 || logToSd == 2)
@@ -1098,10 +1044,7 @@ void Ecoboard::sprintln(uint16_t message, int logToSd)
 
   if (logToSd == 0 || logToSd == 2)
   {
-    if(_print)
-    { 
-      Serial.println(message);
-    }
+    Serial.println(message);
   }
 
   if (logToSd == 1 || logToSd == 2)
@@ -1120,10 +1063,7 @@ void Ecoboard::sprintln(int16_t message, int logToSd)
 
   if (logToSd == 0 || logToSd == 2)
   {
-    if(_print)
-    {  
-      Serial.println(message);
-    }
+    Serial.println(message);
   }
 
   if (logToSd == 1 || logToSd == 2)
@@ -1142,10 +1082,7 @@ void Ecoboard::sprintln(int32_t message, int logToSd)
 
   if (logToSd == 0 || logToSd == 2)
   {
-    if(_print)
-    {  
-      Serial.println(message);
-    }
+    Serial.println(message);
   }
 
   if (logToSd == 1 || logToSd == 2)
@@ -1164,10 +1101,7 @@ void Ecoboard::sprintln(uint8_t message, int logToSd)
 
   if (logToSd == 0 || logToSd == 2)
   {
-    if(_print)
-    { 
-      Serial.println(message);
-    }
+    Serial.println(message);
   }
 
   if (logToSd == 1 || logToSd == 2)
@@ -1187,10 +1121,7 @@ void Ecoboard::sprintln(char * message, int logToSd)
 
   if (logToSd == 0 || logToSd == 2)
   {
-    if(_print)
-    { 
-      Serial.println(message);
-    }
+    Serial.println(message);
   }
 
   if (logToSd == 1 || logToSd == 2)
@@ -1208,10 +1139,7 @@ void Ecoboard::sprintln(const __FlashStringHelper * message, int logToSd)
 
   if (logToSd == 0 || logToSd == 2)
   {
-    if(_print)
-    { 
-      Serial.println(message);
-    }
+    Serial.println(message);
   }
 
   if (logToSd == 1 || logToSd == 2)
@@ -1228,10 +1156,7 @@ void Ecoboard::sprintln(char const * message, int logToSd)
 
   if (logToSd == 0 || logToSd == 2)
   {
-    if(_print)
-    { 
-      Serial.println(message);
-    }
+    Serial.println(message);
   }
 
   if (logToSd == 1 || logToSd == 2)
