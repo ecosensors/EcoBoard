@@ -1,8 +1,7 @@
 # IoT EcoBoard v3
 
 
-> The version v4 (Beta) is under developpement
-> This page is outdated and will be updated to reflect the latest version of the board during October 2026.
+> This page is outdated and will be updated to reflect the latest version (v4) of the board during October 2026.
 > Feel free to check back.
 
 
