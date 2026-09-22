@@ -1,10 +1,16 @@
 # IoT EcoBoard v3
 
+```
+The version v4 (Beta) is under developpement
+This page is outdated and will be updated to reflect the latest version of the board during October 2026.
+Feel free to check back.
+```
+
 EcoBord v3 is a microcontroler based on the processor ATSAMD21G18 ARM Cortex M0 at 48Mhz with 3V3 logic, as the Arduino Zero.
 The chip has **256K of FLASH and 32K of RAM**. It's fully compatible with Arduino and Adafruit libraries.
 You can connect a LoRaWAN module to send the data to a LoRaWAN Gateway.
 
-The version v4 is under developpement
+
 
 We added several useful features
 * LoRaWAN RFM69/9x (868Mhz) hat
