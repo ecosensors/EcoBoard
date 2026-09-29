@@ -12,7 +12,7 @@ To thta board, you can connect serveral modules according to your ned
 
 ## Pictures
 ### EcoBoard (beta)
-![EcoBoard (Beta)](assets/EcoBOARDbeta.png =100)
+![EcoBoard (Beta)](assets/EcoBOARDbeta.png)
 
 ### Modules
 
