@@ -246,8 +246,7 @@ Header | Description
 --- | ---
 J10, J9 | You can connect any I2C sensor devises
 J11 (OLED) | Even though you may use any I2C sensors, that header is mainly used for a small OLED board.
-J16 | You can solder an JST connector (B4B-PH-SM4-TB 2mm). Be aware the SDA and SCl pin are not in the same order than the other I2C header.
-That header has been mainly integrated to use OLED with s STEMMA connector from Adafruit. 
+J16 | You can solder an JST connector (B4B-PH-SM4-TB 2mm). Be aware the SDA and SCl pin are not in the same order than the other I2C header. That header has been mainly integrated to use OLED with s STEMMA connector from Adafruit. 
 
 ### Analog or 1 Wire
 
