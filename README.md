@@ -25,6 +25,28 @@ EcoMOSFET |![EcoLORA (Beta)](assets/EcoMOSFETbeta.png) | This module is usefull 
 EcoI2C | Coming soon)|
 EcoGPRS | Coming soon | For the moment, a SIM808 hat, from Adafruit, can be connected at the bottom of the main board.
 
+### EcoLORA (Beta)
+
+You can connect the EcoLORA module built with a RFM95 [LoRaWWAN](https://en.wikipedia.org/wiki/LoRa#LoRaWAN) radio module for Europe (868Mhz).
+
+![EcoLORA](assets/EcoLORAbeta.png)
+
+
+For now, you have an example with a Raspberry, Python and TTN [here](https://github.com/ecosensors/ecoradio#rfm95-radio-lorawan)
+
+
+### EcoSOIL (Beta)
+
+![EcoLORA](assets/watermark.jpg)
+
+### EcoRTC (Beta)
+If you need to log any events according to the time, or if you wish to trigger your sensor measurements according to a precise sequence, you can use that module on one of the socket H1, H3 of H4
+
+Some exmaple scripts are available [here](https://github.com/ecosensors/EcoBoard/tree/master/examples/05_rtc-lowpower) and [here](https://github.com/ecosensors/EcoBoard/tree/master/examples/06_rtc-sd-bme280)
+
+### EcoMOSFET (Beta)
+
+### EcoGPRS (coming soon)
 
 You also connect
 * **A solar panel** input to keep your board running days and nights
@@ -41,7 +63,7 @@ You also connect
 * A switch ON/OFF Button
 
 
-## Description of the board
+## Sensors
 
 The board is make for serveral sensors
 * a rain/gauge sensor
@@ -51,6 +73,7 @@ The board is make for serveral sensors
 * a luminosity sensor
 * a IR sensor
 * a OneWire sensor as a DS18B20 devise
+* and any I2C, 1Wire or analog sensors
 
 
 
@@ -82,14 +105,6 @@ More example scripts for all modules and sensors will be available for you, in t
 * Etc
 
 
-## LoRaWAN or GPRS/GPS
-### LoRaWAN (EcoLora)
-You can connect the EcoLORA module built with a RFM95 [LoRaWWAN](https://en.wikipedia.org/wiki/LoRa#LoRaWAN) radio module for Europe (868Mhz).
-
-![EcoLORA](assets/EcoLORAbeta.png)
-
-
-For now, you have an example with a Raspberry, Python and TTN [here](https://github.com/ecosensors/ecoradio#rfm95-radio-lorawan)
 
 
 ## Solar panel
