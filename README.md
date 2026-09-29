@@ -174,11 +174,6 @@ For now, the module is not available yet, but you can connect [a SIM808 board fr
 This option has not been tested, and the plan is to remove J14 to create a module for H1 or H3.
 
 
-
-> This content bellow is been review. Come back in a couple of days
-
-
-
 ## Solar panel
 The EcoBoard is built with a BQ24074 to keep your Lithium Ion (LiIon) rechargeable batteries topped up. You can use USB, DC or Solar power, with a wide 5-10V input voltage range. The charger chip is super smart, and will reduce the current draw if the input voltage starts to dip under 4.5V, making it a perfect near-MPPT solar charger that you can use with a wide range of 5-10V panels.
 
@@ -333,7 +328,7 @@ Pin | Out
 
 
 
-
+> This content bellow is been review. Come back in a couple of days
 
 
 
