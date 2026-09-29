@@ -20,38 +20,28 @@ Module | Picture | Desc
 --- | --- | ---
 EcoRTC |![EcoRTC (Beta)](assets/EcoRTCbeta.png) | Use a RTC Clock module to log the events and to define precise sequences
 EcoSOIL | ![EcoSOIL (Beta)](assets/EcoSOILbeta.png)  | This module is required to measure soil moisture using a Watermark probe.
-EcoLoRA | ![EcoLORA (Beta)](assets/EcoLORAbeta.png)  | This module is required to transmit your measure with Low Range Wild Area Network (LoRaWAN), thereby participating in the Internet of Things (IoT)
+EcoLoRA | ![EcoLORA (Beta)](assets/EcoLORAbeta.png)  | This module is required to transmit your measure with Low Range Wild Area Network (LoRaWAN RFM69/9x (868Mhz)), thereby participating in the Internet of Things (IoT)
 EcoMOSFET |![EcoLORA (Beta)](assets/EcoMOSFETbeta.png) | This module is usefull to control an external devise as a 9-12V soleniod valve 
 EcoI2C | Coming soon)|
 EcoGPRS | Coming soon | For the moment, a SIM808 from Adafruit, can be connected at the bottom of the card
 
 
 You also connect
-* **A solar panel** to keep your board running days and nights
+* **A solar panel** input to keep your board running days and nights
 * An **SD Card** to log your daily events
-* An ** 1K EEPROM** to store keys or static value
+* An **1K EEPROM** to store keys or static values
+* A switch to use one or two UART (Not tested yet)
 * 2 I2C headers
 * 1 I2C header for a OLED
 * 1 UART header
-* 4 analog headers (A0-A4)
+* 4 1-Wire or analog headers (A0-A4)
 * 1 I2C STEMMA connector
-
-## Description of the board
-
-We added several useful features
-* LoRaWAN RFM69/9x (868Mhz) hat
-* Solar panel input
-* 1Kb EEPROM
-* A MicroSD card
-* GPIO Port Expander
-* 2 I2C connector
-* 1 UART connector
-* 5 1-Wire or Analog connector 
-* A debuger/programmer connector
 * A reset buton
 * A programable buton
 * A switch ON/OFF Button
 
+
+## Description of the board
 
 The board is make for serveral sensors
 * a rain/gauge sensor
