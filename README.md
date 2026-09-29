@@ -319,6 +319,7 @@ Jumper | Pull the sensor output
 --- | ---
 1-2 | Pull Down A0
 2-3 | PUll Up A0
+Removed | no pull up/down
 
 
 **Header J0**
