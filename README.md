@@ -112,6 +112,7 @@ The bq24074 which powers this design is great for solar charging, and will autom
 ### Charge rate
 
 ![EcoLORA](assets/charge-limit.png)
+
 The default charge rate is 1A. To modify from the default value, cut the traces in the jumpers and solder according to your need (JP7, JP8, JP9).
 
 ### Input current limit
@@ -148,31 +149,6 @@ See simple example [here](https://github.com/ecosensors/EcoBoard/tree/master/exa
 We add an SD card to log the activities or to save some parameters or other values. The MicroSD card is not provided with the board
 
 
-
-## GPIO I/O expander port (PCF8574)
-EcoBoard uses 6 additonal GPIO with the PCF8574 ([Datasheeet](https://www.ti.com/product/PCF8574) ). The outputs P1 to P6, controls other devices or LEDs. However, as the outputs can only provide 25mA, in some cases, this power may not be sufficient. It's the reason why, we added three MOSFET-P (IRML2244) on the outputs P0, P1, P2 and P3. 
-
-
-Thus, the outputs P0, P1, P2 and P3 will colse/open the MOSFET-P to power the devises connected at J0 to J3 with VCC (max 500mA) instead of the PCF8574 output. (Read Headers section).
-
-Jumper | Devise | Status
---- | --- | ---
-P0 * | Power the devise on J0 (max 500mA) | LOW to turn on the sensor
-P1 * | Power the devise on J1 (max 500mA) | LOW to turn on the sensor
-P2 * | Power the devise on J2 (max 500mA) | LOW to turn on the sensor
-P3 * | Power the devise on J3 (max 500mA) | LOW to turn on the sensor 
-P4 | Power the devise on J4 (Max 25mA| HIGH to turn on the sensor
-P5 | LED D5 | HIGH to turn on the LED (max 25mA)
-P6 | LED D6 | HIGH to turn on the LED (max 25mA)
-
-### IMPORTANT
-
-The jumpers ARE NOT SOLDERED. You have to solder the jumpers, either to Px or 3V3
-
-All devices connected to 1 to 4 can be permanently powered with VCC by changing the jumper JP_1 to JP_4
-
-
-See an exemple about PCF9574 and 1-Wire sensor [here](https://github.com/ecosensors/EcoBoard/tree/master/examples/expander-1wire)
 
 ## Pinout
 
