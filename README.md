@@ -240,6 +240,27 @@ You can use the board without the SD card.
 
 ## Pinout
 
+### UART
+**J12**
+
+Pin | Out
+--- | ---
+1 | GND
+2 | 3V3
+3 | Tx
+4 | Rx
+
+**H1**
+UART is available on H1 on PIN 3 (Tx) and 4 (Rx). Do not use two UART devises at the same time
+
+**H3**
+UART is available on H1 on PIN 3 (Tx) and 4 (Rx). Do not use two UART devises at the same time, Exepted if you switched SW3 (not tested yet).
+
+**SW3**
+If you move the switch SW3 to Do/D1, H3 will consider the pin Do and D1 of the ATSAMD21G18 for a second UART.
+> Thta option has not been tested yet.
+
+
 ### I2C
 
 Header | Description
