@@ -23,7 +23,7 @@ EcoSOIL | ![EcoSOIL (Beta)](assets/EcoSOILbeta.png)  | This module is required t
 EcoLoRA | ![EcoLORA (Beta)](assets/EcoLORAbeta.png)  | This module is required to transmit your measure with Low Range Wild Area Network (LoRaWAN RFM69/9x (868Mhz)), thereby participating in the Internet of Things (IoT)
 EcoMOSFET |![EcoLORA (Beta)](assets/EcoMOSFETbeta.png) | This module is usefull to control an external devise as a 9-12V soleniod valve 
 EcoI2C | Coming soon)|
-EcoGPRS | Coming soon | For the moment, a SIM808 from Adafruit, can be connected at the bottom of the card
+EcoGPRS | Coming soon | For the moment, a SIM808 hat, from Adafruit, can be connected at the bottom of the main board.
 
 
 You also connect
@@ -58,37 +58,39 @@ The board is make for serveral sensors
 
 ## Examples
 
-All [examples](https://github.com/ecosensors/EcoBoard/tree/master/examples) are done for the EcoBoard, but you can easly use it for other Arduino board, with may be, a few modification.
-
-For all example scripts, **feel free to collaborate and share suggestions for improvement** :)
-
-Actually, I have some examples code for the EcoBoard
+Actually, I have some [examples](https://github.com/ecosensors/EcoBoard/tree/master/examples) scipts for the EcoBoard
 * How to work with the EEPROM
 * How to use the GPIO I/O expander port and a 1-Wire Digital temperature sensor (DS18B20)
 * How to use a barometer (BME280)
 * How to use a Davis anemometer
 * How to log data into a SD card
 
-In the very near future, I will provide example codes to use
+For all example scripts, **feel free to collaborate and share suggestions for improvement** :)
+
+
+For all example scripts, **feel free to collaborate and share suggestions for improvement** :)
+
+More example scripts for all modules and sensors will be available for you, in the near future.
 
 * a pyranometer
 * a rain gauge
 * a drop counter for watering crops
 * a Waternark sensors to better plan crop irrigation
+* LoRaWANN
+* EEPROM
+* SD Card
+* Etc
 
 
 ## LoRaWAN or GPRS/GPS
 ### LoRaWAN (EcoLora)
-You can connect the EcoLora V3 borad built with a RFM95 [LoRaWWAN](https://en.wikipedia.org/wiki/LoRa#LoRaWAN) radio module for Europe (868Mhz).
+You can connect the EcoLORA module built with a RFM95 [LoRaWWAN](https://en.wikipedia.org/wiki/LoRa#LoRaWAN) radio module for Europe (868Mhz).
 
-![EcoLora V3](assets/lorawan.jpg)
+![EcoLORA](assets/EcoLORAbeta.png)
 
-Example will come later for Arduino
 
 For now, you have an example with a Raspberry, Python and TTN [here](https://github.com/ecosensors/ecoradio#rfm95-radio-lorawan)
 
-### GPRS/GPS (EcoGprs)
-You will be able to use a GPRS/GPS (EcoGprs) module instead of the EcoLora module. The module is still under developpement and not tested yet.
 
 ## Solar panel
 The EcoBoard is built with a BQ24074 to keep your Lithium Ion (LiIon) rechargeable batteries topped up. You can use USB, DC or Solar power, with a wide 5-10V input voltage range. The charger chip is super smart, and will reduce the current draw if the input voltage starts to dip under 4.5V, making it a perfect near-MPPT solar charger that you can use with a wide range of 5-10V panels.
@@ -109,8 +111,8 @@ The bq24074 which powers this design is great for solar charging, and will autom
 
 ### Charge rate
 
-
-The default charge rate is 1A. To modify from the default value, cut the traces in the jumpers and solder according to your need.
+![EcoLORA](assets/charge-limit.png)
+The default charge rate is 1A. To modify from the default value, cut the traces in the jumpers and solder according to your need (JP7, JP8, JP9).
 
 ### Input current limit
 
