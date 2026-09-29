@@ -93,6 +93,10 @@ Mode | Action | Comment
 R | The LMC555 IC is powered with the VCC pin from the 3V3. The probe is activate with EN pin (LMC555) while PWD is HIGH | Recommanded
 M | While PWD is HIGH, the pin EN and VCC are HIGH. Otherwise the probe is inactived. | Slightly reduced consumption
 
+#### Header J2
+
+You can connect the Watermark probe
+
 #### Header J3
 
 PIN | Out
@@ -148,9 +152,7 @@ ohms | volts | μ-amps | hertz
 
 > The Shock equation allows the calculation of soil water potential (SWP, in kPa or cbar) from the electrical resistance of the Watermark sensor (in kOhms) and the soil temperature (in °C).
 
-#### Header J2
 
-You can connect the Watermark probe
 
 
 
@@ -238,7 +240,53 @@ You can use the board without the SD card.
 
 ## Pinout
 
-### Header J0 to J5
+### I2C
+
+#### J10, J9
+You can connect any I2C sensor devises
+
+#### J11 (OLED)
+Even though you may use any I2C sensors, that header is mainly used for a small OLED board.
+
+#### J16
+You can solder an JST connector (B4B-PH-SM4-TB 2mm). Be aware the SDA and SCl pin are not in the same order than the other I2C header.
+That header has been mainly integrated to use OLED with s STEMMA connector from Adafruit. 
+
+### Analog
+
+#### J0, JP01, JP0
+
+**J0**
+
+Pin | Out
+--- | ---
+1 | GND
+2 | 3V3
+3 | A0
+
+**Jumper JP01**
+
+Pin | Out
+--- | --
+1 | GND
+2 | A0
+3 | 3V3
+
+Jumper position:
+
+Jumper | pull
+1-2 | Pull Down A0
+2-3 | PUll Up A0
+
+**Jumper J0**
+
+
+
+
+
+
+
+## Header J0 to J5
 
 
 All of those connectors are Analogic inputs, but you also can use a 1-Wire sensors.
