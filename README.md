@@ -327,111 +327,13 @@ Pin | Out
 
 
 
+  
 
-# This content bellow is been review. Come back in a couple of days
-
-
-
-## Header J0 to J5
-
-
-All of those connectors are Analogic inputs, but you also can use a 1-Wire sensors.
-
-
-By default, the input are not wired to a 4.7kOhm. However, You can choose to pull up or pull down (4.7kOhm) the input by soldering the jumpers JP0 to JP5
-
-### Header J0 to J4
-
-As I mentionned above, you need to solder the jumper JP_1 to JP_4 to choose wither if you will permanently power the sensors or if you want to manage the power state through a MOSFSET-P and the PCF8574.
+> This content bellow is been review. Come back in a couple of days
 
 
 
-If you want to permaently power the sensor, change the Jumper JP_0, JP_1, JP_2, JP_3 or JP_4 to '3V3'
-If you want to manager the power the sensor, change the Jumper JP_0, JP_1, JP_2, JP_3 or JP_4 to P1, P2, P3 or P4.
-**Do not leave JP_0, JP_1, JP_2, JP_3 or JP_4 open**
 
-Change P0, P1, P2, P3 or P4 to LOW state to power the sensor and HIGH to unpower the sensor. 
-(Note: as the maximum output current of the PCF8574 is 25 mA per pin, we use a MISFET-P to power the sensor with 3V3 (max 500mA)
-
-
-### Header J0
-
-Pin | Output
---- | ---
-1 | GND
-2 | P0 or 3V3
-3 | A0 
-
-### Header J1
-
-Pin | Output
---- | ---
-1 | GND
-2 | P1 or 3V3
-3 | A2 
-
-### Header J2
-
-Pin | Output
---- | ---
-1 | GND
-2 | P2 or 3V3
-3 | A2 
-
-### Header J3
-
-Pin | Output
---- | ---
-1 | GND
-2 | P3 or 3V3
-3 | A3 
-
-### Header J4
-
-Pin | Output
---- | ---
-1 | GND
-2 | P4
-3 | A4
-
-### Header J5 (UART)
-
-Pin | Output
---- | ---
-1 | GND
-2 | 3V3
-3 | Rx (D0)
-4 | Tx (D1)
-
-### Header J6 (I2C)
-
-Pin | Output
---- | ---
-1 | GND
-2 | 3V3
-3 | SCL
-4 | SDA
-
-See an example with [bme280](https://github.com/ecosensors/EcoBoard/tree/main/examples/sd-bme280)
-
-### Header J7 (I2C)
-
-Pin | Output
---- | ---
-1 | GND
-2 | 3V3
-3 | SCL
-4 | SDA
-
-See an example with [bme280](https://github.com/ecosensors/EcoBoard/tree/main/examples/sd-bme280)
-
-
-### Header J8 (Solar input)
-
-Pin | Output
---- | ---
-1 | GND
-2 | POWER
 
 
 ### Header J9 (EcoLora V3 input)
