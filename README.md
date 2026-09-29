@@ -275,6 +275,7 @@ Pin | Out
 Jumper position:
 
 Jumper | pull
+--- | ---
 1-2 | Pull Down A0
 2-3 | PUll Up A0
 
