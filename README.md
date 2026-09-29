@@ -19,7 +19,7 @@ To thta board, you can connect serveral modules according to your ned
 Module | Picture | Desc
 --- | --- | ---
 EcoRTC |![EcoRTC (Beta)](assets/EcoRTCbeta.png) | Use a RTC Clock module to log the events and to define precise sequences
-EcoSOIL | ![EcoSOIL (Beta)](assets/EcoSOILeta.png)  | This module is required to measure soil moisture using a Watermark probe.
+EcoSOIL | ![EcoSOIL (Beta)](assets/EcoSOILbeta.png)  | This module is required to measure soil moisture using a Watermark probe.
 EcoLoRA | ![EcoLORA (Beta)](assets/EcoLORAbeta.png)  | This module is required to transmit your measure with Low Range Wild Area Network (LoRaWAN), thereby participating in the Internet of Things (IoT)
 EcoMOSFET |![EcoLORA (Beta)](assets/EcoMOSFETbeta.png) | This module is usefull to control an external devise as a 9-12V soleniod valve 
 
