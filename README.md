@@ -252,7 +252,7 @@ Even though you may use any I2C sensors, that header is mainly used for a small 
 You can solder an JST connector (B4B-PH-SM4-TB 2mm). Be aware the SDA and SCl pin are not in the same order than the other I2C header.
 That header has been mainly integrated to use OLED with s STEMMA connector from Adafruit. 
 
-### Analog
+### Analog or 1 Wire
 
 #### J0, JP01, JP0
 
@@ -264,35 +264,33 @@ Pin | Out
 2 | 3V3
 3 | A0
 
-**Jumper JP01**
-
-Pin | Out
---- | ---
-1 | GND
-2 | A0
-3 | 3V3
-
-Jumper position:
+**Jumper JP02**
 
 Jumper | pull
 --- | ---
 1-2 | Pull Down A0
 2-3 | PUll Up A0
 
-**Jumper J0**
+**Jumper J01**
 
-Pin | Out
---- | ---
-1 | P0 (MCP23008)
-2 | PWD
-3 | 3V3
-
-Jumper position:
+> The sensor can be powered continuously with 3V3 or you can trigger it with P0 (MCP230008).
 
 Jumper | Power
 --- | ---
 1-2 | While P0 is HIGH
 2-3 | powered continuously with 3V3
+
+**Jumper J0**
+
+> J0 has no effect if J01 is on 2-3 position (powered continuously with 3V3)
+
+According to the Microchip MCP23008 Datasheet,  the absolute maximum current output (source or sink) for the P0 pin (labeled as GP0) is 25 mA. If for some reason, you sensor need more than 25Ma for your sensor, you can move the jumper to 1-2.
+
+Jumper | Trigger
+--- | ---
+1-2 [P0] | P4 trigger the sensor through the MOSFET (max 500mA)
+2-3 [F] (default) | P4 ignore the MOSFET (max 25mA)
+
 
 
 
