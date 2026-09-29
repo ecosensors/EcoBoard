@@ -39,7 +39,11 @@ The board is make for serveral sensors
 * a OneWire sensor as a DS18B20 devise
 * and any I2C, 1Wire or analog sensors
 
-Some [example of scripts](https://github.com/ecosensors/EcoBoard#examples) is already available and some will come later
+
+### Example of scripts
+Throughout the reading, there will be a few very simple examples. At the end, there is a section with more [concrete examples](https://github.com/ecosensors/EcoBoard#examples).
+
+
 
 ## Modules
 On EcoBoard, you can add different hat according to your need. Note, all modules are in Beta version
@@ -50,7 +54,7 @@ Module | Picture | Desc
 [EcoSOIL](https://github.com/ecosensors/EcoBoard#ecosoil) | ![EcoSOIL (Beta)](assets/EcoSOILbeta.png)  | This module is required to measure soil moisture using a Watermark probe.
 [EcoLoRA](https://github.com/ecosensors/EcoBoard#ecolora) | ![EcoLORA (Beta)](assets/EcoLORAbeta.png)  | This module is required to transmit your measure with Low Range Wild Area Network (LoRaWAN RFM69/9x (868Mhz)), thereby participating in the Internet of Things (IoT)
 [EcoMOSFET](https://github.com/ecosensors/EcoBoard#ecomosfet) |![EcoLORA (Beta)](assets/EcoMOSFETbeta.png) | This module is usefull to control an external devise as a 9-12V soleniod valve 
-EcoI2C | Coming soon)|
+EcoI2C | Coming soon|
 [EcoGPRS](https://github.com/ecosensors/EcoBoard#ecogprs) | Coming soon | For the moment, a SIM808 hat, from Adafruit, can be connected, bellow the main board.
  
 
@@ -148,12 +152,10 @@ You can connect the Watermark probe
 
 
 
-
-
 ### EcoRTC
 If you need to log any events according to the time, or if you wish to trigger your sensor measurements according to a precise sequence, you can use that module on one of the socket H1, H3 of H4
 
-Some exmaple scripts are available [here](https://github.com/ecosensors/EcoBoard/tree/master/examples/05_rtc-lowpower) and [here](https://github.com/ecosensors/EcoBoard/tree/master/examples/06_rtc-sd-bme280)
+Some exmaple scripts are available, [at the bottom](https://github.com/ecosensors/EcoBoard#examples)
 
 ### EcoMOSFET
 
@@ -164,41 +166,12 @@ You can control another devise as long as the voltage is not higher than 12V.
 Example will come late.
 
 ### EcoGPRS 
-(coming soon)
-
-
-
-
+For now, the module is not available yet, but you can connect [a SIM808 board from Adafruit](https://www.adafruit.com/product/2691), bellow the board (J14).
+This option has not been tested, and the plan is to remove J14 to create a module for H1 or H3.
 
 
 
 > This content bellow is been review. Come back in a couple of days
-
-## Examples
-
-Actually, I have some [examples](https://github.com/ecosensors/EcoBoard/tree/master/examples) scipts for the EcoBoard
-* How to work with the EEPROM
-* How to use the GPIO I/O expander port and a 1-Wire Digital temperature sensor (DS18B20)
-* How to use a barometer (BME280)
-* How to use a Davis anemometer
-* How to log data into a SD card
-
-For all example scripts, **feel free to collaborate and share suggestions for improvement** :)
-
-
-For all example scripts, **feel free to collaborate and share suggestions for improvement** :)
-
-More example scripts for all modules and sensors will be available for you, in the near future.
-
-* a pyranometer
-* a rain gauge
-* a drop counter for watering crops
-* a Waternark sensors to better plan crop irrigation
-* LoRaWANN
-* EEPROM
-* SD Card
-* Etc
-
 
 
 
@@ -250,13 +223,14 @@ EN2 | HIGH
 
 
 ## EEPROM
-EcoLora has a 1KB EEPROM  (74LC01) to store relatively small amounts of data as keys or parameters.
+EcoLora has a 1KB EEPROM  (74LC01) to store relatively small amounts of data as keys or parameters
 
 See simple example [here](https://github.com/ecosensors/EcoBoard/tree/master/examples/02_eeprom)
 
 ## SD Card
 
-We add an SD card to log the activities or to save some parameters or other values. The MicroSD card is not provided with the board
+We add an SD card to log the activities or to save some parameters or other values. The MicroSD card is not provided with the board.
+You can use the board without the SD card.
 
 
 
@@ -571,6 +545,32 @@ void loop() {
  ```
  
 A detailed example can be found here [expander-1wire](https://github.com/ecosensors/EcoBoard/tree/master/examples/expander-1wire)
+
+## Examples
+
+Actually, I have some [examples](https://github.com/ecosensors/EcoBoard/tree/master/examples) scipts for the EcoBoard
+* How to work with the EEPROM
+* How to use the GPIO I/O expander port and a 1-Wire Digital temperature sensor (DS18B20)
+* How to use a barometer (BME280)
+* How to use a Davis anemometer
+* How to log data into a SD card
+
+For all example scripts, **feel free to collaborate and share suggestions for improvement** :)
+
+
+For all example scripts, **feel free to collaborate and share suggestions for improvement** :)
+
+More example scripts for all modules and sensors will be available for you, in the near future.
+
+* a pyranometer
+* a rain gauge
+* a drop counter for watering crops
+* a Waternark sensors to better plan crop irrigation
+* LoRaWANN
+* EEPROM
+* SD Card
+* Etc
+
 
 ## License
 EcoBoard © 2024 by Pierre Amey is licensed under CC BY-NC-SA 4.0
