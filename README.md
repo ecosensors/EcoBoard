@@ -1,15 +1,43 @@
-# IoT EcoBoard v3
+# IoT EcoBoard Beta
 
 
-> This page is outdated and will be updated to reflect the latest version (v4) of the board during October 2026.
+> This page is been review according to the latest board version (beta).
 > Feel free to check back.
 
 
-EcoBord v3 is a microcontroler based on the processor ATSAMD21G18 ARM Cortex M0 at 48Mhz with 3V3 logic, as the Arduino Zero.
+EcoBord is a microcontroler based on the processor ATSAMD21G18 ARM Cortex M0 at 48Mhz with 3V3 logic, as the Arduino Zero.
 The chip has **256K of FLASH and 32K of RAM**. It's fully compatible with Arduino and Adafruit libraries.
-You can connect a LoRaWAN module to send the data to a LoRaWAN Gateway.
 
+To thta board, you can connect serveral modules according to your ned
 
+## Pictures
+### EcoBoard (beta)
+![EcoBoard (Beta)](assets/EcoBOARDbeta.png)
+
+### Modules
+
+![EcoRTC (Beta)](assets/EcoRTCbeta.png)
+
+Comming soon: EcoSOIL (Soil Moisture), EcoLORA (LoRaWAN), EcoSIM808 (GSM/GPRS/GPS), EcoMOSFET (9-12V soleniod valve control )
+
+## Modules
+On EcoBoard, you can add different hat according to your need
+
+* A loRaWAN module (EcoLora)
+* A RTC Clock module (EcoRTC)
+* A MOSFET module to control 0-12V a soleniod valve (EcoMOS)
+* A soil moisture module to connect WATERMARK sensors
+* a I2C module
+* A GSM/GPRS module (not tested yet)
+
+You also have 
+* 2 I2C headers
+* 1 I2C header for a OLED
+* 1 UART header
+* 4 analog headers (A0-A4)
+* 1 I2C STEMMA connector
+
+## Description of the board
 
 We added several useful features
 * LoRaWAN RFM69/9x (868Mhz) hat
@@ -25,13 +53,6 @@ We added several useful features
 * A programable buton
 * A switch ON/OFF Button
 
-Some mudule (HAT) can be used
-* LoRaWAN
-* GPRS/GPS
-* Wathermaerk sensors
-* RTC
-* MOSFET enables you to control higher voltage project (up to 12V)
-* a 128x64 OLED screen hat
 
 The board is make for serveral sensors
 * a rain/gauge sensor
@@ -43,9 +64,8 @@ The board is make for serveral sensors
 * a OneWire sensor as a DS18B20 devise
 
 
-## Pictures
-![EcoBoard with Lora module](assets/ecoboard-lora.jpg)
 
+> This content bellow is been review. Come back in a couple of days
 
 ## Examples
 
@@ -100,7 +120,6 @@ The bq24074 which powers this design is great for solar charging, and will autom
 
 ### Charge rate
 
-![Charge rate](assets/charge-rate.jpg)
 
 The default charge rate is 1A. To modify from the default value, cut the traces in the jumpers and solder according to your need.
 
@@ -142,7 +161,6 @@ We add an SD card to log the activities or to save some parameters or other valu
 ## GPIO I/O expander port (PCF8574)
 EcoBoard uses 6 additonal GPIO with the PCF8574 ([Datasheeet](https://www.ti.com/product/PCF8574) ). The outputs P1 to P6, controls other devices or LEDs. However, as the outputs can only provide 25mA, in some cases, this power may not be sufficient. It's the reason why, we added three MOSFET-P (IRML2244) on the outputs P0, P1, P2 and P3. 
 
-![mosfet IRML2244](assets/mosfet.jpg)
 
 Thus, the outputs P0, P1, P2 and P3 will colse/open the MOSFET-P to power the devises connected at J0 to J3 with VCC (max 500mA) instead of the PCF8574 output. (Read Headers section).
 
@@ -162,7 +180,6 @@ The jumpers ARE NOT SOLDERED. You have to solder the jumpers, either to Px or 3V
 
 All devices connected to 1 to 4 can be permanently powered with VCC by changing the jumper JP_1 to JP_4
 
-![JP_1](assets/jp_1.jpg)
 
 See an exemple about PCF9574 and 1-Wire sensor [here](https://github.com/ecosensors/EcoBoard/tree/master/examples/expander-1wire)
 
@@ -170,11 +187,9 @@ See an exemple about PCF9574 and 1-Wire sensor [here](https://github.com/ecosens
 
 ### Header J0 to J5
 
-![j0](assets/j0.jpg)
 
 All of those connectors are Analogic inputs, but you also can use a 1-Wire sensors.
 
-![PullUpDown](assets/pullupdown.jpg)
 
 By default, the input are not wired to a 4.7kOhm. However, You can choose to pull up or pull down (4.7kOhm) the input by soldering the jumpers JP0 to JP5
 
@@ -182,7 +197,6 @@ By default, the input are not wired to a 4.7kOhm. However, You can choose to pul
 
 As I mentionned above, you need to solder the jumper JP_1 to JP_4 to choose wither if you will permanently power the sensors or if you want to manage the power state through a MOSFSET-P and the PCF8574.
 
-![JP_1](assets/jp_1.jpg)
 
 
 If you want to permaently power the sensor, change the Jumper JP_0, JP_1, JP_2, JP_3 or JP_4 to '3V3'
@@ -279,7 +293,6 @@ Pin | Output
 At J9, you can use and connect the EcoLora V3 board. The GSM board is not ready yet.
 The ATSAMD21G18 column indicates the connection to the µController. 
 
-![lora](assets/lora.jpg)
 
 Pin | ATSAMD21G18 (GPIO) | EcoLora | EcoGprs 
 --- | --- | -- | -- 
@@ -309,7 +322,6 @@ Pin | ATSAMD21G18 (GPIO) | EcoLora | EcoGprs
 ### Header J10 (NTC)
 Connects the thermistor input to ground when not in use. To use a thermistor, carefully cut the THERM jumper connection and connect a 10kΩ NTC thermistor in the battery pack to the THERM pin. The thermistor should also be connected to the negative lead of the battery pack.
 
-![ntc](assets/ntc.jpg)
 
 Pin | Output
 --- | ---
@@ -384,7 +396,6 @@ Pin | Output
 
 ### JP0 thus JP4
 
-![j0](assets/j0.jpg)
 
 By default, the analog input are not wired to a 4.7kOhm (pullup/pulldown). However, You can choose to pull up or pull down (4.7kOhm) the input by soldering the jumpers JP0 to JP5, on A0, A1, A2, A3, or A4
 (Default: all open)
@@ -392,7 +403,6 @@ By default, the analog input are not wired to a 4.7kOhm (pullup/pulldown). Howev
 
 
 ### JP_0 thus JP_4
-![JP_1](assets/jp_1.jpg)
 
 All devices connected to 1 to 4 can be permanently powered with VCC by changing the jumper JP_1 to JP_4
 The jumpers ARE NOT SOLDERED. You have to solder the jumpers, either to Px or 3V3
