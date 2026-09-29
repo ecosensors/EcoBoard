@@ -37,7 +37,43 @@ For now, you have an example with a Raspberry, Python and TTN [here](https://git
 
 ### EcoSOIL (Beta)
 
+This module has been build to use a Watermark sensor.
+
+
 ![EcoLORA](assets/watermark.jpg)
+
+Watermark sensors are tensiometric probes that allow for the calculation of soil water content in kPa—in other words, the suction force that roots must exert to extract water from the soil.
+
+![EcoSOIL (Beta)](assets/EcoSOILbeta.png) 
+
+The Watermark probe must not be powered continuously. It must be powered for 20 seconds before the measurement and then deactivated.
+
+### Switch
+
+The module contain an LMC555 IC.
+
+Mode | 
+--- |---
+R (Recommanded)| The LMC555 IC is powered with the VCC pin from the 3V3. The probe is activate with EN pin (LMC555) while PWD is HIGH
+M | While PWD is HIGH, the pin EN and VCC are HIGH. Otherwise the probe is inactived.
+
+### Header J3
+
+PIN | Out
+--- | ---
+1 | GND
+2 | 3V3
+3 | Signal
+4 | PWD
+
+
+#### Header J2
+
+You can connect the Watermark probe
+
+
+
+
 
 ### EcoRTC (Beta)
 If you need to log any events according to the time, or if you wish to trigger your sensor measurements according to a precise sequence, you can use that module on one of the socket H1, H3 of H4
