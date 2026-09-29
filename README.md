@@ -8,24 +8,54 @@
 EcoBord is a microcontroler based on the processor ATSAMD21G18 ARM Cortex M0 at 48Mhz with 3V3 logic, as the Arduino Zero.
 The chip has **256K of FLASH and 32K of RAM**. It's fully compatible with Arduino and Adafruit libraries.
 
-To thta board, you can connect serveral modules according to your ned
-
 ## The main board
 ![EcoBoard (Beta)](assets/EcoBOARDbeta.png)
 
+You also connect
+* **[A solar panel](https://github.com/ecosensors/EcoBoard#ecogprs-coming-soon)** input (J8 (DC Power Jack connector) and J13) to keep your board running days and nights
+* **A solar panel** 
+* An **SD Card** to log your daily events
+* An **1K EEPROM** to store keys or static values
+* A switch to use one or two UART (Not tested yet)
+* 2 I2C headers
+* 1 I2C header for a OLED
+* 1 UART header
+* 4 1-Wire or analog headers (A0-A4)
+* 1 I2C STEMMA connector
+* A reset buton
+* A programable buton
+* A switch ON/OFF Button
+
+
+### Sensors
+
+The board is make for serveral sensors
+* a rain/gauge sensor
+* a Devis Anemometer
+* a Devis Pyranometer
+* a barometer (Temperatore, Humidity, Pression)
+* a luminosity sensor
+* a IR sensor
+* a OneWire sensor as a DS18B20 devise
+* and any I2C, 1Wire or analog sensors
+
+Some [example of scripts](https://github.com/ecosensors/EcoBoard#examples) is already available and some will come later
+
 ## Modules
-On EcoBoard, you can add different hat according to your need
+On EcoBoard, you can add different hat according to your need. Note, all modules are in Beta version
 
 Module | Picture | Desc
 --- | --- | ---
-EcoRTC |![EcoRTC (Beta)](assets/EcoRTCbeta.png) | Use a RTC Clock module to log the events and to define precise sequences
-EcoSOIL | ![EcoSOIL (Beta)](assets/EcoSOILbeta.png)  | This module is required to measure soil moisture using a Watermark probe.
-EcoLoRA | ![EcoLORA (Beta)](assets/EcoLORAbeta.png)  | This module is required to transmit your measure with Low Range Wild Area Network (LoRaWAN RFM69/9x (868Mhz)), thereby participating in the Internet of Things (IoT)
-EcoMOSFET |![EcoLORA (Beta)](assets/EcoMOSFETbeta.png) | This module is usefull to control an external devise as a 9-12V soleniod valve 
+[EcoRTC](https://github.com/ecosensors/EcoBoard#ecortc) |![EcoRTC (Beta)](assets/EcoRTCbeta.png) | Use a RTC Clock module to log the events and to define precise sequences
+[EcoSOIL](https://github.com/ecosensors/EcoBoard#ecosoil) | ![EcoSOIL (Beta)](assets/EcoSOILbeta.png)  | This module is required to measure soil moisture using a Watermark probe.
+[EcoLoRA](https://github.com/ecosensors/EcoBoard#ecolora) | ![EcoLORA (Beta)](assets/EcoLORAbeta.png)  | This module is required to transmit your measure with Low Range Wild Area Network (LoRaWAN RFM69/9x (868Mhz)), thereby participating in the Internet of Things (IoT)
+[EcoMOSFET](https://github.com/ecosensors/EcoBoard#ecomosfet) |![EcoLORA (Beta)](assets/EcoMOSFETbeta.png) | This module is usefull to control an external devise as a 9-12V soleniod valve 
 EcoI2C | Coming soon)|
-EcoGPRS | Coming soon | For the moment, a SIM808 hat, from Adafruit, can be connected at the bottom of the main board.
+[EcoGPRS](https://github.com/ecosensors/EcoBoard#ecogprs) | Coming soon | For the moment, a SIM808 hat, from Adafruit, can be connected, bellow the main board.
+ 
 
-### EcoLORA (Beta)
+
+### EcoLORA
 
 You can connect the EcoLORA module built with a RFM95 [LoRaWWAN](https://en.wikipedia.org/wiki/LoRa#LoRaWAN) radio module for Europe (868Mhz).
 
@@ -35,7 +65,7 @@ You can connect the EcoLORA module built with a RFM95 [LoRaWWAN](https://en.wiki
 For now, you have an example with a Raspberry, Python and TTN [here](https://github.com/ecosensors/ecoradio#rfm95-radio-lorawan)
 
 
-### EcoSOIL (Beta)
+### EcoSOIL
 
 This module has been build to use a Watermark sensor.
 
@@ -120,41 +150,25 @@ You can connect the Watermark probe
 
 
 
-### EcoRTC (Beta)
+### EcoRTC
 If you need to log any events according to the time, or if you wish to trigger your sensor measurements according to a precise sequence, you can use that module on one of the socket H1, H3 of H4
 
 Some exmaple scripts are available [here](https://github.com/ecosensors/EcoBoard/tree/master/examples/05_rtc-lowpower) and [here](https://github.com/ecosensors/EcoBoard/tree/master/examples/06_rtc-sd-bme280)
 
-### EcoMOSFET (Beta)
+### EcoMOSFET
 
-### EcoGPRS (coming soon)
+The EcoMOSFET has been build to connect a 9-12V soleniod valve. While P5 is HIGHT, the soleniod valve is powered by a external 9-12V battery and the water flows when the Watermark probe detects sil that is too dry. While P5 is LOW, the soleniod valve closes and the water stops flowing.
 
-You also connect
-* **A solar panel** input to keep your board running days and nights
-* An **SD Card** to log your daily events
-* An **1K EEPROM** to store keys or static values
-* A switch to use one or two UART (Not tested yet)
-* 2 I2C headers
-* 1 I2C header for a OLED
-* 1 UART header
-* 4 1-Wire or analog headers (A0-A4)
-* 1 I2C STEMMA connector
-* A reset buton
-* A programable buton
-* A switch ON/OFF Button
+You can control another devise as long as the voltage is not higher than 12V.
+
+Example will come late.
+
+### EcoGPRS 
+(coming soon)
 
 
-## Sensors
 
-The board is make for serveral sensors
-* a rain/gauge sensor
-* a Devis Anemometer
-* a Devis Pyranometer
-* a barometer (Temperatore, Humidity, Pression)
-* a luminosity sensor
-* a IR sensor
-* a OneWire sensor as a DS18B20 devise
-* and any I2C, 1Wire or analog sensors
+
 
 
 
