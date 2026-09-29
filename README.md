@@ -240,7 +240,7 @@ You can use the board without the SD card.
 
 ## Pinout
 
-### UART
+### UART (Serial)
 **J12**
 
 Pin | Out
