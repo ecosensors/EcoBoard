@@ -258,21 +258,35 @@ J0, J1, J2, J3, J4 | An analog sensors whose reading is taken on A0, A1, A2, A3 
 
 Jumpers | Description
 --- | ---
-JP02, JP12, JP22, JP32, JP42 | Pull Up/Down A0, A1, A2, A3, A4  
+JP02, JP12, JP22, JP32, JP42 | To pull Up/Down A0, A1, A2, A3, A4  
 JP01, JP11, JP21, JP31, JP41 | To power continuously the sensor with 3V3 or to trigger it with P0 (MCP230008)
 JP0, JP1, JP2 | Only for A0, A1 and A2. To trigger the sensor with P4 or through a MOSFET (see bellow). It has no effect if the sensor is powered continuously with 3V3. 
 
 ![Analog sensors](assets/analog-sensors.png)
 
-To better understand how it works, here are more details for J0, JP01 and JP01
+To better understand how it works, here is an example if you connect a sensor on A0.
 
-**J0**
+**Jumper J0**
 
-Pin | Out
+> J0 has no effect if J01 is on 2-3 position (powered continuously with 3V3)
+> Only for A0, A1, and A2
+
+According to the Microchip MCP23008 Datasheet,  the absolute maximum current output (source or sink) for the P0 pin (labeled as GP0) is 25 mA. If for some reason, you sensor need more than 25Ma for your sensor, you can move the jumper to 1-2.
+
+Jumper | Trigger
 --- | ---
-1 | GND
-2 | 3V3
-3 | A0
+1-2 [F] | P0 trigger the sensor through the MOSFET (max 500mA)
+2-3 [P0] (default) | P0 ignore the MOSFET (max 25mA)
+
+
+**Jumper J01**
+
+> The sensor can be powered continuously with 3V3 or you can trigger it with P0 (MCP230008).
+
+Jumper | Power
+--- | ---
+1-2 | The sensor is triggered while P0 is HIGH
+2-3 | powered continuously with 3V3
 
 **Jumper JP02**
 
@@ -281,25 +295,14 @@ Jumper | pull
 1-2 | Pull Down A0
 2-3 | PUll Up A0
 
-**Jumper J01**
 
-> The sensor can be powered continuously with 3V3 or you can trigger it with P0 (MCP230008).
+**Header J0**
 
-Jumper | Power
+Pin | Out
 --- | ---
-1-2 | While P0 is HIGH
-2-3 | powered continuously with 3V3
-
-**Jumper J0**
-
-> J0 has no effect if J01 is on 2-3 position (powered continuously with 3V3)
-
-According to the Microchip MCP23008 Datasheet,  the absolute maximum current output (source or sink) for the P0 pin (labeled as GP0) is 25 mA. If for some reason, you sensor need more than 25Ma for your sensor, you can move the jumper to 1-2.
-
-Jumper | Trigger
---- | ---
-1-2 [P0] | P4 trigger the sensor through the MOSFET (max 500mA)
-2-3 [F] (default) | P4 ignore the MOSFET (max 25mA)
+1 | GND
+2 | Power
+3 | A0
 
 
 
