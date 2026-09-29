@@ -272,7 +272,7 @@ To better understand how it works, here is an example if you connect a sensor on
 
 > Only for A0, A1, and A2
 
-According to the Microchip MCP23008 Datasheet,  the absolute maximum current output (source or sink) for the P0 pin (labeled as GP0) is 25 mA. If for some reason, you sensor need more than 25Ma for your sensor, you can move the jumper to 1-2.
+According to the Microchip MCP23008 Datasheet,  the absolute maximum current output (source or sink) for the P0 pin (labeled as GP0) is 25 mA. If for some reasons, you sensor need more than 25mA, you can move the jumper to 1-2.
 
 Jumper | Trigger
 --- | ---
