@@ -244,13 +244,26 @@ You can use the board without the SD card.
 
 Header | Description
 --- | ---
-J10, J9 | You can connect any I2C sensor devises
+J10, J9 | You can connect any I2C sensors
 J11 (OLED) | Even though you may use any I2C sensors, that header is mainly used for a small OLED board.
-J16 | You can solder an JST connector (B4B-PH-SM4-TB 2mm). Be aware the SDA and SCl pin are not in the same order than the other I2C header. That header has been mainly integrated to use OLED with s STEMMA connector from Adafruit. 
+J16 | You can solder an JST connector (B4B-PH-SM4-TB 2mm). Be aware the SDA and SCL pin are not in the same order than the other I2C headers. That header has been mainly integrated to use OLED with s STEMMA connector from Adafruit. 
 
 ### Analog or 1 Wire
 
 #### J0, JP01, JP0
+
+Headers | Description
+--- | ---
+J0, J1, J2, J3, J4 | An analog sensor whose reading is taken on A0, A1, A2, A3 or A4
+
+
+Jumpers | Description
+--- | ---
+JP02, JP12, JP22, JP32, JP42 | Pull Up/Down A0, A1, A2, A3, A4  
+JP01, JP11, JP21, JP31, JP41 | To power continuously the sensor with 3V3 or to trigger it with P0 (MCP230008)
+JP0, JP1, JP2 | Only for A0, A1 and A2. To trigger the sensor with P4 or through a MOSFET (see bellow). It has no effect if the sensor is powered continuously with 3V3. 
+
+More detail with J0/JP01/JP02
 
 **J0**
 
