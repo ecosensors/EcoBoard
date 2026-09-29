@@ -250,11 +250,10 @@ J16 | You can solder an JST connector (B4B-PH-SM4-TB 2mm). Be aware the SDA and 
 
 ### Analog or 1 Wire
 
-#### J0, JP01, JP0
 
 Headers | Description
 --- | ---
-J0, J1, J2, J3, J4 | An analog sensor whose reading is taken on A0, A1, A2, A3 or A4
+J0, J1, J2, J3, J4 | An analog sensors whose reading is taken on A0, A1, A2, A3 or A4
 
 
 Jumpers | Description
@@ -263,7 +262,9 @@ JP02, JP12, JP22, JP32, JP42 | Pull Up/Down A0, A1, A2, A3, A4
 JP01, JP11, JP21, JP31, JP41 | To power continuously the sensor with 3V3 or to trigger it with P0 (MCP230008)
 JP0, JP1, JP2 | Only for A0, A1 and A2. To trigger the sensor with P4 or through a MOSFET (see bellow). It has no effect if the sensor is powered continuously with 3V3. 
 
-More detail with J0/JP01/JP02
+![Analog sensors](assets/analog-sensors.png)
+
+To better understand how it works, here are more details for J0, JP01 and JP01
 
 **J0**
 
