@@ -46,9 +46,11 @@ Watermark sensors are tensiometric probes that allow for the calculation of soil
 
 ![EcoSOIL (Beta)](assets/EcoSOILbeta.png) 
 
-The Watermark probe must not be powered continuously. It must be powered for 20 seconds before the measurement and then deactivated.
+Form now, I recommand to connect the module (or several modules) to J0, J1 or J2 because the sensor until I test it on the Header H4
 
-### Switch
+The Watermark probe must not be powered continuously. It must be powered for 20 seconds before the measurement and then deactivated. That the reason why, you need to have PWD pin HIGHT 20sec before taking a measure, and then PWD must be LOW.
+
+#### Switch
 
 The module contain an LMC555 IC.
 
@@ -57,7 +59,7 @@ Mode | Action | Comment
 R | The LMC555 IC is powered with the VCC pin from the 3V3. The probe is activate with EN pin (LMC555) while PWD is HIGH | Recommanded
 M | While PWD is HIGH, the pin EN and VCC are HIGH. Otherwise the probe is inactived. | Slightly reduced consumption
 
-### Header J3
+#### Header J3
 
 PIN | Out
 --- | ---
@@ -66,6 +68,49 @@ PIN | Out
 3 | Signal
 4 | PWD
 
+
+The Signal (3) return a frequency output.
+
+ohms | volts | μ-amps | hertz
+--- | --- | --- | ---
+0 | 1707 | 1707 | 13233
+1 | 1704 | 1704 | 13209
+2 | 1702 | 1702 | 13186
+3 | 1699 | 1699 | 13162
+4 | 1697 | 1697 | 13139
+6 | 1691 | 1691 | 13092
+8 | 1686 | 1686 | 13047
+12 | 1676 | 1676 | 12962
+16 | 1666 | 1666 | 12871
+24 | 1645 | 1645 | 12708
+32 | 1625 | 1625 | 12526
+48 | 1588 | 1588 | 12200
+64 | 1552 | 1552 | 11893
+96 | 1485 | 1485 | 11312
+128 | 1426 | 1426 | 10802
+192 | 1320 | 1320 | 9882
+256 | 1230 | 1230 | 9104
+384 | 1089 | 1089 | 7878
+512 | 980 | 980 | 6932
+768 | 828 | 828 | 5596
+1024 | 726 | 726 | 4697
+1536 | 596 | 596 | 3557
+2048 | 517 | 517 | 2862
+3072 | 427 | 427 | 2071
+4096 | 377 | 377 | 1623
+6144 | 323 | 323 | 1135
+8192 | 295 | 295 | 874
+12288 | 265 | 265 | 612
+16384 | 250 | 250 | 476
+24576 | 234 | 234 | 335
+32768 | 226 | 226 | 264
+49152 | 218 | 218 | 194
+65536 | 214 | 214 | 157
+98304 | 210 | 210 | 122
+131072 | 208 | 208 | 103
+196608 | 206 | 206 | 85
+262144 | 205 | 205 | 76
+10000000 | 201 | 201 | 48
 
 #### Header J2
 
