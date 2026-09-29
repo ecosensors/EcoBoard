@@ -76,11 +76,11 @@ This module has been build to use a Watermark sensor.
 
 ![EcoLORA](assets/watermark.jpg)
 
-Watermark sensors are tensiometric probes that allow for the calculation of soil water content in kPa—in other words, the suction force that roots must exert to extract water from the soil.
+Watermark sensors are tensiometric probes that allow for the calculation of soil water content in kPa. In other words, the suction force that roots must exert to extract water from the soil.
 
 ![EcoSOIL (Beta)](assets/EcoSOILbeta.png) 
 
-Form now, I recommand to connect the module (or several modules) to J0, J1 or J2 because the sensor until I test it on the Header H4
+Form now, I recommand to connect the module (or several modules) to J0, J1 or J2, until I test it on the Header H4
 
 The Watermark probe must not be powered continuously. It must be powered for 20 seconds before the measurement and then deactivated. That the reason why, you need to have PWD pin HIGHT 20sec before taking a measure, and then PWD must be LOW.
 
@@ -145,6 +145,8 @@ ohms | volts | μ-amps | hertz
 196608 | 206 | 206 | 85
 262144 | 205 | 205 | 76
 10000000 | 201 | 201 | 48
+
+> The Shock equation allows the calculation of soil water potential (SWP, in kPa or cbar) from the electrical resistance of the Watermark sensor (in kOhms) and the soil temperature (in °C).
 
 #### Header J2
 
