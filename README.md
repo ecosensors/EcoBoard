@@ -12,13 +12,13 @@ To thta board, you can connect serveral modules according to your ned
 
 ## Pictures
 ### EcoBoard (beta)
-![EcoBoard (Beta)](assets/EcoBOARDbeta.png)
+![EcoBoard (Beta)](assets/EcoBOARDbeta.png =100)
 
 ### Modules
 
-Module | Pictire | Desc
+Module | Picture | Desc
 --- | --- | ---
-EcoRTC |[EcoRTC (Beta)](assets/EcoRTCbeta.png) | Use a RTC Clock module to log, and define the sequence of the measure
+EcoRTC |[EcoRTC (Beta)](assets/EcoRTCbeta.png =100) | Use a RTC Clock module to log, and define the sequence of the measure
 EcoSOIL | coming soon | Soil Moisture sensor
 EcoLoRA | coming soon | LoRaWAN module for sata transmission
 
