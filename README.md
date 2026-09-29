@@ -17,7 +17,7 @@ To thta board, you can connect serveral modules according to your ned
 ### Modules
 
 Module | Pictire | Desc
----
+--- | --- | ---
 EcoRTC |[EcoRTC (Beta)](assets/EcoRTCbeta.png) | Use a RTC Clock module to log, and define the sequence of the measure
 EcoSOIL | coming soon | Soil Moisture sensor
 EcoLoRA | coming soon | LoRaWAN module for sata transmission
