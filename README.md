@@ -10,11 +10,11 @@ The chip has **256K of FLASH and 32K of RAM**. It's fully compatible with Arduin
 
 To thta board, you can connect serveral modules according to your ned
 
-## Pictures
-### EcoBoard (beta)
+## The main board
 ![EcoBoard (Beta)](assets/EcoBOARDbeta.png)
 
-### Modules
+## Modules
+On EcoBoard, you can add different hat according to your need
 
 Module | Picture | Desc
 --- | --- | ---
@@ -22,20 +22,14 @@ EcoRTC |![EcoRTC (Beta)](assets/EcoRTCbeta.png) | Use a RTC Clock module to log 
 EcoSOIL | ![EcoSOIL (Beta)](assets/EcoSOILbeta.png)  | This module is required to measure soil moisture using a Watermark probe.
 EcoLoRA | ![EcoLORA (Beta)](assets/EcoLORAbeta.png)  | This module is required to transmit your measure with Low Range Wild Area Network (LoRaWAN), thereby participating in the Internet of Things (IoT)
 EcoMOSFET |![EcoLORA (Beta)](assets/EcoMOSFETbeta.png) | This module is usefull to control an external devise as a 9-12V soleniod valve 
+EcoI2C | Coming soon)|
+EcoGPRS | Coming soon | For the moment, a SIM808 from Adafruit, can be connected at the bottom of the card
 
-Comming soon: EcoSOIL (Soil Moisture), EcoLORA (LoRaWAN), EcoSIM808 (GSM/GPRS/GPS), EcoMOSFET (9-12V soleniod valve control )
 
-## Modules
-On EcoBoard, you can add different hat according to your need
-
-* A loRaWAN module (EcoLora)
-* A RTC Clock module (EcoRTC)
-* A MOSFET module to control 0-12V a soleniod valve (EcoMOS)
-* A soil moisture module to connect WATERMARK sensors
-* a I2C module
-* A GSM/GPRS module (not tested yet)
-
-You also have 
+You also connect
+* **A solar panel** to keep your board running days and nights
+* An **SD Card** to log your daily events
+* An ** 1K EEPROM** to store keys or static value
 * 2 I2C headers
 * 1 I2C header for a OLED
 * 1 UART header
