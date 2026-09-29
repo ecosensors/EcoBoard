@@ -266,9 +266,9 @@ JP0, JP1, JP2 | Only for A0, A1 and A2. To trigger the sensor with P4 or through
 
 To better understand how it works, here is an example if you connect a sensor on A0.
 
-**Jumper J0**
+**Jumper JP0**
 
-> J0 has no effect if J01 is on 2-3 position (powered continuously with 3V3)
+> J0 has no effect if JP01 is on 2-3 position (powered continuously with 3V3)
 
 > Only for A0, A1, and A2
 
@@ -280,9 +280,9 @@ Jumper | Trigger
 2-3 [P0] (default) | P0 ignore the MOSFET (max 25mA)
 
 
-**Jumper J01**
+**Jumper JP01**
 
-> The sensor can be powered continuously with 3V3 or you can trigger it with P0 (MCP230008).
+The sensor can be powered continuously with 3V3 or you can trigger it with P0 (MCP230008).
 
 Jumper | Power
 --- | ---
@@ -291,7 +291,7 @@ Jumper | Power
 
 **Jumper JP02**
 
-Jumper | pull
+Jumper | Pull the sensor output
 --- | ---
 1-2 | Pull Down A0
 2-3 | PUll Up A0
