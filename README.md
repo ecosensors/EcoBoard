@@ -52,9 +52,9 @@ The Watermark probe must not be powered continuously. It must be powered for 20 
 
 The module contain an LMC555 IC.
 
-Mode | 
---- |---
-R (Recommanded)| The LMC555 IC is powered with the VCC pin from the 3V3. The probe is activate with EN pin (LMC555) while PWD is HIGH
+Mode | Action 
+--- | ---
+R (Recommanded) | The LMC555 IC is powered with the VCC pin from the 3V3. The probe is activate with EN pin (LMC555) while PWD is HIGH
 M | While PWD is HIGH, the pin EN and VCC are HIGH. Otherwise the probe is inactived.
 
 ### Header J3
