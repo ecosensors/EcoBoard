@@ -269,6 +269,7 @@ To better understand how it works, here is an example if you connect a sensor on
 **Jumper J0**
 
 > J0 has no effect if J01 is on 2-3 position (powered continuously with 3V3)
+
 > Only for A0, A1, and A2
 
 According to the Microchip MCP23008 Datasheet,  the absolute maximum current output (source or sink) for the P0 pin (labeled as GP0) is 25 mA. If for some reason, you sensor need more than 25Ma for your sensor, you can move the jumper to 1-2.
