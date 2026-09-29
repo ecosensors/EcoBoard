@@ -267,7 +267,7 @@ Pin | Out
 **Jumper JP01**
 
 Pin | Out
---- | --
+--- | ---
 1 | GND
 2 | A0
 3 | 3V3
@@ -279,6 +279,19 @@ Jumper | pull
 2-3 | PUll Up A0
 
 **Jumper J0**
+
+Pin | Out
+--- | ---
+1 | P0 (MCP23008)
+2 | PWD
+3 | 3V3
+
+Jumper position:
+
+Jumper | Power
+--- | ---
+1-2 | While P0 is HIGH
+2-3 | powered continuously with 3V3
 
 
 
