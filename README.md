@@ -1,5 +1,5 @@
-# IoT EcoBoard Beta
-
+# IoT EcoBoard
+(Version Beta)
 
 > This page is been review according to the latest board version (beta).
 > Feel free to check back.
