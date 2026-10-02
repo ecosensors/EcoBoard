@@ -338,24 +338,24 @@ Pin | Out
 Pin | ATSAMD21G18 (GPIO) | EcoLora | EcoGprs 
 --- | --- | --- | --- 
 1 | 3V3 | 3V3 | 3V3  
-2 | NC | NC | VIO (3V3) 
+2 | NC | NC | NC (VIO (3V3)) 
 3 | Tx (D1*) | NC | Rx
 4 | Rx (D0*) | NC | Tx
 5 | NC | RST | NC
 6 | D3 | NC | NC
-7 | D2 | NC | NC
-8 | P7 | NC | NC
-9 | Li-ion | NC | NC
+7 | D2 | NC | Key
+8 | P7 | NC | RST
+9 | Li-ion | NC | BAT
 10 | GND | GND | GND
 11 | SCL | NC | NC
 12 | SDA | NC | NC
 13 | SCK | SCK | NC
-14 | MISO | NC | NC
+14 | MISO | MISO | NC
 15 | MOSI | MOSI | RST
-16 | D12 | NC | NC
-17 | D11 | MOSI | NC
-18 | D10 | DIO_2 | KEY
-19 | D6 | DIO_1 | RI
+16 | D12 | DIO2 | NC
+17 | D11 | DIO1 | NC
+18 | D10 | IRQ | KEY
+19 | D6 | RST | RI
 20 | D5 | CS | NC
 
 * Only for H1, While SW3 is on DO/D1 position
