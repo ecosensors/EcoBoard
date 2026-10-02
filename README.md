@@ -285,11 +285,6 @@ Pin | Out
 3 | A0
 
 
-
-  
-## This content bellow is been review. Come back in a couple of days
-
-
 ## Other headers
 Read 'Analog or 1 Wire' section, as well
 
@@ -441,7 +436,7 @@ Battery is charged
 ### D1
 Charging
 
-### D8 (green) and 13 (red)
+### D8 (white) and 13 (red)
 The LED D8 and D13 are connected to D8 and D13 of the ATSAMD21G18
 (D13 light on when you upload the code)
 
@@ -449,39 +444,6 @@ The LED D8 and D13 are connected to D8 and D13 of the ATSAMD21G18
 ### D5 (white) and D6 (blue)
 The LEDs D5 and D6 can be powered with P5 and P6 of the MCP23008
 
-Here a basic example:
-
-```
-#include <Wire.h>                   // Required for I2C communication
-#include "PCF8574.h"                // Required for PCF857
-PCF8574 expander;                   // Required for PCF857
-
-void setup(){
-  Serial.begin(9600);
-  Serial.println("Starting with PCF8574");
-  expander.begin(0x27);           // Define the I2C address
-  expander.pinMode(5,OUTPUT);
-  expander.pinMode(6,OUTPUT);
-}
-
-void loop() {
-  Serial.println("TESTING THE LEDs (P5 and P6)");
-  Serial.println("Turn on LED 5");
-  expander.digitalWrite(5, HIGH);
-  delay(1000);
-  Serial.println("Turn off LED 5");
-  expander.digitalWrite(5, LOW);
-  delay(1000);
-  Serial.println("Turn on LED 6");
-  expander.digitalWrite(6, HIGH);
-  delay(1000);
-  Serial.println("Turn off LED 6");
-  expander.digitalWrite(6, LOW);
-  delay(1000);
-  Serial.println("");
- ```
- 
-A detailed example can be found here [expander-1wire](https://github.com/ecosensors/EcoBoard/tree/master/examples/expander-1wire)
 
 ## Examples
 
