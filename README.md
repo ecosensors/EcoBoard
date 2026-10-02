@@ -286,7 +286,7 @@ Pin | Out
 
 
 ## Other headers
-Read 'Analog or 1 Wire' section, as well
+Read [Analog or 1 Wire](https://github.com/ecosensors/EcoBoard#analog-or-1-wire) section, as well
 
 ### Header H1 and H2 (with EcoLORA or EcoGPRS)
 
@@ -397,7 +397,7 @@ Pin | Output
 
 ## Jumpers
 
-Read 'Analog or 1 Wire' section, as well
+Read [Analog or 1 Wire](https://github.com/ecosensors/EcoBoard#analog-or-1-wire) section, as well
 
 
 ### JP15 (AREF)
