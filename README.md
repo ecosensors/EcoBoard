@@ -290,8 +290,10 @@ Pin | Out
 ## This content bellow is been review. Come back in a couple of days
 
 
+## Other headers
+Read 'Analog or 1 Wire' section, as well
 
-## Header H1 and H2 (with EcoLORA or EcoGPRS)
+### Header H1 and H2 (with EcoLORA or EcoGPRS)
 
 
 Pin | ATSAMD21G18 (GPIO) | EcoLora | EcoGprs** 
@@ -322,7 +324,7 @@ Pin | ATSAMD21G18 (GPIO) | EcoLora | EcoGprs**
 ** Not tested yet
 
 
-## Header H3
+### Header H3
 
 
 Pin | ATSAMD21G18
@@ -348,15 +350,6 @@ Pin | ATSAMD21G18
 19 | NC
 20 | NC
 
-### Header J10 (NTC)
-Connects the thermistor input to ground when not in use. To use a thermistor, carefully cut the THERM jumper connection and connect a 10kΩ NTC thermistor in the battery pack to the THERM pin. The thermistor should also be connected to the negative lead of the battery pack.
-
-
-Pin | Output
---- | ---
-1 | GND
-2 | NTC
-
 
 ### Header X1 (MicroUSB)
 
@@ -368,7 +361,7 @@ Pin | Output
 4 | NC
 5 | GND
 
-### Header J11 (JST 3.7V Lithium Battery)
+### Header J15 (JST 3.7V Lithium Battery)
 
 Pin | Output
 --- | ---
@@ -383,7 +376,7 @@ Pin | Output
 2 | VBAT
 
 
-### Header J12 (MicroUSB)
+### Header J6 (MicroUSB)
 
 Pin | Output
 --- | ---
@@ -393,7 +386,7 @@ Pin | Output
 4 | NC
 5 | GND
 
-### Header J13 (debuger/programmer)
+### Header J6 (debuger/programmer)
 I only use it to upload the firmware.
 
 Pin | Output
@@ -402,84 +395,50 @@ Pin | Output
 2 | 3V3
 3 | SWCLK
 4 | SWDIO
-5 | !RESET (You need to close JP9)
+5 | !RESET (You need to close JP16)
 6 | NC
 
-### Header J14 (debuger/programmer)
 
-Pin | Output
---- | ---
-1 | GND
-2 | 3V3
-3 | SWCLK
-4 | SWDIO
-
-### Header J15
-
-Pin | Output
---- | ---
-1 | GND
-2 | VBUS
 
 ## Jumpers
 
-### JP0 thus JP4
+Read 'Analog or 1 Wire' section, as well
 
 
-By default, the analog input are not wired to a 4.7kOhm (pullup/pulldown). However, You can choose to pull up or pull down (4.7kOhm) the input by soldering the jumpers JP0 to JP5, on A0, A1, A2, A3, or A4
-(Default: all open)
-
-
-
-### JP_0 thus JP_4
-
-All devices connected to 1 to 4 can be permanently powered with VCC by changing the jumper JP_1 to JP_4
-The jumpers ARE NOT SOLDERED. You have to solder the jumpers, either to Px or 3V3
-
-You can also read the section [GPIO I/O expander port (PCF8574)](https://github.com/ecosensors/EcoBoard/tree/master?tab=readme-ov-file#gpio-io-expander-port-pcf8574-and-1-wire)
-
-
-### JP5 (AREF)
+### JP15 (AREF)
 Close is to connect HREF to 3V3
 (Default: open)
  
 
-
-### JP7 (SDA)
+### JP14 (SDA)
 Connected to a 4.7kOhm pull-up resistance.
 Default: Close
 Cut the trace if you does not want to pullup the SDA
 
-### JP8 (SCL)
+### JP13 (SCL)
 Connected to a 4.7kOhm pull-up resistance.
 Default: Close
 Cut the trace if you does not want to pullup the SCL
 
-### JP9
-Open by default. Solder to close the JP9 to connect the pin 5 of J13 (debuger/programmer) to RESET
+### JP16
+Open by default. Solder to close the JP16 to connect the pin 5 of J6 (debuger/programmer) to RESET
 
 
-### JP10
-Open by default. You can choose to power your application either from the Liothium battery (I rather prefere) or from the Output of the BQ24074
 
+### JP10 (THERM Jumper)
 
-### THERM Jumper
-
-(Default: close) Cut it if you want to connect a Thermistor at J10
+(Default: open) Solder it if you want to connect a Thermistor at R3
 
 ### EN1 & EN2
-See at the solar panel section
-
-### '0.5A', '1A', '1.5A'
 See at the solar panel section
 
 
 ## LEDs
 
-### D1
-Battery good
-
 ### D2
+Battery is charged
+
+### D1
 Charging
 
 ### D8 (green) and 13 (red)
@@ -488,7 +447,7 @@ The LED D8 and D13 are connected to D8 and D13 of the ATSAMD21G18
 
 
 ### D5 (white) and D6 (blue)
-The LEDs D5 and D6 can be powered with P5 and P6 of the PCF8574
+The LEDs D5 and D6 can be powered with P5 and P6 of the MCP23008
 
 Here a basic example:
 
