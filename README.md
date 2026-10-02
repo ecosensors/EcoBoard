@@ -363,13 +363,6 @@ Pin | Output
 1 | GND
 2 | VBAT
 
-### Byttery holder BT1 (18650)
-
-Pin | Output
---- | ---
-1 | GND
-2 | VBAT
-
 
 ### Header J6 (MicroUSB)
 
@@ -417,7 +410,6 @@ Cut the trace if you does not want to pullup the SCL
 
 ### JP16
 Open by default. Solder to close the JP16 to connect the pin 5 of J6 (debuger/programmer) to RESET
-
 
 
 ### JP10 (THERM Jumper)
