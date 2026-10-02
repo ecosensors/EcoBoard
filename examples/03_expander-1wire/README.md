@@ -1,5 +1,7 @@
 # GPIO Port Expander & 1-Wire (DS18B20)
 
+> EcoBOARD is not using a PCF8574 any more. It has been replaced by a MCP23008. I will update this page later.
+
 This is an example to use PCF8574 (GPIO port expander) with the EcoBoard
 You can easly use that example for an other application, but the code and the explication below are written for
 EcoBoard board.
@@ -7,8 +9,6 @@ EcoBoard board.
  Feel free to collaborate and share suggestions for improvement
 
 ## GPIO Port Expander
-
-> EcoBOARD is not using a PCF8574 any more. It has been replaced by a MCP23008
 
 EcoBoard allow you to use 6 additonal GPIO with the PCF8574 ([Datasheeet](https://www.ti.com/product/PCF8574). The outputs P1 to P6, will allow you to control the status of another device or an LED. However, the outputs can only provide 25mA. In some cases, this power may not be sufficient. It's the reason why, we added three MOSFET-P (IRML2244) on the outputs P0, P1, P2 and P3. 
 Thus, the outputs P0, P1, P2 and P3 of the J0, J1, J2 and J3 connectors can now supply up to 500mA. 
