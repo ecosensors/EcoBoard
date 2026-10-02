@@ -9,11 +9,8 @@ EcoBord is a microcontroler based on the processor ATSAMD21G18 ARM Cortex M0 at 
 The chip has **256K of FLASH and 32K of RAM**. It's fully compatible with Arduino and Adafruit libraries.
 
 ## The main board
-**Front**
-![EcoBoard (Beta)](assets/EcoBOARDbeta.png)
 
-**Back**
-![EcoBoard (Beta)](assets/EcoBOARDbeta-back.png)
+![EcoBoard (Beta)](assets/EcoBOARDbeta.png)
 
 You also connect
 * **[A solar panel](https://github.com/ecosensors/EcoBoard#ecogprs-coming-soon)** input (J8 (DC Power Jack connector) and J13) to keep your board running days and nights
@@ -160,13 +157,13 @@ ohms | volts | μ-amps | hertz
 
 
 ### EcoRTC
-If you need to log any events according to the time, or if you wish to trigger your sensor measurements according to a precise sequence, you can use that module on one of the socket H1, H3 of H4
+If you need to log any events according to the time, or if you wish to trigger your sensor measurements according to a precise sequence, you can use that module on one of the socket H1, H2 or H3
 
 Some exmaple scripts are available, [at the bottom](https://github.com/ecosensors/EcoBoard#examples)
 
 ### EcoMOSFET
 
-The EcoMOSFET has been build to connect a 9-12V soleniod valve. While P5 is HIGHT, the soleniod valve is powered by a external 9-12V battery and the water flows when the Watermark probe detects sil that is too dry. While P5 is LOW, the soleniod valve closes and the water stops flowing.
+The EcoMOSFET has been built to connect a 9-12V soleniod valve. While P5 is HIGHT, the soleniod valve is powered by a external 9-12V battery and the water flows when the Watermark probe detects sil that is too dry. While P5 is LOW, the soleniod valve closes and the water stops flowing.
 
 You can control another devise as long as the voltage is not higher than 12V.
 
@@ -174,7 +171,7 @@ Example will come late.
 
 ### EcoGPRS 
 For now, the module is not available yet, but you can connect [a SIM808 board from Adafruit](https://www.adafruit.com/product/2691), bellow the board (J14).
-This option has not been tested, and the plan is to remove J14 to create a module for H1 or H3.
+This option has not been tested, and the plan is to remove J14 to create a module for H1 or H2.
 
 
 ## Solar panel
@@ -250,15 +247,15 @@ Pin | Out
 
 **H1**
 
-UART is available on H1 on PIN 3 (Tx) and 4 (Rx). Do not use two UART devises at the same time
+UART is available on H1 on PIN 3 (Tx) and 4 (Rx). Do not use two UART devises at the same time, exepted if you switched SW3 (not tested yet).
 
-**H3**
+**H2**
 
-UART is available on H1 on PIN 3 (Tx) and 4 (Rx). Do not use two UART devises at the same time, Exepted if you switched SW3 (not tested yet).
+UART is available on H1 on PIN 3 (Tx) and 4 (Rx). Do not use two UART devises at the same time.
 
 **SW3**
 
-If you move the switch SW3 to Do/D1, H3 will consider the pin Do and D1 of the ATSAMD21G18 for a second UART.
+If you move the switch SW3 to Do/D1, H1 will consider the pin Do and D1 of the ATSAMD21G18 for a second UART or to use D0 and D1 as a digit pin.
 > Thta option has not been tested yet.
 
 
@@ -335,33 +332,61 @@ Pin | Out
 
 
 
-## Header H1 and H3 (EcoLora V3 input)
+## Header H1 and H2 (with EcoLORA or EcoGPRS)
 
 
 Pin | ATSAMD21G18 (GPIO) | EcoLora | EcoGprs 
---- | --- | -- | -- 
+--- | --- | --- | --- 
 1 | 3V3 | 3V3 | 3V3  
-2 | 3V3 | NC | VIO (3V3) 
-3 | 16 (D0) RX | NC | Tx
-4 | 15 (D1) TX | NC | Rx
-5 | 29 (D6) | RST | NC
-6 | NC | NC | NC
-7 | NC | NC | NC
-8 | NC | NC | NC
-9 | NC | NC | NC
+2 | NC | NC | VIO (3V3) 
+3 | Tx (D1*) | NC | Rx
+4 | Rx (D0*) | NC | Tx
+5 | NC | RST | NC
+6 | D3 | NC | NC
+7 | D2 | NC | NC
+8 | P7 | NC | NC
+9 | Li-ion | NC | NC
 10 | GND | GND | GND
-11 | 21 (MISO) | MISO | NC
-12 | NC | NC | NC
-13 | 20 (SCK) | SCK | NC
-14 | NC | NC | NC
-15 | 27 (D10) | IRQ | RST
-16 | NC | NC | NC
-17 | 19 (MOSI) | MOSI | NC
-18 | 28 (D12) | DIO_2 | KEY
-19 | 25 (D11) | DIO_1 | RI
-20 | 24 (D5) | CS | NC
+11 | SCL | NC | NC
+12 | SDA | NC | NC
+13 | SCK | SCK | NC
+14 | MISO | NC | NC
+15 | MOSI | MOSI | RST
+16 | D12 | NC | NC
+17 | D11 | MOSI | NC
+18 | D10 | DIO_2 | KEY
+19 | D6 | DIO_1 | RI
+20 | D5 | CS | NC
+
+* Only for H1, While SW3 is on DO/D1 position
 
 **EcoGprs** is not ready yet and it has not been tested
+
+## Header H3
+
+
+Pin | ATSAMD21G18
+--- | --- 
+1 | 3V3
+2 | P5
+3 | NC
+4 | NC
+5 | A5
+6 | NC
+7 | NC
+8 | NC
+9 | NC
+10 | GND
+11 | SCL
+12 | SDA
+13 | NC
+14 | NC
+15 | NC
+16 | NC
+17 | NC
+18 | NC
+19 | NC
+20 | NC
 
 ### Header J10 (NTC)
 Connects the thermistor input to ground when not in use. To use a thermistor, carefully cut the THERM jumper connection and connect a 10kΩ NTC thermistor in the battery pack to the THERM pin. The thermistor should also be connected to the negative lead of the battery pack.
