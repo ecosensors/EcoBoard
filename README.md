@@ -9,9 +9,11 @@ EcoBord is a microcontroler based on the processor ATSAMD21G18 ARM Cortex M0 at 
 The chip has **256K of FLASH and 32K of RAM**. It's fully compatible with Arduino and Adafruit libraries.
 
 ## The main board
-Front | Back
---- | ---
-![EcoBoard (Beta)](assets/EcoBOARDbeta.png) | ![EcoBoard (Beta)](assets/EcoBOARDbeta-back.png)
+**Front**
+![EcoBoard (Beta)](assets/EcoBOARDbeta.png)
+
+**Back**
+![EcoBoard (Beta)](assets/EcoBOARDbeta-back.png)
 
 You also connect
 * **[A solar panel](https://github.com/ecosensors/EcoBoard#ecogprs-coming-soon)** input (J8 (DC Power Jack connector) and J13) to keep your board running days and nights
