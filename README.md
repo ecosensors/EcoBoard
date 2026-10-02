@@ -335,7 +335,7 @@ Pin | Out
 ## Header H1 and H2 (with EcoLORA or EcoGPRS)
 
 
-Pin | ATSAMD21G18 (GPIO) | EcoLora | EcoGprs 
+Pin | ATSAMD21G18 (GPIO) | EcoLora | EcoGprs** 
 --- | --- | --- | --- 
 1 | 3V3 | 3V3 | 3V3  
 2 | NC | NC | NC (VIO (Bridged with 3V3)) 
@@ -358,7 +358,9 @@ Pin | ATSAMD21G18 (GPIO) | EcoLora | EcoGprs
 19 | D6 | RST | NC
 20 | D5 | CS | NC
 
-* Only for H1, While SW3 is on DO/D1 position
+\* Only for H1, While SW3 is on DO/D1 position
+
+** Not tested yet
 
 **EcoGprs** is not ready yet and it has not been tested
 
