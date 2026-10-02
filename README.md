@@ -1,5 +1,5 @@
-# IoT EcoBoard Beta
-
+# IoT EcoBoard
+(Version Beta)
 
 > This page is been review according to the latest board version (beta).
 > Feel free to check back.
@@ -13,7 +13,6 @@ The chip has **256K of FLASH and 32K of RAM**. It's fully compatible with Arduin
 
 You also connect
 * **[A solar panel](https://github.com/ecosensors/EcoBoard#ecogprs-coming-soon)** input (J8 (DC Power Jack connector) and J13) to keep your board running days and nights
-* **A solar panel** 
 * An **SD Card** to log your daily events
 * An **1K EEPROM** to store keys or static values
 * A switch to use one or two UART (Not tested yet)
