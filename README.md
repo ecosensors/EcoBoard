@@ -409,7 +409,8 @@ Default: Close
 Cut the trace if you does not want to pullup the SCL
 
 ### JP16
-Open by default. Solder JP16 to close the JP16 to connect the pin 5 of J6 (debuger/programmer) to RESET
+Open by default. 
+If you want to link RESET pin of the Microcontroller to the pin 5 of [J6](https://github.com/ecosensors/EcoBoard#j6-debugerprogrammer) (debuger/programmer). Note: I never need to close JP16 to load a Firmeware
 
 
 ### JP10 (THERM Jumper)
