@@ -207,11 +207,11 @@ Pin | Out
 3 | Tx
 4 | Rx
 
-**H1**
+#### H1
 
 UART is available on H1 on PIN 3 (Tx) and 4 (Rx). Do not use two UART devises at the same time, exepted if you switched SW3 (not tested yet).
 
-**H2**
+#### H2
 
 UART is available on H1 on PIN 3 (Tx) and 4 (Rx). Do not use two UART devises at the same time.
 
@@ -227,14 +227,14 @@ Header | Description
 --- | ---
 J10, J9 | You can connect any I2C sensors
 J11 (OLED) | Even though you may use any I2C sensors, that header is mainly used for a small OLED board.
-J16 | You can solder an JST connector (B4B-PH-SM4-TB 2mm). Be aware the SDA and SCL pin are not in the same order than the other I2C headers. That header has been mainly integrated to use OLED with s STEMMA connector from Adafruit. 
+J16 | You can solder an JST connector (B4B-PH-SM4-TB 2mm). Be aware the SDA and SCL pin are not in the same order than the other I2C headers. That header has been mainly integrated to use OLED with a STEMMA connector (J16) from Adafruit. 
 
-### Analog or 1 Wire
+### Analog or 1Wire
 
 
 Headers | Description
 --- | ---
-J0, J1, J2, J3, J4 | An analog sensors whose reading is taken on A0, A1, A2, A3 or A4
+J0, J1, J2, J3, J4 | An analog or 1Wire sensors whose reading is taken on A0, A1, A2, A3 or A4
 
 
 Jumpers | Description
@@ -249,9 +249,10 @@ To better understand how it works, here is an example if you connect a sensor on
 
 **Jumper JP0**
 
+> Only for A0, A1, and A2
+
 > J0 has no effect if JP01 is on 2-3 position (powered continuously with 3V3)
 
-> Only for A0, A1, and A2
 
 According to the Microchip MCP23008 Datasheet,  the absolute maximum current output (source or sink) for the P0 pin (labeled as GP0) is 25 mA. If for some reasons, you sensor need more than 25mA, you can move the jumper to 1-2.
 
@@ -288,13 +289,13 @@ Pin | Out
 3 | A0
 
 
-## Other headers
-Read [Analog or 1 Wire](https://github.com/ecosensors/EcoBoard#analog-or-1-wire) section, as well
+## headers for the modules
+Read [Analog or 1Wire](https://github.com/ecosensors/EcoBoard#analog-or-1-wire) section, as well
 
 ### Header H1 and H2 (with EcoLORA or EcoGPRS)
 
 
-Pin | ATSAMD21G18 (GPIO) | EcoLora | EcoGprs** 
+Pin | ATSAMD21G18 (GPIO) | EcoLora | EcoGprs (Not tested yet)
 --- | --- | --- | --- 
 1 | 3V3 | 3V3 | 3V3  
 2 | NC | NC | NC (VIO (Bridged with 3V3)) 
@@ -319,10 +320,8 @@ Pin | ATSAMD21G18 (GPIO) | EcoLora | EcoGprs**
 
 \* Only for H1, While SW3 is on DO/D1 position
 
-** Not tested yet
 
-
-### Header H3
+### Header H3 (I2C)
 
 
 Pin | ATSAMD21G18
@@ -348,8 +347,9 @@ Pin | ATSAMD21G18
 19 | NC
 20 | NC
 
-
-### Header X1 (MicroUSB)
+## Other connectors
+### J7 (MicroUSB)
+To upload you script or to charge your Li-ion battery
 
 Pin | Output
 --- | ---
@@ -359,7 +359,7 @@ Pin | Output
 4 | NC
 5 | GND
 
-### Header J15 (JST 3.7V Lithium Battery)
+### J15 (JST 3.7V Lithium Battery)
 
 Pin | Output
 --- | ---
@@ -367,17 +367,7 @@ Pin | Output
 2 | VBAT
 
 
-### Header J6 (MicroUSB)
-
-Pin | Output
---- | ---
-1 | VUSB
-2 | D-
-3 | D+
-4 | NC
-5 | GND
-
-### Header J6 (debuger/programmer)
+### J6 (debuger/programmer)
 I only use it to upload the firmware.
 
 Pin | Output
@@ -389,6 +379,13 @@ Pin | Output
 5 | !RESET (You need to close JP16)
 6 | NC
 
+### J16
+Pin | Out
+--- | ---
+1 | GND
+2 | 3V3
+3 | SDA
+4 | SCL
 
 
 ## Jumpers
@@ -412,7 +409,7 @@ Default: Close
 Cut the trace if you does not want to pullup the SCL
 
 ### JP16
-Open by default. Solder to close the JP16 to connect the pin 5 of J6 (debuger/programmer) to RESET
+Open by default. Solder JP16 to close the JP16 to connect the pin 5 of J6 (debuger/programmer) to RESET
 
 
 ### JP10 (THERM Jumper)
