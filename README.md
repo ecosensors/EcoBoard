@@ -12,11 +12,16 @@ The chip has **256K of FLASH and 32K of RAM**. It's fully compatible with Arduin
 
 ![EcoBoard (Beta)](assets/EcoBOARDbeta.png)
 
-You also connect
+Also, you can connect to the board
 * **[A solar panel](https://github.com/ecosensors/EcoBoard#ecogprs-coming-soon)** input (J8 (DC Power Jack connector) and J13) to keep your board running days and nights
-* An **SD Card** to log your daily events
-* An **1K EEPROM** to store keys or static values
-* A switch to use one or two UART (Not tested yet)
+* a LoRaWAN module
+* a GPRS module (not tested yet)
+* a RTC Clock module
+* a MOSFET module to control a 0-12V solenoid valve
+* a SWP (Soil Water Potential) module to connect a WATERMARK sensor
+* an **SD Card** to log your daily events
+* an **1K EEPROM** to store keys or static values
+* a switch to use one or two UART (Second UART not tested yet)
 * 2 I2C headers
 * 1 I2C header for a OLED
 * 1 UART header
@@ -29,7 +34,8 @@ You also connect
 
 ### Sensors
 
-The board is make for serveral sensors
+The previous version of the board has been used for serveral sensors
+* a WATERMAK sensor to monitor the soil water content
 * a rain/gauge sensor
 * a Devis Anemometer
 * a Devis Pyranometer
@@ -43,10 +49,12 @@ The board is make for serveral sensors
 ### Example of scripts
 Throughout the reading, there will be a few very simple examples. At the end, there is a section with more [concrete examples](https://github.com/ecosensors/EcoBoard#examples).
 
+More examples will be added while the Beta version will be tested 
+
 
 
 ## Modules
-On EcoBoard, you can add different hat according to your need. Note, all modules are in Beta version
+On the EcoBoard, you can add different modules according to your need. (Note, all modules are in Beta version)
 
 Module | Picture | Desc
 --- | --- | ---
@@ -66,12 +74,12 @@ You can connect the EcoLORA module built with a RFM95 [LoRaWWAN](https://en.wiki
 ![EcoLORA](assets/EcoLORAbeta.png)
 
 
-For now, you have an example with a Raspberry, Python and TTN [here](https://github.com/ecosensors/ecoradio#rfm95-radio-lorawan)
+For now, you have an example with a Raspberry, Python and TTN [here](https://github.com/ecosensors/ecoradio#rfm95-radio-lorawan). More axamples will be added later.
 
 
 ### EcoSOIL
 
-This module has been build to use a Watermark sensor.
+This module has been build to use a WATERMARK sensor.
 
 
 ![EcoLORA](assets/watermark.jpg)
@@ -80,18 +88,9 @@ Watermark sensors are tensiometric probes that allow for the calculation of soil
 
 ![EcoSOIL (Beta)](assets/EcoSOILbeta.png) 
 
-Form now, I recommand to connect the module (or several modules) to J0, J1 or J2, until I test it on the Header H4
+Form now, I recommand to connect the module (or several modules) to J0, J1 or J2, until I test it on the Header H3
 
-The Watermark probe must not be powered continuously. It must be powered for 20 seconds before the measurement and then deactivated. That the reason why, you need to have PWD pin HIGHT 20sec before taking a measure, and then PWD must be LOW.
-
-#### Switch
-
-The module contain an LMC555 IC.
-
-Mode | Action | Comment
---- | --- | ---
-R | The LMC555 IC is powered with the VCC pin from the 3V3. The probe is activate with EN pin (LMC555) while PWD is HIGH | Recommanded
-M | While PWD is HIGH, the pin EN and VCC are HIGH. Otherwise the probe is inactived. | Slightly reduced consumption
+The WATERMARK probe must not be powered continuously. It must be powered 20 seconds before the measurement and then deactivated. That the reason why, you need to have PWD pin HIGHT 20sec before taking a measure, and then PWD must be LOW.
 
 #### Header J2
 
@@ -103,26 +102,29 @@ PIN | Out
 --- | ---
 1 | GND
 2 | 3V3
-3 | Signal
+3 | Signal (frequency output)
 4 | PWD
 
-
-The Signal (3) return a frequency output.
-
-> The Shock equation allows the calculation of soil water potential (SWP, in kPa or cbar) from the electrical resistance of the Watermark sensor (in kOhms) and the soil temperature (in °C).
+#### Switch SW1
 
 
+Mode | Action | Comment
+--- | --- | ---
+R | The LMC555 IC is powered with the VCC pin from the 3V3. The probe is activate when PWD set EN heigh | Recommanded
+M | While PWD is HIGH, the pin EN and VCC are HIGH. Otherwise the probe is inactived. | Slightly reduced consumption
 
+
+> The Shock equation allows the calculation of soil water potential (SWP (Soil Water Potential), in kPa or cbar) from the electrical resistance of the Watermark sensor (in kOhms) and the soil temperature (in °C).
 
 
 ### EcoRTC
-If you need to log any events according to the time, or if you wish to trigger your sensor measurements according to a precise sequence, you can use that module on one of the socket H1, H2 or H3
+If you need to log any events according to the time, or if you wish to trigger your sensor measurements according to a precise sequence, you can use that module on one of the socket H1, H2 or H3 (I2C)
 
 Some exmaple scripts are available, [at the bottom](https://github.com/ecosensors/EcoBoard#examples)
 
 ### EcoMOSFET
 
-The EcoMOSFET has been built to connect a 9-12V soleniod valve. While P5 is HIGHT, the soleniod valve is powered by a external 9-12V battery and the water flows when the Watermark probe detects sil that is too dry. While P5 is LOW, the soleniod valve closes and the water stops flowing.
+The EcoMOSFET has been built to connect a 9-12V soleniod valve. While P5 is HIGHT, the soleniod valve is powered by a external 9-12V battery and the water flows when the Watermark probe detects soil that is too dry. While P5 is LOW, the soleniod valve closes and the water stops flowing.
 
 You can control another devise as long as the voltage is not higher than 12V.
 
@@ -166,7 +168,7 @@ Jumper | Status
 EN1 | LOW
 EN2 | LOW
 
-500 mA input current limit (Default)
+500 mA input current limit (Default, recommanded)
 Jumper | Status
 --- | ---
 EN1 | HIGH
@@ -183,19 +185,20 @@ EN2 | HIGH
 ## EEPROM
 EcoLora has a 1KB EEPROM  (74LC01) to store relatively small amounts of data as keys or parameters
 
-See simple example [here](https://github.com/ecosensors/EcoBoard/tree/master/examples/02_eeprom)
+Read simple example [here](https://github.com/ecosensors/EcoBoard/tree/master/examples/02_eeprom)
 
 ## SD Card
 
 We add an SD card to log the activities or to save some parameters or other values. The MicroSD card is not provided with the board.
 You can use the board without the SD card.
 
+Read simple examples [here](https://github.com/ecosensors/EcoBoard/tree/master/examples)
 
 
 ## Pinout
 
 ### UART (Serial)
-**J12**
+#### J12
 
 Pin | Out
 --- | ---
