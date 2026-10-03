@@ -41,8 +41,8 @@ The previous version of the board has been used for serveral sensors
 * a barometer (Temperatore, Humidity, Pression)
 * a luminosity sensor
 * a IR sensor
-* a OneWire sensor as a DS18B20 devise
-* and any I2C, 1Wire or analog sensors
+* a 1-Wire sensor as a DS18B20 devise
+* and any I2C, 1-Wire or analog sensors
 
 
 ### Example of scripts
@@ -182,7 +182,7 @@ EN2 | HIGH
 
 
 ## EEPROM
-EcoLora has a 1KB EEPROM  (74LC01) to store relatively small amounts of data as keys or parameters
+EcoBoard has a 1KB EEPROM  (74LC01) to store relatively small amounts of data as keys or parameters
 
 Read simple example [here](https://github.com/ecosensors/EcoBoard/tree/master/examples/02_eeprom)
 
@@ -228,12 +228,12 @@ J10, J9 | You can connect any I2C sensors
 J11 (OLED) | Even though you may use any I2C sensors, that header is mainly used for a small OLED board.
 J16 | You can solder an JST connector (B4B-PH-SM4-TB 2mm). Be aware the SDA and SCL pin are not in the same order than the other I2C headers. That header has been mainly integrated to use OLED with a STEMMA connector (J16) from Adafruit. 
 
-### Analog or 1Wire
+### Analog or 1-Wire
 
 
 Headers | Description
 --- | ---
-J0, J1, J2, J3, J4 | An analog or 1Wire sensors whose reading is taken on A0, A1, A2, A3 or A4
+J0, J1, J2, J3, J4 | An analog or 1-Wire sensors whose reading is taken on A0, A1, A2, A3 or A4
 
 
 Jumpers | Description
@@ -289,7 +289,7 @@ Pin | Out
 
 
 ## headers for the modules
-Read [Analog or 1Wire](https://github.com/ecosensors/EcoBoard#analog-or-1-wire) section, as well
+Read [Analog or 1-Wire](https://github.com/ecosensors/EcoBoard#analog-or-1-wire) section, as well
 
 ### Header H1 and H2 (with EcoLORA or EcoGPRS)
 
@@ -389,7 +389,7 @@ Pin | Out
 
 ## Jumpers
 
-Read [Analog or 1 Wire](https://github.com/ecosensors/EcoBoard#analog-or-1-wire) section, as well
+Read [Analog or 1-Wire](https://github.com/ecosensors/EcoBoard#analog-or-1-wire) section, as well
 
 
 ### JP15 (AREF)
