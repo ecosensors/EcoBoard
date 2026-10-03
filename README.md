@@ -2,7 +2,6 @@
 (Version Beta)
 
 > This page is been review according to the latest board version (beta).
-> Feel free to check back.
 
 
 EcoBord is a microcontroler based on the processor ATSAMD21G18 ARM Cortex M0 at 48Mhz with 3V3 logic, as the Arduino Zero.
