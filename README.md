@@ -440,9 +440,8 @@ The LEDs D5 and D6 can be powered with P5 and P6 of the MCP23008
 
 ## Examples
 
-Actually, I have some [examples](https://github.com/ecosensors/EcoBoard/tree/master/examples) scipts for the EcoBoard
+Actually, some [example](https://github.com/ecosensors/EcoBoard/tree/master/examples) scipts are available for the EcoBoard
 * How to work with the EEPROM
-* How to use the GPIO I/O expander port and a 1-Wire Digital temperature sensor (DS18B20)
 * How to use a barometer (BME280)
 * How to use a Davis anemometer
 * How to log data into a SD card
@@ -450,9 +449,7 @@ Actually, I have some [examples](https://github.com/ecosensors/EcoBoard/tree/mas
 For all example scripts, **feel free to collaborate and share suggestions for improvement** :)
 
 
-For all example scripts, **feel free to collaborate and share suggestions for improvement** :)
-
-More example scripts for all modules and sensors will be available for you, in the near future.
+In the near future, more example scripts for all modules and sensors will be available for you.
 
 * a pyranometer
 * a rain gauge
